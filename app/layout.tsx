@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Merriweather } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import Script from "next/script";
 import "./globals.css";
 
@@ -9,6 +10,10 @@ const inter = Inter({
 });
 const merriweather = Merriweather({ subsets: ["latin"], weight: ["400"] });
 
+export const viewport = {
+  themeColor: "#000000",
+};
+
 export const metadata: Metadata = {
   title: "Investment Calculators - SIP, EMI, FD, RD, and Income Tax",
   description:
@@ -16,7 +21,6 @@ export const metadata: Metadata = {
   keywords:
     "Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
   authors: [{ name: "Pradeep Jadhav" }],
-  themeColor: "#000000",
   openGraph: {
     type: "website",
     title: "Investment Calculators",
@@ -119,7 +123,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+      </body>
     </html>
   );
 }

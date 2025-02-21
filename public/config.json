@@ -1,0 +1,97 @@
+{
+    "incomeTax": {
+        "budgets": [
+            {
+                "year": 2025,
+                "financialYear": "2025-26",
+                "assessmentYear": "2026-27",
+                "name": "Financial Year 2025-26 (AY 2026-27)",
+                "regime": "New",
+                "applyMarginalRelief": true,
+                "rebate": {
+                    "amount": 1200000,
+                    "type": "absolute"
+                },
+                "standardDeduction": {
+                    "amount": 75000,
+                    "type": "absolute"
+                },
+                "taxes": [
+                    {
+                        "name": "Cess",
+                        "value": 4,
+                        "type": "percent"
+                    },
+                    {
+                        "name": "Surcharge",
+                        "type": "slabs",
+                        "slabs": [
+                            {
+                                "incomeFrom": 0,
+                                "incomeTo": 5000000,
+                                "taxInPercent": 0
+                            },
+                            {
+                                "incomeFrom": 5000001,
+                                "incomeTo": 10000000,
+                                "taxInPercent": 10
+                            },
+                            {
+                                "incomeFrom": 10000001,
+                                "incomeTo": 20000000,
+                                "taxInPercent": 15
+                            },
+                            {
+                                "incomeFrom": 20000001,
+                                "incomeTo": 50000000,
+                                "taxInPercent": 25
+                            },
+                            {
+                                "incomeFrom": 50000001,
+                                "incomeTo": -1,
+                                "taxInPercent": 37
+                            }
+                        ]
+                    }
+                ],
+                "slabs": [
+                    {
+                        "incomeFrom": 0,
+                        "incomeTo": 400000,
+                        "taxInPercent": 0
+                    },
+                    {
+                        "incomeFrom": 400001,
+                        "incomeTo": 800000,
+                        "taxInPercent": 5
+                    },
+                    {
+                        "incomeFrom": 800001,
+                        "incomeTo": 1200000,
+                        "taxInPercent": 10
+                    },
+                    {
+                        "incomeFrom": 1200001,
+                        "incomeTo": 1600000,
+                        "taxInPercent": 15
+                    },
+                    {
+                        "incomeFrom": 1600001,
+                        "incomeTo": 2000000,
+                        "taxInPercent": 20
+                    },
+                    {
+                        "incomeFrom": 2000001,
+                        "incomeTo": 2400000,
+                        "taxInPercent": 25
+                    },
+                    {
+                        "incomeFrom": 2400001,
+                        "incomeTo": -1,
+                        "taxInPercent": 30
+                    }
+                ]
+            }
+        ]
+    }
+}
