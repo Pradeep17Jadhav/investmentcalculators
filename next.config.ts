@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  output: "standalone",
+  distDir: "build",
 };
 
 export default nextConfig;
