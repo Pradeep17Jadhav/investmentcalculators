@@ -3,9 +3,8 @@
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import { useIncomeTax } from "@/hooks/IncomeTax/useIncomeTax";
-import { Config } from "@/types/ConfigTypes";
+import { IncomeTaxConfig } from "@/types/ConfigTypes";
 import {
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -18,20 +17,20 @@ import {
   useTheme,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { useCallback, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import styles from "./IncomeTaxInput.module.css";
 import IncomeTaxSummary from "../IncomeTaxSummary/IncomeTaxSummary";
+import { ToWords } from "to-words";
 
 type Props = {
-  config: Config;
+  incomeTaxConfig: IncomeTaxConfig;
 };
 
-const IncomeTaxInput = ({ config }: Props) => {
-  const { incomeTax } = config;
-  const { budgets } = incomeTax;
+const IncomeTaxInput = ({ incomeTaxConfig }: Props) => {
+  const { budgets } = incomeTaxConfig;
 
   const [budgetIndex, setBudgetIndex] = useState(0);
-  const taxLiabilityRef = useRef<HTMLDivElement>(null);
+  const toWords = new ToWords();
 
   const theme = useTheme();
   const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
@@ -39,22 +38,21 @@ const IncomeTaxInput = ({ config }: Props) => {
     income,
     toggleStdDeduction,
     getTaxCalculationSummary,
-    onCalculate,
     onIncomeChange,
   } = useIncomeTax(budgets[budgetIndex]);
-
   const { standardDeduction } = getTaxCalculationSummary();
 
   const onBudgetSelectionChange = useCallback((event: SelectChangeEvent) => {
     setBudgetIndex(parseInt(event.target.value));
   }, []);
 
-  const handleCalculate = useCallback(() => {
-    onCalculate();
-    taxLiabilityRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
-  }, [onCalculate]);
+  const handleIncomeChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const newIncome = e.target.value || "0";
+      onIncomeChange(newIncome);
+    },
+    [onIncomeChange]
+  );
 
   return (
     <div className={styles.incometaxColumns}>
@@ -99,10 +97,11 @@ const IncomeTaxInput = ({ config }: Props) => {
               placeholder="Annual income"
               variant="outlined"
               value={income ? formatPrice(income) : ""}
-              onChange={onIncomeChange}
+              onChange={handleIncomeChange}
               fullWidth
               margin="normal"
             />
+            {!!income && <div className={styles.caption}>{toWords.convert(income)}</div>}
             <FormControlLabel
               sx={{ mb: 2 }}
               control={
@@ -113,22 +112,12 @@ const IncomeTaxInput = ({ config }: Props) => {
               }
               label="Use standard deduction (salaried employees)"
             />
-            <Button
-              className={styles.primaryButton}
-              type="submit"
-              variant="contained"
-              onClick={handleCalculate}
-              fullWidth
-            >
-              Calculate
-            </Button>
           </Section>
         </Grid>
         <Grid className={styles.rightColumn} item xs={12} md={6}>
           <IncomeTaxSummary
             income={income}
             budget={budgets[budgetIndex]}
-            taxLiabilityRef={taxLiabilityRef}
             getTaxCalculationSummary={getTaxCalculationSummary}
           />
         </Grid>

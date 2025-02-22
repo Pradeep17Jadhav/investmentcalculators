@@ -14,11 +14,12 @@ import {
 import { Budget, CalculatedTaxSlab, ITOtherTax } from "@/types/ConfigTypes";
 import { Ref } from "react";
 import styles from "./IncomeTaxSummary.module.css";
+import { ToWords } from "to-words";
 
 type Props = {
   income: number;
   budget: Budget;
-  taxLiabilityRef: Ref<HTMLDivElement>;
+  taxLiabilityRef?: Ref<HTMLDivElement>;
   getTaxCalculationSummary: () => {
     marginalRelief: number;
     rebate: number;
@@ -36,6 +37,7 @@ const IncomeTaxSummary = ({
   taxLiabilityRef,
   getTaxCalculationSummary,
 }: Props) => {
+  const toWords = new ToWords();
   const {
     marginalRelief,
     rebate,
@@ -52,22 +54,21 @@ const IncomeTaxSummary = ({
       <span className={styles.summaryDistribution}>
         <span>Annual Income</span>
         <span>₹{formatPrice(income)}</span>
-      </span>
-
-      <h6 className={styles.summaryTitle}>Deducations</h6>
-      <span className={styles.summaryDistribution}>
-        <span>Standard Deducation</span>
-        <span className={styles.profit}>
-          {`- ₹${formatPrice(standardDeduction)}`}
-        </span>
-      </span>
-
-      <h6 className={styles.summaryTitle}>Taxable Income</h6>
-      <span className={styles.summaryDistribution}>
-        <span>Income After Deductions</span>
-        <span>₹{formatPrice(incomeAfterDeductions)}</span>
-      </span>
-
+      </span>{" "}
+      {!!income && (
+        <>
+          <span className={styles.summaryDistribution}>
+            <span>Standard Deducation</span>
+            <span className={styles.profit}>
+              {`- ₹${formatPrice(standardDeduction)}`}
+            </span>
+          </span>
+          <span className={styles.summaryDistribution}>
+            <span>Income After Deductions</span>
+            <span>₹{formatPrice(incomeAfterDeductions)}</span>
+          </span>
+        </>
+      )}
       {!!applicableTaxSlabs.length && (
         <>
           <h6 className={styles.summaryTitle}>Tax Slabs Calculation</h6>
@@ -104,50 +105,80 @@ const IncomeTaxSummary = ({
           </TableContainer>
         </>
       )}
-
-      <h6 className={styles.summaryTitle}>Income Tax Calculation</h6>
-      <span className={styles.summaryDistribution}>
-        <span>Taxable Income</span>
-        <span>₹{formatPrice(incomeAfterDeductions)}</span>
-      </span>
-      <span className={styles.summaryDistribution}>
-        <span>Applicable Income Tax</span>
-        <span className={styles.loss}>-₹{formatPrice(totalIncomeTax)}</span>
-      </span>
-      {!!rebate && (
-        <span className={styles.summaryDistribution}>
-          <span>{`Rebate upto ₹${budget.rebate.amount}`}</span>
-          <span className={styles.profit}>-₹{formatPrice(rebate)}</span>
-        </span>
+      {!!income && (
+        <>
+          <h6 className={styles.summaryTitle}>Income Tax Calculation</h6>
+          <span className={styles.summaryDistribution}>
+            <span>Taxable Income</span>
+            <span>₹{formatPrice(incomeAfterDeductions)}</span>
+          </span>
+          <span className={styles.summaryDistribution}>
+            <span>Applicable Income Tax</span>
+            <span className={styles.loss}>
+              {`- ₹
+              ${formatPrice(
+                totalIncomeTax +
+                  rebate +
+                  marginalRelief -
+                  otherTaxes.reduce(
+                    (acc, { applicableTax }) => acc + applicableTax,
+                    0
+                  )
+              )}`}
+            </span>
+          </span>
+          {!!rebate && (
+            <span className={styles.summaryDistribution}>
+              <span>{`Rebate upto ₹${budget.rebate.amount}`}</span>
+              <span className={styles.profit}>-₹{formatPrice(rebate)}</span>
+            </span>
+          )}
+          {!!marginalRelief && (
+            <span className={styles.summaryDistribution}>
+              <span>Marginal Relief</span>
+              <span className={styles.profit}>
+                {`- ₹${formatPrice(marginalRelief)}`}
+              </span>
+            </span>
+          )}
+          {otherTaxes.map(({ name, taxPercent, applicableTax }) => (
+            <span key={name} className={styles.summaryDistribution}>
+              <span>{`${name} (${taxPercent}%)`}</span>
+              <span className={styles.loss}>{`- ₹${formatPrice(
+                applicableTax
+              )}`}</span>
+            </span>
+          ))}
+        </>
       )}
-      {!!marginalRelief && (
-        <span className={styles.summaryDistribution}>
-          <span>Marginal Relief</span>
-          <span className={styles.profit}>-₹{formatPrice(marginalRelief)}</span>
-        </span>
-      )}
-      {otherTaxes.map(({ name, taxPercent, applicableTax }) => (
-        <span key={name} className={styles.summaryDistribution}>
-          <span>{`${name} (${taxPercent}%)`}</span>
-          <span className={styles.loss}>{`- ₹${formatPrice(
-            applicableTax
-          )}`}</span>
-        </span>
-      ))}
-
       <h6 className={styles.summaryTitle}>Tax Liability</h6>
       <div ref={taxLiabilityRef} className={styles.taxAmoundBanner}>
-        ₹{formatPrice(totalIncomeTax)}
+        <div className={styles.totalIncomeTax}>
+          ₹{formatPrice(totalIncomeTax)}
+        </div>
+        {!!totalIncomeTax && (
+          <div className={styles.caption}>
+            {toWords.convert(totalIncomeTax)}
+          </div>
+        )}
       </div>
-      <h6 className={styles.summaryTitle}>Income After Tax</h6>
-      <span className={styles.summaryDistribution}>
-        <span>Yearly Income</span>
-        <span>₹{formatPrice(income - totalIncomeTax)}</span>
-      </span>
-      <span className={styles.summaryDistribution}>
-        <span>Average Monthly Income</span>
-        <span>₹{formatPrice((income - totalIncomeTax) / 12)}</span>
-      </span>
+      {!!income && (
+        <>
+          <h6 className={styles.summaryTitle}>Income After Tax</h6>
+          <span className={styles.summaryDistribution}>
+            <span>Yearly Income</span>
+            <span>₹{formatPrice(income - totalIncomeTax)}</span>
+          </span>
+          <span className={styles.summaryDistribution}>
+            <span>Average Monthly Income</span>
+            <span>₹{formatPrice((income - totalIncomeTax) / 12)}</span>
+          </span>
+          <span className={styles.summaryDistribution}>
+            <span>Tax In percent w.r.t. Income</span>
+            <span>{`${((totalIncomeTax / income) * 100).toFixed(2)} %`}</span>
+          </span>
+        </>
+      )}
     </Section>
   );
 };

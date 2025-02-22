@@ -1,6 +1,6 @@
 export const getConfig = async () => {
   const res = await fetch(
-    "https://raw.githubusercontent.com/Pradeep17Jadhav/UiConfigs/refs/heads/master/InvestmentCalculators/IncomeTax/config.json",
+    "https://raw.githubusercontent.com/Pradeep17Jadhav/UiConfigs/refs/heads/master/InvestmentCalculators/IncomeTax/config.json?token=$(date%20+%s)",
     {
       next: { revalidate: 320 },
     }

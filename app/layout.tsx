@@ -3,6 +3,8 @@ import { Inter, Merriweather } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import Script from "next/script";
 import "./globals.css";
+import AppBar from "@/components/AppBar/AppBar";
+import ThemeProvider from "@/components/ThemeProvider/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -124,7 +126,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <ThemeProvider>
+          <AppBar />
+          <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

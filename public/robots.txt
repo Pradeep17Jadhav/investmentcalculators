@@ -1,3 +1,8 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Host
+Host: https://www.investmentcalculators.in
+
+# Sitemaps
+Sitemap: https://www.investmentcalculators.in/sitemap.xml

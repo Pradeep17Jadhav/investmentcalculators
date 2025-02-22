@@ -18,3 +18,9 @@
     font-size: 0.975rem !important;
     font-weight: 700 !important;
 }
+
+.caption {
+    font-size: 0.9em;
+    color: var(--foreground-secondary);
+    margin-bottom: 12px;
+}

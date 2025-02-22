@@ -43,8 +43,16 @@ export type Budget = {
   slabs: TaxSlab[];
 };
 
+type FAQ = {
+  question: string;
+  answer: string;
+};
+
+export type IncomeTaxConfig = {
+  budgets: Budget[];
+  faqs: FAQ[];
+};
+
 export type Config = {
-  incomeTax: {
-    budgets: Budget[];
-  };
+  incomeTax: IncomeTaxConfig;
 };
