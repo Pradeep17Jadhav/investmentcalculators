@@ -2,7 +2,7 @@
   --background: #fff;
   --foreground: #171717;
   --foreground-secondary: rgba(23, 23, 23, 0.75);
-  --background-image: radial-gradient(at 50% 50%, rgb(240, 247, 255), rgb(255, 255, 255));
+  --background-image: #fff;
   --paper-1: #fff;
   --border-color: hsla(220, 20%, 80%, 0.4);
   --border-color-hovered: rgb(30, 125, 215);
@@ -16,18 +16,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #080E15;
     --foreground: #ededed;
     --foreground-secondary: rgba(237, 237, 237, 0.75);
     --background-image: radial-gradient(at 50% 50%, rgba(0, 41, 82, 0.5), rgb(9, 11, 17));
-    --paper-1: rgba(5, 7, 10, 0.4);
-    --border-color: hsla(222, 20%, 25%, 0.6);
-    --border-color-hovered: rgb(30, 125, 215);
-    --border-color-focused: rgb(25, 115, 200);
+    --paper-1: #071018;
+    --border-color: rgba(51, 59, 77, 0.6);
+    --border-color-hovered: #1e7dd7;
+    --border-color-focused: #1973c8;
     --shadow: rgba(9, 11, 17, 0.5) 0px 5px 15px 0px, rgba(19, 23, 32, 0.08) 0px 15px 35px -5px;
-    --appbar-background: hsla(210, 14%, 3%, 0.4);
-    --banner-background: rgba(5, 85, 165, 0.2);
-    --table-background: rgb(9, 12, 17);
+    --appbar-background: #080B11;
+    --banner-background: #071E34;
+    --table-background: #090c11;
   }
 }
 
@@ -39,11 +39,10 @@ body {
 
 body {
   color: var(--foreground);
-  background: #000;
+  background: var(--background);
   font-family: "Inter", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: var(--background-image);
 }
 
 h1, h2, h3, h4, h5, h6 {

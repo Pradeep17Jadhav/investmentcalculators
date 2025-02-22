@@ -158,7 +158,7 @@ const IncomeTaxSummary = ({
         </div>
         {!!totalIncomeTax && (
           <div className={styles.caption}>
-            {toWords.convert(totalIncomeTax)}
+            {toWords.convert(parseFloat(totalIncomeTax.toFixed(2)))}
           </div>
         )}
       </div>

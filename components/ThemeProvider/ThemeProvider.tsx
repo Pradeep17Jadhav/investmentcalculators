@@ -3,7 +3,6 @@
 import { ReactNode, useMemo } from "react";
 import { ThemeProvider as TP, createTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import CssBaseline from "@mui/material/CssBaseline";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -21,7 +20,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           mode: "light",
         },
         typography: {
-          fontFamily: inter.style.fontFamily, // Use Inter instead of Roboto
+          fontFamily: inter.style.fontFamily,
         },
         components: {
           MuiOutlinedInput: {
@@ -167,10 +166,5 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     []
   );
 
-  return (
-    <TP theme={prefersDarkMode ? darkTheme : lightTheme}>
-      <CssBaseline />
-      {children}
-    </TP>
-  );
+  return <TP theme={prefersDarkMode ? darkTheme : lightTheme}>{children}</TP>;
 }
