@@ -164,13 +164,17 @@ const IncomeTaxSummary = ({
       </div>
       {!!income && (
         <>
-          <h6 className={styles.summaryTitle}>Income After Tax</h6>
+          <h6 className={styles.summaryTitle}>After Tax Facts</h6>
           <span className={styles.summaryDistribution}>
             <span>Yearly Income</span>
             <span>₹{formatPrice(income - totalIncomeTax)}</span>
           </span>
           <span className={styles.summaryDistribution}>
-            <span>Average Monthly Income</span>
+            <span>Monthly Income Tax</span>
+            <span>{`₹${formatPrice(totalIncomeTax / 12)}`}</span>
+          </span>
+          <span className={styles.summaryDistribution}>
+            <span>Monthly After Tax Income</span>
             <span>₹{formatPrice((income - totalIncomeTax) / 12)}</span>
           </span>
           <span className={styles.summaryDistribution}>

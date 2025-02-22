@@ -97,6 +97,9 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
         palette: {
           mode: "dark",
         },
+        typography: {
+          fontFamily: inter.style.fontFamily,
+        },
         components: {
           MuiOutlinedInput: {
             styleOverrides: {
