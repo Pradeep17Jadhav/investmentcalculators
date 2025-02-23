@@ -5,11 +5,10 @@ import Grid from "@mui/material/Grid";
 import { Config } from "@/types/ConfigTypes";
 import { getConfig } from "@/helpers/config";
 
-
 const HomePage = async () => {
   const config: Config = await getConfig();
   const { homePage } = config;
-  const calculatorTiles = homePage.calculatorTiles || [];
+  const calculatorTiles = homePage?.calculatorTiles || [];
 
   return (
     <div className={defaultStyles.page}>

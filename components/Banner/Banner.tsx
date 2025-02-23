@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import styles from "./Banner.module.css";
 import Image from "next/image";
