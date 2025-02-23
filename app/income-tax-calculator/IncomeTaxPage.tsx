@@ -1,4 +1,3 @@
-import styles from "./IncomeTaxPage.module.css";
 import IncomeTaxInput from "@/components/IncomeTax/IncomeTaxInput/IncomeTaxInput";
 import { getConfig } from "@/helpers/config";
 import Accordion from "@mui/material/Accordion";
@@ -7,6 +6,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { Config } from "@/types/ConfigTypes";
+
+import styles from "./IncomeTaxPage.module.css";
 
 export const metadata = {
   title: "Income Tax Calculator - Latest Budget 2025",

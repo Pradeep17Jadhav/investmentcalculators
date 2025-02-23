@@ -10,3 +10,14 @@
 .faqs {
     margin-top: 64px;
 }
+
+
+@media (max-width: 600px) {
+    .pageTitle {
+        font-size: 1.5em;
+    }
+
+    .pageSubtitle {
+        font-size: 1em;
+    }
+}

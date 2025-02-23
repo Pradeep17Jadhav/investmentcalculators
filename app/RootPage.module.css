@@ -5,3 +5,9 @@
 .calculatorsContainer {
     max-width: 1200px;
 }
+
+@media (max-width: 600px) {
+    .pageHeader {
+        font-size: 1.5em;
+    }
+}

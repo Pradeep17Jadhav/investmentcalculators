@@ -1,6 +1,6 @@
 import Banner from "@/components/Banner/Banner";
 import defaultStyles from "./page.module.css";
-import styles from "./HomePage.module.css";
+import styles from "./RootPage.module.css";
 import Grid from "@mui/material/Grid";
 import { Config } from "@/types/ConfigTypes";
 import { getConfig } from "@/helpers/config";
