@@ -1,3 +1,7 @@
+.logo {
+    cursor: pointer;
+}
+
 .appbarContainer {
     background-color: var(--appbar-background);
     border-bottom: 1px solid var(--border-color);

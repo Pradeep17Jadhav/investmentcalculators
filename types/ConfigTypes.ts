@@ -53,6 +53,17 @@ export type IncomeTaxConfig = {
   faqs: FAQ[];
 };
 
+export type CalculatorTile = {
+  label: string;
+  imgSrc: string;
+  path: string;
+};
+
+export type HomePageConfig = {
+  calculatorTiles: CalculatorTile[];
+};
+
 export type Config = {
   incomeTax: IncomeTaxConfig;
+  homePage: HomePageConfig;
 };

@@ -12,7 +12,7 @@ import {
   Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import IncomeTaxPage from "@/app/income-tax/IncomeTaxPage";
+import IncomeTaxPage from "@/app/income-tax-calculator/IncomeTaxPage";
 
 import styles from "./AppBar.module.css";
 
@@ -54,7 +54,7 @@ const AppBar = () => {
     <>
       <Container className={styles.appbarContainer} maxWidth={false}>
         <Toolbar disableGutters>
-          <h6 onClick={handleLogoClicked}>
+          <h6 className={styles.logo} onClick={handleLogoClicked}>
             <span className="profit">Investment</span>
             <span className="loss">Calculators</span>
           </h6>

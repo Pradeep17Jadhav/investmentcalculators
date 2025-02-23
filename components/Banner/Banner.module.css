@@ -1,0 +1,68 @@
+.container {
+    position: relative;
+    margin: auto;
+    min-height: 250px;
+    min-width: 300px;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-heavy)
+}
+
+
+.img {
+    object-fit: cover;
+    vertical-align: middle;
+    object-position: top;
+    transition: transform 0.3s ease-in-out;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.img:hover {
+    transform: scale(1.1);
+}
+
+.shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, transparent 0%, #000000ee 70%);
+    pointer-events: none;
+}
+
+.label {
+    margin: auto 16px;
+    font-size: 1.2em;
+}
+
+.labelContainer {
+    display: flex;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 72px;
+    z-index: 1
+}
+
+
+@media (max-width: 900px) {
+    .container {
+        min-height: 200px;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        min-height: 150px;
+        min-width: 200px;
+    }
+}
