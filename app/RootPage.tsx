@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import { Config } from "@/types/ConfigTypes";
 import { getConfig } from "@/helpers/config";
 
-const HomePage = async () => {
+const RootPage = async () => {
   const config: Config = await getConfig();
   const { homePage } = config;
   const calculatorTiles = homePage?.calculatorTiles || [];
@@ -42,4 +42,4 @@ const HomePage = async () => {
   );
 };
 
-export default HomePage;
+export default RootPage;
