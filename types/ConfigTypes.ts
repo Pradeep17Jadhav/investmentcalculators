@@ -53,6 +53,22 @@ export type IncomeTaxConfig = {
   faqs: FAQ[];
 };
 
+export type FixedDepositConfig = {
+  faqs: FAQ[];
+};
+
+export type RecurringDepositConfig = {
+  faqs: FAQ[];
+};
+
+export type SIPConfig = {
+  faqs: FAQ[];
+};
+
+export type LoanEMIConfig = {
+  faqs: FAQ[];
+};
+
 export type CalculatorTile = {
   label: string;
   imgSrc: string;
@@ -66,4 +82,8 @@ export type HomePageConfig = {
 export type Config = {
   incomeTax: IncomeTaxConfig;
   homePage: HomePageConfig;
+  fixedDeposit: FixedDepositConfig;
+  recurringDeposit: RecurringDepositConfig;
+  SIP: SIPConfig;
+  loanEMI: LoanEMIConfig;
 };

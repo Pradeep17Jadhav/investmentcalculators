@@ -1,24 +1,24 @@
-import IncomeTaxInput from "@/components/IncomeTax/IncomeTaxInput/IncomeTaxInput";
 import { getConfig } from "@/helpers/config";
+import { Config } from "@/types/ConfigTypes";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import { Config } from "@/types/ConfigTypes";
+import AccordionDetails from "@mui/material/AccordionDetails";
 
-import styles from "./IncomeTaxPage.module.css";
+import styles from "./SIPPage.module.css";
 
-const IncomeTaxPage = async () => {
+const SIPPage = async () => {
   const config: Config = await getConfig();
-  const { incomeTax } = config;
-  const faqs = incomeTax.faqs || [];
+  const { SIP } = config;
+  const faqs = SIP.faqs || [];
 
   return (
-    <div className={styles.incometaxContainer}>
-      <h1 className={styles.pageTitle}>Income Tax Calculator</h1>
-      <h2 className={styles.pageSubtitle}>According to Budget February 2025</h2>
-      <IncomeTaxInput incomeTaxConfig={incomeTax} />
+    <div className={styles.container}>
+      <h1 className={styles.pageTitle}>SIP Calculator</h1>
+      <h2 className={styles.pageSubtitle}>
+        SIP Calculator - Calculate SIP Returns & Investment Growth
+      </h2>
       <div className={styles.faqs}>
         {faqs.map((faq, index) => (
           <Accordion key={index}>
@@ -35,4 +35,4 @@ const IncomeTaxPage = async () => {
   );
 };
 
-export default IncomeTaxPage;
+export default SIPPage;

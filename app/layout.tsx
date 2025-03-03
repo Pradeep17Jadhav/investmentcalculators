@@ -93,14 +93,8 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Investment Calculators",
+              name: "Investment Calculators - SIP, EMI, FD, RD, and Income Tax",
               url: "https://investmentcalculators.in",
-              potentialAction: {
-                "@type": "SearchAction",
-                target:
-                  "https://investmentcalculators.in/search?q={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
             }),
           }}
         />
