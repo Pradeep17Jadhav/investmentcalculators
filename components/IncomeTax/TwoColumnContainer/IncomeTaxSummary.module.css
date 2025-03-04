@@ -1,0 +1,44 @@
+.summaryTitle:not(:first-of-type) {
+    margin-top: 32px;
+}
+
+.summaryTitle {
+    margin-bottom: 8px;
+}
+
+.summaryDistribution {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.8em;
+}
+
+.taxAmoundBanner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--banner-background);
+    border-radius: 6px;
+    font-size: 36px;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 0 0 0;
+}
+
+.totalIncomeTax {
+    padding: 8px;
+}
+
+.caption {
+    font-size: 0.4em;
+    color: var(--foreground-secondary);
+    padding: 0 8px 8px 8px;
+}
+
+.profit {
+    color: #10b983;
+}
+
+.loss {
+    color: #f35631;
+}

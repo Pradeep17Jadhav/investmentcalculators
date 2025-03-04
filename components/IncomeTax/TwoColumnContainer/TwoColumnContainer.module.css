@@ -1,0 +1,11 @@
+.columnsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: space-between;
+    margin-top: 3rem;
+}
+
+.leftColumn, .rightColumn {
+    width: 100%;
+}

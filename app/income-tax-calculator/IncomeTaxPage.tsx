@@ -1,4 +1,4 @@
-import IncomeTaxInput from "@/components/IncomeTax/IncomeTaxInput/IncomeTaxInput";
+import IncomeTaxCalculator from "@/components/IncomeTax/IncomeTaxCalculator/IncomeTaxCalculator";
 import { getConfig } from "@/helpers/config";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -18,7 +18,7 @@ const IncomeTaxPage = async () => {
     <div className={styles.incometaxContainer}>
       <h1 className={styles.pageTitle}>Income Tax Calculator</h1>
       <h2 className={styles.pageSubtitle}>According to Budget February 2025</h2>
-      <IncomeTaxInput incomeTaxConfig={incomeTax} />
+      <IncomeTaxCalculator incomeTaxConfig={incomeTax} />
       <div className={styles.faqs}>
         {faqs.map((faq, index) => (
           <Accordion key={index}>
