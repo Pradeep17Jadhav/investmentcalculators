@@ -4,7 +4,7 @@ import {
   getTotalTaxFromApplicableTaxSlabs,
   getTotalTaxFromOtherTaxes,
 } from "@/components/IncomeTax/helpers";
-import { convertPriceToInt } from "@/helpers/price";
+import { convertPriceToInt, isInputStringAValidNumber } from "@/helpers/price";
 import { Budget, CalculatedTaxSlab, ITOtherTax } from "@/types/ConfigTypes";
 import { useCallback, useState } from "react";
 
@@ -73,7 +73,7 @@ export const useIncomeTax = (budget: Budget) => {
 
   const onIncomeChange = useCallback(
     (newIncome: string) => {
-      const isValid = Number.isFinite(parseInt(newIncome));
+      const isValid = isInputStringAValidNumber(newIncome);
       if (!isValid) {
         return;
       }

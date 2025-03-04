@@ -8,3 +8,23 @@ export const formatPrice = (price: number, minimumFractionDigits?: number) => {
 
 export const convertPriceToInt = (price: string) =>
   parseInt(price.replace(/,/g, ""), 10);
+
+export const isInputStringAValidNumber = (amount: string) =>
+  Number.isFinite(parseInt(amount));
+
+export const getUpdatedNumberWithValidation = (
+  newNumber: string,
+  originalNumber?: number,
+  isPrice?: boolean,
+  isFloat?: boolean
+): number => {
+  const isValid = isInputStringAValidNumber(newNumber);
+  if (!isValid) {
+    return originalNumber || 0;
+  }
+  return isPrice
+    ? convertPriceToInt(newNumber)
+    : isFloat
+    ? parseFloat(newNumber)
+    : parseInt(newNumber);
+};

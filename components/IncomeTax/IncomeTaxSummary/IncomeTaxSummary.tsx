@@ -1,5 +1,6 @@
 "use client";
 
+import { Ref } from "react";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import {
@@ -12,9 +13,8 @@ import {
   TableRow,
 } from "@mui/material";
 import { Budget, CalculatedTaxSlab, ITOtherTax } from "@/types/ConfigTypes";
-import { Ref } from "react";
 import styles from "./IncomeTaxSummary.module.css";
-import { ToWords } from "to-words";
+import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 
 type Props = {
   income: number;
@@ -37,7 +37,6 @@ const IncomeTaxSummary = ({
   taxLiabilityRef,
   getTaxCalculationSummary,
 }: Props) => {
-  const toWords = new ToWords();
   const {
     marginalRelief,
     rebate,
@@ -54,7 +53,7 @@ const IncomeTaxSummary = ({
       <span className={styles.summaryDistribution}>
         <span>Annual Income</span>
         <span>₹{formatPrice(income)}</span>
-      </span>{" "}
+      </span>
       {!!income && (
         <>
           <span className={styles.summaryDistribution}>
@@ -151,17 +150,10 @@ const IncomeTaxSummary = ({
           ))}
         </>
       )}
+
       <h6 className={styles.summaryTitle}>Tax Liability</h6>
-      <div ref={taxLiabilityRef} className={styles.taxAmoundBanner}>
-        <div className={styles.totalIncomeTax}>
-          ₹{formatPrice(totalIncomeTax)}
-        </div>
-        {!!totalIncomeTax && (
-          <div className={styles.caption}>
-            {toWords.convert(parseFloat(totalIncomeTax.toFixed(2)))}
-          </div>
-        )}
-      </div>
+      <AmountBanner amount={totalIncomeTax} ref={taxLiabilityRef} />
+
       {!!income && (
         <>
           <h6 className={styles.summaryTitle}>After Tax Facts</h6>

@@ -1,0 +1,5 @@
+.summaryItem {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.8em;
+}

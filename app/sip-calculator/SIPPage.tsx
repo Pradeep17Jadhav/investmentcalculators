@@ -5,6 +5,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import SIPCalculator from "@/components/SIP/SIPCalculator/SIPCalculator";
 
 import styles from "./SIPPage.module.css";
 
@@ -19,6 +20,7 @@ const SIPPage = async () => {
       <h2 className={styles.pageSubtitle}>
         SIP Calculator - Calculate SIP Returns & Investment Growth
       </h2>
+      <SIPCalculator />
       <div className={styles.faqs}>
         {faqs.map((faq, index) => (
           <Accordion key={index}>
