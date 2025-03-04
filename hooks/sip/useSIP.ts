@@ -36,7 +36,9 @@ export const useSIP = () => {
         getUpdatedNumberWithValidation(
           newMonthlyInvestment,
           monthlyInvestment,
-          true
+          true,
+          0,
+          10000000
         )
       );
     },
@@ -47,7 +49,13 @@ export const useSIP = () => {
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const newExpectedReturns = e.target.value || "0";
       setExpectedReturns((expectedReturns) =>
-        getUpdatedNumberWithValidation(newExpectedReturns, expectedReturns)
+        getUpdatedNumberWithValidation(
+          newExpectedReturns,
+          expectedReturns,
+          false,
+          0,
+          100
+        )
       );
     },
     []
@@ -57,7 +65,13 @@ export const useSIP = () => {
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const newInvestmentPeriod = e.target.value || "0";
       setInvestmentPeriod((investmentPeriod) =>
-        getUpdatedNumberWithValidation(newInvestmentPeriod, investmentPeriod)
+        getUpdatedNumberWithValidation(
+          newInvestmentPeriod,
+          investmentPeriod,
+          false,
+          0,
+          600
+        )
       );
     },
     []

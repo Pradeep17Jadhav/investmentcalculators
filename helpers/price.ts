@@ -16,15 +16,21 @@ export const getUpdatedNumberWithValidation = (
   newNumber: string,
   originalNumber?: number,
   isPrice?: boolean,
-  isFloat?: boolean
+  min: number = -Infinity,
+  max: number = Infinity
 ): number => {
   const isValid = isInputStringAValidNumber(newNumber);
   if (!isValid) {
     return originalNumber || 0;
   }
-  return isPrice
+  const updatedNumber = isPrice
     ? convertPriceToInt(newNumber)
-    : isFloat
-    ? parseFloat(newNumber)
     : parseInt(newNumber);
+  if (updatedNumber < min) {
+    return min;
+  }
+  if (updatedNumber > max) {
+    return max;
+  }
+  return updatedNumber;
 };
