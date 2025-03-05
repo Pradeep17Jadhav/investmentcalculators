@@ -65,6 +65,10 @@ export type SIPConfig = {
   faqs: FAQ[];
 };
 
+export type LumpsumConfig = {
+  faqs: FAQ[];
+};
+
 export type LoanEMIConfig = {
   faqs: FAQ[];
 };
@@ -85,5 +89,6 @@ export type Config = {
   fixedDeposit: FixedDepositConfig;
   recurringDeposit: RecurringDepositConfig;
   SIP: SIPConfig;
+  lumpsum: LumpsumConfig;
   loanEMI: LoanEMIConfig;
 };

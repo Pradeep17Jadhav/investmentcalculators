@@ -5,22 +5,22 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import SIPCalculator from "@/components/SIP/SIPCalculator/SIPCalculator";
+import LumpsumCalculator from "@/components/Lumpsum/LumpsumCalculator/LumpsumCalculator";
 
-import styles from "./SIPPage.module.css";
+import styles from "./LumpsumPage.module.css";
 
-const SIPPage = async () => {
+const LumpsumPage = async () => {
   const config: Config = await getConfig();
-  const { SIP } = config;
-  const faqs = SIP.faqs || [];
+  const { lumpsum } = config;
+  const faqs = lumpsum?.faqs || [];
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.pageTitle}>SIP Calculator</h1>
+      <h1 className={styles.pageTitle}>Lumpsum Investment Calculator</h1>
       <h2 className={styles.pageSubtitle}>
-        Calculate SIP Returns & Investment Growth
+        Calculate Lumpsum Investment Returns & Growth
       </h2>
-      <SIPCalculator />
+      <LumpsumCalculator />
       <div className={styles.faqs}>
         {faqs.map((faq, index) => (
           <Accordion key={index}>
@@ -37,4 +37,4 @@ const SIPPage = async () => {
   );
 };
 
-export default SIPPage;
+export default LumpsumPage;

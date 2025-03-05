@@ -1,15 +1,3 @@
-.incometaxColumns {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    justify-content: space-between;
-    margin-top: 3rem;
-}
-
-.leftColumn, .rightColumn {
-    width: 100%;
-}
-
 .primaryButton {
     border-radius: 64px !important;
     padding: 12px 64px !important;
@@ -17,10 +5,4 @@
     color: #ffffff !important;
     font-size: 0.975rem !important;
     font-weight: 700 !important;
-}
-
-.caption {
-    font-size: 0.9em;
-    color: var(--foreground-secondary);
-    margin-bottom: 12px;
 }
