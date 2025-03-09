@@ -18,7 +18,7 @@ type Props = {
   handleInvestmentPeriodChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  monthlyInvestment: number;
+  lumpsumInvestment: number;
   expectedReturns: number;
   investmentPeriod: number;
 };
@@ -27,7 +27,7 @@ const LumpsumCalculatorInput = ({
   handleInvestmentChange,
   handleExpectedReturnsChange,
   handleInvestmentPeriodChange,
-  monthlyInvestment,
+  lumpsumInvestment,
   expectedReturns,
   investmentPeriod,
 }: Props) => {
@@ -38,14 +38,14 @@ const LumpsumCalculatorInput = ({
       <TextField
         placeholder="Lumpsum Investment"
         variant="outlined"
-        value={monthlyInvestment ? formatPrice(monthlyInvestment) : ""}
+        value={lumpsumInvestment ? formatPrice(lumpsumInvestment) : ""}
         onChange={handleInvestmentChange}
         fullWidth
         margin="normal"
       />
-      {!!monthlyInvestment && (
+      {!!lumpsumInvestment && (
         <div className={styles.caption}>
-          {toWords.convert(monthlyInvestment)}
+          {toWords.convert(lumpsumInvestment)}
         </div>
       )}
       <TextField

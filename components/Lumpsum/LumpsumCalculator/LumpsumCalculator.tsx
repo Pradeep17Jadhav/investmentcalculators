@@ -4,14 +4,12 @@ import { useMemo } from "react";
 import LumpsumCalculatorInput from "../LumpsumCalculatorInput/LumpsumCalculatorInput";
 import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
 import LumpsumCalculatorSummary from "../LumpsumCalculatorSummary/LumpsumCalculatorSummary";
-import { useSIP } from "@/hooks/sip/useSIP";
+import { useLumpsum } from "@/hooks/Lumpsum/useLumpsum";
 
 const LumpsumCalculator = () => {
   const {
     isValidForm,
-    monthlyInvestment,
-    yearlyInvestment,
-    totalInvestment,
+    lumpsumInvestment,
     expectedReturns,
     investmentPeriod,
     profit,
@@ -20,7 +18,7 @@ const LumpsumCalculator = () => {
     handleInvestmentChange,
     handleExpectedReturnsChange,
     handleInvestmentPeriodChange,
-  } = useSIP();
+  } = useLumpsum();
 
   const fixedDepositInput = useMemo(
     () => (
@@ -28,7 +26,7 @@ const LumpsumCalculator = () => {
         handleInvestmentChange={handleInvestmentChange}
         handleExpectedReturnsChange={handleExpectedReturnsChange}
         handleInvestmentPeriodChange={handleInvestmentPeriodChange}
-        monthlyInvestment={monthlyInvestment}
+        lumpsumInvestment={lumpsumInvestment}
         expectedReturns={expectedReturns}
         investmentPeriod={investmentPeriod}
       />
@@ -39,7 +37,7 @@ const LumpsumCalculator = () => {
       handleInvestmentChange,
       handleInvestmentPeriodChange,
       investmentPeriod,
-      monthlyInvestment,
+      lumpsumInvestment,
     ]
   );
 
@@ -47,23 +45,13 @@ const LumpsumCalculator = () => {
     () => (
       <LumpsumCalculatorSummary
         isValidForm={isValidForm}
-        monthlyInvestment={monthlyInvestment}
-        yearlyInvestment={yearlyInvestment}
-        totalInvestment={totalInvestment}
+        lumpsumInvestment={lumpsumInvestment}
         profit={profit}
         maturityValue={maturityValue}
         timesMultiplied={timesMultiplied}
       />
     ),
-    [
-      isValidForm,
-      maturityValue,
-      monthlyInvestment,
-      profit,
-      timesMultiplied,
-      yearlyInvestment,
-      totalInvestment,
-    ]
+    [isValidForm, maturityValue, lumpsumInvestment, profit, timesMultiplied]
   );
 
   return (

@@ -8,9 +8,7 @@ import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 
 type Props = {
   isValidForm: boolean;
-  monthlyInvestment: number;
-  yearlyInvestment: number;
-  totalInvestment: number;
+  lumpsumInvestment: number;
   profit: number;
   maturityValue: number;
   timesMultiplied: number;
@@ -18,7 +16,7 @@ type Props = {
 
 const LumpsumCalculatorSummary = ({
   isValidForm,
-  totalInvestment,
+  lumpsumInvestment,
   profit,
   maturityValue,
   timesMultiplied,
@@ -29,7 +27,7 @@ const LumpsumCalculatorSummary = ({
         <SummaryBlock title="Investment Details">
           <SummaryItem
             left="Lumpsum Investment"
-            right={`₹${formatPrice(totalInvestment)}`}
+            right={`₹${formatPrice(lumpsumInvestment)}`}
           />
         </SummaryBlock>
       )}

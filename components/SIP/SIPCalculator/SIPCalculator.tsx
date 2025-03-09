@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import SIPCalculatorInput from "../SIPCalculatorInput/SIPCalculatorInput";
 import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
 import SIPCalculatorSummary from "../SIPCalculatorSummary/SIPCalculatorSummary";
-import { useSIP } from "@/hooks/sip/useSIP";
+import { useSIP } from "@/hooks/SIP/useSIP";
 
 const SIPCalculator = () => {
   const {
