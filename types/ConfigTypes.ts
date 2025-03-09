@@ -92,3 +92,10 @@ export type Config = {
   lumpsum: LumpsumConfig;
   loanEMI: LoanEMIConfig;
 };
+
+export enum CalculatorType {
+  SIP = "SIP",
+  FD = "FD",
+  RD = "RD",
+  Lumpsum = "LUMPSUM",
+}

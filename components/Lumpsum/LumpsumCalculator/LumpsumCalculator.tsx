@@ -4,12 +4,13 @@ import { useMemo } from "react";
 import LumpsumCalculatorInput from "../LumpsumCalculatorInput/LumpsumCalculatorInput";
 import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
 import LumpsumCalculatorSummary from "../LumpsumCalculatorSummary/LumpsumCalculatorSummary";
-import { useLumpsum } from "@/hooks/Lumpsum/useLumpsum";
+import { useCalculator } from "@/hooks/Common/useCalculator";
+import { CalculatorType } from "@/types/ConfigTypes";
 
 const LumpsumCalculator = () => {
   const {
     isValidForm,
-    lumpsumInvestment,
+    investment,
     expectedReturns,
     investmentPeriod,
     profit,
@@ -18,7 +19,7 @@ const LumpsumCalculator = () => {
     handleInvestmentChange,
     handleExpectedReturnsChange,
     handleInvestmentPeriodChange,
-  } = useLumpsum();
+  } = useCalculator({ calculatorType: CalculatorType.Lumpsum });
 
   const fixedDepositInput = useMemo(
     () => (
@@ -26,7 +27,7 @@ const LumpsumCalculator = () => {
         handleInvestmentChange={handleInvestmentChange}
         handleExpectedReturnsChange={handleExpectedReturnsChange}
         handleInvestmentPeriodChange={handleInvestmentPeriodChange}
-        lumpsumInvestment={lumpsumInvestment}
+        lumpsumInvestment={investment}
         expectedReturns={expectedReturns}
         investmentPeriod={investmentPeriod}
       />
@@ -37,7 +38,7 @@ const LumpsumCalculator = () => {
       handleInvestmentChange,
       handleInvestmentPeriodChange,
       investmentPeriod,
-      lumpsumInvestment,
+      investment,
     ]
   );
 
@@ -45,13 +46,13 @@ const LumpsumCalculator = () => {
     () => (
       <LumpsumCalculatorSummary
         isValidForm={isValidForm}
-        lumpsumInvestment={lumpsumInvestment}
+        lumpsumInvestment={investment}
         profit={profit}
         maturityValue={maturityValue}
         timesMultiplied={timesMultiplied}
       />
     ),
-    [isValidForm, maturityValue, lumpsumInvestment, profit, timesMultiplied]
+    [isValidForm, maturityValue, investment, profit, timesMultiplied]
   );
 
   return (

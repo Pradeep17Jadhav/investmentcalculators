@@ -4,12 +4,13 @@ import { useMemo } from "react";
 import SIPCalculatorInput from "../SIPCalculatorInput/SIPCalculatorInput";
 import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
 import SIPCalculatorSummary from "../SIPCalculatorSummary/SIPCalculatorSummary";
-import { useSIP } from "@/hooks/SIP/useSIP";
+import { useCalculator } from "@/hooks/Common/useCalculator";
+import { CalculatorType } from "@/types/ConfigTypes";
 
 const SIPCalculator = () => {
   const {
     isValidForm,
-    monthlyInvestment,
+    investment,
     yearlyInvestment,
     totalInvestment,
     expectedReturns,
@@ -20,7 +21,7 @@ const SIPCalculator = () => {
     handleInvestmentChange,
     handleExpectedReturnsChange,
     handleInvestmentPeriodChange,
-  } = useSIP();
+  } = useCalculator({ calculatorType: CalculatorType.SIP });
 
   const fixedDepositInput = useMemo(
     () => (
@@ -28,7 +29,7 @@ const SIPCalculator = () => {
         handleInvestmentChange={handleInvestmentChange}
         handleExpectedReturnsChange={handleExpectedReturnsChange}
         handleInvestmentPeriodChange={handleInvestmentPeriodChange}
-        monthlyInvestment={monthlyInvestment}
+        monthlyInvestment={investment}
         expectedReturns={expectedReturns}
         investmentPeriod={investmentPeriod}
       />
@@ -39,7 +40,7 @@ const SIPCalculator = () => {
       handleInvestmentChange,
       handleInvestmentPeriodChange,
       investmentPeriod,
-      monthlyInvestment,
+      investment,
     ]
   );
 
@@ -47,7 +48,7 @@ const SIPCalculator = () => {
     () => (
       <SIPCalculatorSummary
         isValidForm={isValidForm}
-        monthlyInvestment={monthlyInvestment}
+        monthlyInvestment={investment}
         yearlyInvestment={yearlyInvestment}
         totalInvestment={totalInvestment}
         profit={profit}
@@ -58,7 +59,7 @@ const SIPCalculator = () => {
     [
       isValidForm,
       maturityValue,
-      monthlyInvestment,
+      investment,
       profit,
       timesMultiplied,
       yearlyInvestment,
