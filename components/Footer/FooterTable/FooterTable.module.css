@@ -2,11 +2,13 @@
     text-align: left;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .footerColumn {
-    margin: 32px;
+    margin: 48px;
+    width: 100%;
 }
 
 .columnItemTitle {
@@ -18,4 +20,15 @@
 .columnItem {
     margin: 16px 0;
     color: var(--foreground-secondary)
+}
+
+
+@media (max-width: 600px) {
+    .footerColumn {
+        margin: 8px;
+    }
+
+    .footerTable {
+        font-size: 0.9em;
+    }
 }

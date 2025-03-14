@@ -1,4 +1,7 @@
 .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--dark-background);
     text-align: center;
     width: 100%;
@@ -11,12 +14,24 @@
 .container {
     height: auto;
     width: auto;
+    max-width: 1200px;
 }
 
 .madeWithLove {
-    padding: 16px;
+    padding: 24px 0 32px 0;
 }
 
 .hr {
     border-color: var(--border-color);
+}
+
+@media (max-width: 900px) {
+    .footer {
+        padding: 16px;
+    }
+
+    .container {
+        margin-top: 32px;
+    }
+
 }
