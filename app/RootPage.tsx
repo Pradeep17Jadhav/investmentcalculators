@@ -26,7 +26,7 @@ const RootPage = async () => {
               className={styles.leftColumn}
               item
               xs={12}
-              md={6}
+              sm={6}
               lg={4}
             >
               <Banner

@@ -62,7 +62,7 @@
 
 @media (max-width: 600px) {
     .container {
-        min-height: 150px;
-        min-width: 200px;
+        min-height: 120px;
+        min-width: 160px;
     }
 }

@@ -26,6 +26,12 @@
     border: 1px solid var(--border-color);
 }
 
+.logo {
+    margin-bottom: 32px;
+    pointer-events: none;
+    user-select: none;
+}
+
 @media (max-width: 900px) {
     .footer {
         padding: 16px;
@@ -35,4 +41,7 @@
         margin-top: 32px;
     }
 
+    .logo {
+        margin-bottom: 48px;
+    }
 }

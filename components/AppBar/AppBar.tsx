@@ -16,6 +16,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 import styles from "./AppBar.module.css";
+import Link from "next/link";
 
 const AppBar = () => {
   const router = useRouter();
@@ -128,14 +129,14 @@ const AppBar = () => {
               const isActive = pathname === to;
               return (
                 <Tooltip key={label} title={tooltip}>
-                  <a
+                  <Link
                     href={to}
                     className={classnames(styles.navLink, {
                       [styles.activeNavLink]: isActive,
                     })}
                   >
                     {label}
-                  </a>
+                  </Link>
                 </Tooltip>
               );
             })}
