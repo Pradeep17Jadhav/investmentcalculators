@@ -60,7 +60,7 @@ const CommonCalculatorInput = ({
     },
     [CalculatorType.RD]: {
       title: "RD Details",
-      investment: "Monthly Savings in RD",
+      investment: "Monthly Savings",
       returns: "Expected Returns",
       tenure: "Investment Period",
     },

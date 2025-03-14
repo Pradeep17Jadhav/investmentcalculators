@@ -1,5 +1,5 @@
 import { getConfig } from "@/helpers/config";
-import { Config } from "@/types/ConfigTypes";
+import { CalculatorType, Config } from "@/types/ConfigTypes";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
 
 import styles from "./RDPage.module.css";
+import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalculator";
+import RDCalculatorSummary from "@/components/RD/RDCalculatorSummary";
 
 const RDPage = async () => {
   const config: Config = await getConfig();
@@ -19,6 +21,10 @@ const RDPage = async () => {
       <h2 className={styles.pageSubtitle}>
         RD Calculator - Calculate Recurring Deposit Interest & Maturity Value
       </h2>
+      <CommonCalculator
+        calculatorType={CalculatorType.RD}
+        Summary={RDCalculatorSummary}
+      />
       <div className={styles.faqs}>
         {faqs.map((faq, index) => (
           <Accordion key={index}>

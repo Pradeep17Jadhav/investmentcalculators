@@ -65,6 +65,36 @@ export const useCalculator = ({ calculatorType }: Props) => {
     investment,
   ]);
 
+  const calculateRD = useCallback(() => {
+    const compoundFrequency = 4; //4 times per year
+    const totalMonths =
+      investmentPeriod.years * 12 +
+      investmentPeriod.months +
+      investmentPeriod.days / 30;
+    const monthlyRateOfReturn = expectedReturns / 100 / compoundFrequency;
+    let totalMaturityValue = 0;
+    const totalInvestment = investment * totalMonths;
+    for (let i = 1; i <= totalMonths; i++) {
+      const monthsLeft = totalMonths - i + 1;
+      const timeInYears = monthsLeft / 12;
+      const maturityValueForDeposit =
+        investment *
+        Math.pow(1 + monthlyRateOfReturn, compoundFrequency * timeInYears);
+      totalMaturityValue += maturityValueForDeposit;
+    }
+    const profit = totalMaturityValue - totalInvestment;
+    setMaturityValue(Math.round(totalMaturityValue));
+    setProfit(Math.round(profit));
+    setTotalInvestment(totalInvestment);
+    setTimesMultiplied(toDecimal(totalMaturityValue / totalInvestment));
+  }, [
+    investmentPeriod.years,
+    investmentPeriod.months,
+    investmentPeriod.days,
+    expectedReturns,
+    investment,
+  ]);
+
   const calculateLumpsum = useCallback(() => {
     const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
     const totalMonths = investmentPeriod.months;
@@ -89,7 +119,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
         break;
       }
       case CalculatorType.RD: {
-        calculateSIP();
+        calculateRD();
         break;
       }
       case CalculatorType.Lumpsum: {
@@ -97,7 +127,13 @@ export const useCalculator = ({ calculatorType }: Props) => {
         break;
       }
     }
-  }, [calculateSIP, calculateLumpsum, calculateFD, calculatorType]);
+  }, [
+    calculateSIP,
+    calculateLumpsum,
+    calculateFD,
+    calculateRD,
+    calculatorType,
+  ]);
 
   const handleInvestmentChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
