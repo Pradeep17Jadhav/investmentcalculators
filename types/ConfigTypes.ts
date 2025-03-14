@@ -99,3 +99,9 @@ export enum CalculatorType {
   RD = "RD",
   Lumpsum = "LUMPSUM",
 }
+
+export type InvestmentPeriod = {
+  years: number;
+  months: number;
+  days: number;
+};

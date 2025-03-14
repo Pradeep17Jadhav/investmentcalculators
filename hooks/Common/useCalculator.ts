@@ -1,10 +1,16 @@
 import { toDecimal } from "@/helpers/numbers";
 import { getUpdatedNumberWithValidation } from "@/helpers/price";
-import { CalculatorType } from "@/types/ConfigTypes";
+import { CalculatorType, InvestmentPeriod } from "@/types/ConfigTypes";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 type Props = {
   calculatorType: CalculatorType;
+};
+
+const initialInvestmentPeriod = {
+  years: 0,
+  months: 0,
+  days: 0,
 };
 
 export const useCalculator = ({ calculatorType }: Props) => {
@@ -13,6 +19,8 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const [totalInvestment, setTotalInvestment] = useState(0);
   const [expectedReturns, setExpectedReturns] = useState(0);
   const [investmentPeriod, setInvestmentPeriod] = useState(0);
+  const [FDInvestmentPeriod, setFDInvestmentPeriod] =
+    useState<InvestmentPeriod>(initialInvestmentPeriod);
   const [profit, setProfit] = useState(0);
   const [maturityValue, setMaturityValue] = useState(0);
   const [timesMultiplied, setTimesMultiplied] = useState(0);
@@ -34,6 +42,29 @@ export const useCalculator = ({ calculatorType }: Props) => {
     setTimesMultiplied(toDecimal(maturityValue / totalInvested));
   }, [expectedReturns, investmentPeriod, investment]);
 
+  const calculateFD = useCallback(() => {
+    const totalMonths =
+      FDInvestmentPeriod.years * 12 +
+      FDInvestmentPeriod.months +
+      FDInvestmentPeriod.days / 30;
+    const quarterlyRateOfReturn = expectedReturns / 400;
+    const totalQuarters = totalMonths / 3;
+    const maturityValue = Math.round(
+      investment * Math.pow(1 + quarterlyRateOfReturn, totalQuarters)
+    );
+    const profit = maturityValue - investment;
+
+    setMaturityValue(maturityValue);
+    setProfit(profit);
+    setTimesMultiplied(toDecimal(maturityValue / investment));
+  }, [
+    FDInvestmentPeriod.years,
+    FDInvestmentPeriod.months,
+    FDInvestmentPeriod.days,
+    expectedReturns,
+    investment,
+  ]);
+
   const calculateLumpsum = useCallback(() => {
     const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
     const totalMonths = investmentPeriod;
@@ -54,7 +85,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
         break;
       }
       case CalculatorType.FD: {
-        calculateSIP();
+        calculateFD();
         break;
       }
       case CalculatorType.RD: {
@@ -66,7 +97,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
         break;
       }
     }
-  }, [calculateSIP, calculateLumpsum, calculatorType]);
+  }, [calculateSIP, calculateLumpsum, calculateFD, calculatorType]);
 
   const handleInvestmentChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -112,6 +143,10 @@ export const useCalculator = ({ calculatorType }: Props) => {
           600
         )
       );
+      setFDInvestmentPeriod((init) => ({
+        ...init,
+        months: parseInt(newInvestmentPeriod),
+      })); // TODO: Improve this and handle separately for FD
     },
     []
   );
