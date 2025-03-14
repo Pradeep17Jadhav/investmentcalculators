@@ -6,7 +6,17 @@ import { InputAdornment, TextField } from "@mui/material";
 import { ChangeEvent } from "react";
 import { ToWords } from "to-words";
 
-import styles from "./SIPCalculatorInput.module.css";
+import styles from "./CommonCalculatorInput.module.css";
+import { CalculatorType } from "@/types/ConfigTypes";
+
+type CalculatorInputLabels = {
+  [key in CalculatorType]: {
+    title: string;
+    investment: string;
+    returns: string;
+    tenure: string;
+  };
+};
 
 type Props = {
   handleInvestmentChange: (
@@ -18,38 +28,67 @@ type Props = {
   handleInvestmentPeriodChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  monthlyInvestment: number;
+  calculatorType: CalculatorType;
+  investment: number;
   expectedReturns: number;
   investmentPeriod: number;
 };
 
-const SIPCalculatorInput = ({
+const CommonCalculatorInput = ({
   handleInvestmentChange,
   handleExpectedReturnsChange,
   handleInvestmentPeriodChange,
-  monthlyInvestment,
+  calculatorType,
+  investment,
   expectedReturns,
   investmentPeriod,
 }: Props) => {
   const toWords = new ToWords();
 
+  const labels: CalculatorInputLabels = {
+    [CalculatorType.SIP]: {
+      title: "SIP Details",
+      investment: "Monthly Investment",
+      returns: "Expected Returns",
+      tenure: "Investment Period",
+    },
+    [CalculatorType.FD]: {
+      title: "FD Details",
+      investment: "Saving Amount",
+      returns: "Expected Returns",
+      tenure: "Investment Period",
+    },
+    [CalculatorType.RD]: {
+      title: "RD Details",
+      investment: "Monthly Savings in RD",
+      returns: "Expected Returns",
+      tenure: "Investment Period",
+    },
+    [CalculatorType.Lumpsum]: {
+      title: "Lumpsum Investment Details",
+      investment: "Investment Amount",
+      returns: "Expected Returns",
+      tenure: "Investment Period",
+    },
+  };
+
   return (
-    <Section title="SIP Details">
+    <Section title={labels[calculatorType].title}>
       <TextField
-        placeholder="Monthly Investment"
+        placeholder={labels[calculatorType].investment}
         variant="outlined"
-        value={monthlyInvestment ? formatPrice(monthlyInvestment) : ""}
+        value={investment ? formatPrice(investment) : ""}
         onChange={handleInvestmentChange}
         fullWidth
         margin="normal"
       />
-      {!!monthlyInvestment && (
+      {!!investment && (
         <div className={styles.caption}>
-          {toWords.convert(monthlyInvestment)}
+          {toWords.convert(investment)}
         </div>
       )}
       <TextField
-        placeholder="Expected Returns"
+        placeholder={labels[calculatorType].returns}
         type="number"
         variant="outlined"
         value={expectedReturns || ""}
@@ -63,7 +102,7 @@ const SIPCalculatorInput = ({
         }}
       />
       <TextField
-        placeholder="Investment Period"
+        placeholder={labels[calculatorType].tenure}
         variant="outlined"
         type="number"
         value={investmentPeriod || ""}
@@ -82,4 +121,4 @@ const SIPCalculatorInput = ({
   );
 };
 
-export default SIPCalculatorInput;
+export default CommonCalculatorInput;

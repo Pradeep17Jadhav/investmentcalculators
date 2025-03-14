@@ -6,7 +6,7 @@ import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 
-type Props = {
+export type SIPCalculatorSummaryProps = {
   isValidForm: boolean;
   monthlyInvestment: number;
   yearlyInvestment: number;
@@ -24,7 +24,7 @@ const SIPCalculatorSummary = ({
   profit,
   maturityValue,
   timesMultiplied,
-}: Props) => {
+}: SIPCalculatorSummaryProps) => {
   return (
     <Section title="Summary of Returns">
       {isValidForm && (

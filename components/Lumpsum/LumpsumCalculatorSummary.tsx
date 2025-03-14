@@ -6,9 +6,9 @@ import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 
-type Props = {
+export type LumpsumCalculatorProps = {
   isValidForm: boolean;
-  lumpsumInvestment: number;
+  investment: number;
   profit: number;
   maturityValue: number;
   timesMultiplied: number;
@@ -16,18 +16,18 @@ type Props = {
 
 const LumpsumCalculatorSummary = ({
   isValidForm,
-  lumpsumInvestment,
+  investment,
   profit,
   maturityValue,
   timesMultiplied,
-}: Props) => {
+}: LumpsumCalculatorProps) => {
   return (
     <Section title="Summary of Returns">
       {isValidForm && (
         <SummaryBlock title="Investment Details">
           <SummaryItem
             left="Lumpsum Investment"
-            right={`₹${formatPrice(lumpsumInvestment)}`}
+            right={`₹${formatPrice(investment)}`}
           />
         </SummaryBlock>
       )}

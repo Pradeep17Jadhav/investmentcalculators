@@ -37,18 +37,14 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const calculateLumpsum = useCallback(() => {
     const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
     const totalMonths = investmentPeriod;
-
     const maturityValue = Math.round(
       investment * Math.pow(1 + monthlyRateOfReturn, totalMonths)
     );
-
-    const totalInvested =
-      investment * Math.pow(1 + monthlyRateOfReturn, totalMonths);
-    const profit = maturityValue - totalInvested;
+    const profit = maturityValue - investment;
 
     setMaturityValue(maturityValue);
     setProfit(profit);
-    setTimesMultiplied(toDecimal(maturityValue / totalInvested));
+    setTimesMultiplied(toDecimal(maturityValue / investment));
   }, [expectedReturns, investmentPeriod, investment]);
 
   const calculate = useCallback(() => {

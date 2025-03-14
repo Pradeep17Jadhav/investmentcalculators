@@ -1,13 +1,21 @@
 "use client";
 
 import { useMemo } from "react";
-import SIPCalculatorInput from "../SIPCalculatorInput/SIPCalculatorInput";
+import CommonCalculatorInput from "../CommonCalculatorInput/CommonCalculatorInput";
 import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
-import SIPCalculatorSummary from "../SIPCalculatorSummary/SIPCalculatorSummary";
 import { useCalculator } from "@/hooks/Common/useCalculator";
 import { CalculatorType } from "@/types/ConfigTypes";
+import { LumpsumCalculatorProps } from "@/components/Lumpsum/LumpsumCalculatorSummary";
+import { SIPCalculatorSummaryProps } from "@/components/SIP/SIPCalculatorSummary";
 
-const SIPCalculator = () => {
+type Props = {
+  calculatorType: CalculatorType;
+  Summary: React.ComponentType<
+    LumpsumCalculatorProps & SIPCalculatorSummaryProps
+  >;
+};
+
+const CommonCalculator = ({ calculatorType, Summary }: Props) => {
   const {
     isValidForm,
     investment,
@@ -21,20 +29,22 @@ const SIPCalculator = () => {
     handleInvestmentChange,
     handleExpectedReturnsChange,
     handleInvestmentPeriodChange,
-  } = useCalculator({ calculatorType: CalculatorType.SIP });
+  } = useCalculator({ calculatorType });
 
-  const fixedDepositInput = useMemo(
+  const input = useMemo(
     () => (
-      <SIPCalculatorInput
+      <CommonCalculatorInput
+        calculatorType={calculatorType}
         handleInvestmentChange={handleInvestmentChange}
         handleExpectedReturnsChange={handleExpectedReturnsChange}
         handleInvestmentPeriodChange={handleInvestmentPeriodChange}
-        monthlyInvestment={investment}
+        investment={investment}
         expectedReturns={expectedReturns}
         investmentPeriod={investmentPeriod}
       />
     ),
     [
+      calculatorType,
       expectedReturns,
       handleExpectedReturnsChange,
       handleInvestmentChange,
@@ -44,35 +54,23 @@ const SIPCalculator = () => {
     ]
   );
 
-  const fixedDepositSummary = useMemo(
-    () => (
-      <SIPCalculatorSummary
-        isValidForm={isValidForm}
-        monthlyInvestment={investment}
-        yearlyInvestment={yearlyInvestment}
-        totalInvestment={totalInvestment}
-        profit={profit}
-        maturityValue={maturityValue}
-        timesMultiplied={timesMultiplied}
-      />
-    ),
-    [
-      isValidForm,
-      maturityValue,
-      investment,
-      profit,
-      timesMultiplied,
-      yearlyInvestment,
-      totalInvestment,
-    ]
-  );
-
   return (
     <TwoColumnContainer
-      leftColumn={fixedDepositInput}
-      rightColumn={fixedDepositSummary}
+      leftColumn={input}
+      rightColumn={
+        <Summary
+          isValidForm={isValidForm}
+          profit={profit}
+          maturityValue={maturityValue}
+          timesMultiplied={timesMultiplied}
+          investment={investment}
+          monthlyInvestment={investment}
+          yearlyInvestment={yearlyInvestment}
+          totalInvestment={totalInvestment}
+        />
+      }
     ></TwoColumnContainer>
   );
 };
 
-export default SIPCalculator;
+export default CommonCalculator;

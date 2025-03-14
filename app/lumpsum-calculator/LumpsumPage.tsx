@@ -1,11 +1,12 @@
 import { getConfig } from "@/helpers/config";
-import { Config } from "@/types/ConfigTypes";
+import { CalculatorType, Config } from "@/types/ConfigTypes";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import LumpsumCalculator from "@/components/Lumpsum/LumpsumCalculator/LumpsumCalculator";
+import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalculator";
+import LumpsumCalculatorSummary from "@/components/Lumpsum/LumpsumCalculatorSummary";
 
 import styles from "./LumpsumPage.module.css";
 
@@ -20,7 +21,10 @@ const LumpsumPage = async () => {
       <h2 className={styles.pageSubtitle}>
         Calculate Lumpsum Investment Returns & Growth
       </h2>
-      <LumpsumCalculator />
+      <CommonCalculator
+        calculatorType={CalculatorType.Lumpsum}
+        Summary={LumpsumCalculatorSummary}
+      />
       <div className={styles.faqs}>
         {faqs.map((faq, index) => (
           <Accordion key={index}>
