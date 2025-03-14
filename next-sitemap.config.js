@@ -11,7 +11,12 @@ module.exports = {
 
     if (url === "/") priority = 1.0;
     else if (url.startsWith("/blog")) priority = 0.5;
-    else if (url.startsWith("/terms") || url.startsWith("/privacy")) {
+    else if (
+      url.startsWith("/about-us") ||
+      url.startsWith("/privacy-policy") ||
+      url.startsWith("/terms-and-conditions") ||
+      url.startsWith("/legal-and-regulatory")
+    ) {
       priority = 0.3;
     }
 

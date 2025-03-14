@@ -5,10 +5,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
-
-import styles from "./RDPage.module.css";
 import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalculator";
 import RDCalculatorSummary from "@/components/RD/RDCalculatorSummary";
+
+import styles from "./RDPage.module.css";
 
 const RDPage = async () => {
   const config: Config = await getConfig();

@@ -1,0 +1,15 @@
+.container {
+    max-width: 1200px;
+    margin: 96px auto;
+    line-height: 2em;
+    font-size: 1.2em;
+    padding: 16px;
+}
+
+.section {
+    margin-bottom: 64px;
+}
+
+.section h3 {
+    margin-bottom: 24px;
+}
