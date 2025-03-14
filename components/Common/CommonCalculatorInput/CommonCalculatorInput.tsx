@@ -1,13 +1,13 @@
 "use client";
 
+import { ChangeEvent } from "react";
+import { ToWords } from "to-words";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import { InputAdornment, TextField } from "@mui/material";
-import { ChangeEvent } from "react";
-import { ToWords } from "to-words";
+import { CalculatorType, InvestmentPeriod } from "@/types/ConfigTypes";
 
 import styles from "./CommonCalculatorInput.module.css";
-import { CalculatorType } from "@/types/ConfigTypes";
 
 type CalculatorInputLabels = {
   [key in CalculatorType]: {
@@ -31,7 +31,7 @@ type Props = {
   calculatorType: CalculatorType;
   investment: number;
   expectedReturns: number;
-  investmentPeriod: number;
+  investmentPeriod: InvestmentPeriod;
 };
 
 const CommonCalculatorInput = ({
@@ -83,9 +83,7 @@ const CommonCalculatorInput = ({
         margin="normal"
       />
       {!!investment && (
-        <div className={styles.caption}>
-          {toWords.convert(investment)}
-        </div>
+        <div className={styles.caption}>{toWords.convert(investment)}</div>
       )}
       <TextField
         placeholder={labels[calculatorType].returns}
@@ -105,7 +103,7 @@ const CommonCalculatorInput = ({
         placeholder={labels[calculatorType].tenure}
         variant="outlined"
         type="number"
-        value={investmentPeriod || ""}
+        value={investmentPeriod.months || ""}
         onChange={handleInvestmentPeriodChange}
         fullWidth
         margin="normal"

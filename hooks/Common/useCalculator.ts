@@ -1,7 +1,7 @@
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { toDecimal } from "@/helpers/numbers";
 import { getUpdatedNumberWithValidation } from "@/helpers/price";
 import { CalculatorType, InvestmentPeriod } from "@/types/ConfigTypes";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -18,16 +18,16 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const [investment, setInvestment] = useState(0);
   const [totalInvestment, setTotalInvestment] = useState(0);
   const [expectedReturns, setExpectedReturns] = useState(0);
-  const [investmentPeriod, setInvestmentPeriod] = useState(0);
-  const [FDInvestmentPeriod, setFDInvestmentPeriod] =
-    useState<InvestmentPeriod>(initialInvestmentPeriod);
+  const [investmentPeriod, setInvestmentPeriod] = useState<InvestmentPeriod>(
+    initialInvestmentPeriod
+  );
   const [profit, setProfit] = useState(0);
   const [maturityValue, setMaturityValue] = useState(0);
   const [timesMultiplied, setTimesMultiplied] = useState(0);
 
   const calculateSIP = useCallback(() => {
     const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
-    const totalMonths = investmentPeriod;
+    const totalMonths = investmentPeriod.months;
     const maturityValue = Math.round(
       investment *
         ((Math.pow(1 + monthlyRateOfReturn, totalMonths) - 1) /
@@ -44,9 +44,9 @@ export const useCalculator = ({ calculatorType }: Props) => {
 
   const calculateFD = useCallback(() => {
     const totalMonths =
-      FDInvestmentPeriod.years * 12 +
-      FDInvestmentPeriod.months +
-      FDInvestmentPeriod.days / 30;
+      investmentPeriod.years * 12 +
+      investmentPeriod.months +
+      investmentPeriod.days / 30;
     const quarterlyRateOfReturn = expectedReturns / 400;
     const totalQuarters = totalMonths / 3;
     const maturityValue = Math.round(
@@ -58,16 +58,16 @@ export const useCalculator = ({ calculatorType }: Props) => {
     setProfit(profit);
     setTimesMultiplied(toDecimal(maturityValue / investment));
   }, [
-    FDInvestmentPeriod.years,
-    FDInvestmentPeriod.months,
-    FDInvestmentPeriod.days,
+    investmentPeriod.years,
+    investmentPeriod.months,
+    investmentPeriod.days,
     expectedReturns,
     investment,
   ]);
 
   const calculateLumpsum = useCallback(() => {
     const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
-    const totalMonths = investmentPeriod;
+    const totalMonths = investmentPeriod.months;
     const maturityValue = Math.round(
       investment * Math.pow(1 + monthlyRateOfReturn, totalMonths)
     );
@@ -134,19 +134,16 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const handleInvestmentPeriodChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const newInvestmentPeriod = e.target.value || "0";
-      setInvestmentPeriod((investmentPeriod) =>
-        getUpdatedNumberWithValidation(
+      setInvestmentPeriod((investmentPeriod) => ({
+        ...investmentPeriod,
+        months: getUpdatedNumberWithValidation(
           newInvestmentPeriod,
-          investmentPeriod,
+          investmentPeriod.months,
           false,
           0,
           600
-        )
-      );
-      setFDInvestmentPeriod((init) => ({
-        ...init,
-        months: parseInt(newInvestmentPeriod),
-      })); // TODO: Improve this and handle separately for FD
+        ),
+      }));
     },
     []
   );
