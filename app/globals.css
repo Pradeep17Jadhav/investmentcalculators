@@ -27,7 +27,7 @@
     --border-color-hovered: #1e7dd7;
     --border-color-focused: #1973c8;
     --shadow: rgba(9, 11, 17, 0.5) 0px 5px 15px 0px, rgba(19, 23, 32, 0.08) 0px 15px 35px -5px;
-    --shadow-heavy: 0 8px 16px rgba(104, 104, 108, 0.5);
+    --shadow-heavy: 0 8px 16px rgba(0, 0, 5, 0.5);
     --dark-background: #080B11;
     --contrast-background: #0a141f;
     --banner-background: #071E34;
