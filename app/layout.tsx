@@ -30,14 +30,14 @@ export const metadata: Metadata = {
     title: "Investment Calculators",
     siteName: "Investment Calculators",
     url: "https://investmentcalculators.in/",
-    images: ["https://investmentcalculators.in/thumbnail.jpg"],
+    images: ["https://investmentcalculators.in/thumbnail.webp"],
     description:
       "SIP calculator, EMI calculator, FD calculator, RD calculator, income tax calculator and more Investment Calculators.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Investment Calculators - FD, RD, SIP, Income Tax",
-    images: ["https://investmentcalculators.in/thumbnail.jpg"],
+    images: ["https://investmentcalculators.in/thumbnail.webp"],
     description:
       "Plan your investments with free SIP, EMI, FD, RD, and Income Tax calculators.",
   },
@@ -115,7 +115,7 @@ export default function RootLayout({
               url: "https://investmentcalculators.in",
               primaryImageOfPage: {
                 "@type": "ImageObject",
-                url: "https://investmentcalculators.in/thumbnail.jpg",
+                url: "https://investmentcalculators.in/thumbnail.webp",
               },
             }),
           }}
