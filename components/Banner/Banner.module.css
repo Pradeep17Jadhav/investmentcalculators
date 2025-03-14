@@ -6,8 +6,7 @@
     overflow: hidden;
     border-radius: 8px;
     cursor: pointer;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-heavy)
+    box-shadow: var(--shadow)
 }
 
 
@@ -34,7 +33,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to bottom, transparent 0%, #000000ee 70%);
+    background-image: linear-gradient(to bottom, transparent 0%, var(--banner-shadow) 70%);
     pointer-events: none;
 }
 

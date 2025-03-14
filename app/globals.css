@@ -13,6 +13,7 @@
   --contrast-background: #f4f4f4;
   --banner-background: #f1f8ff;
   --table-background: #fff;
+  --banner-shadow: #ffffffee;
 }
 
 
@@ -32,6 +33,7 @@
     --contrast-background: #0a141f;
     --banner-background: #071E34;
     --table-background: #090c11;
+    --banner-shadow: #000000ee;
   }
 }
 
