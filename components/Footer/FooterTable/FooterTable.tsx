@@ -17,13 +17,7 @@ type FooterData = FooterColumn[];
 
 const FooterTable = ({ footerData }: Props) => {
   return (
-    <Grid
-      className={styles.footerTable}
-      container
-      justifyContent="center"
-      alignItems={"center"}
-      spacing={4}
-    >
+    <Grid className={styles.footerTable} container spacing={4}>
       {footerData.map((column) => (
         <Grid key={column.title} item xs={6} sm={6} md={3}>
           <div key={column.title} className={styles.footerColumn}>
