@@ -10,3 +10,20 @@
     position: sticky;
     box-shadow: var(--shadow);
 }
+
+.navLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 16px;
+    margin: 0 8px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--contrast-background);
+    font-size: 0.9em;
+}
+
+.activeNavLink, .navLink:hover {
+    background-color: var(--contrast-background);
+}

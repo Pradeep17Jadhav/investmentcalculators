@@ -22,6 +22,10 @@
     color: var(--foreground-secondary)
 }
 
+.columnItem:hover {
+    color: var(--foreground)
+}
+
 
 @media (max-width: 600px) {
     .footerColumn {

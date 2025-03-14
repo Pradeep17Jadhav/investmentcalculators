@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useMemo, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import classnames from "classnames";
 import {
   IconButton,
   Menu,
@@ -10,15 +11,15 @@ import {
   Typography,
   Container,
   Toolbar,
+  Tooltip,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import IncomeTaxPage from "@/app/income-tax-calculator/IncomeTaxPage";
 
 import styles from "./AppBar.module.css";
 
 const AppBar = () => {
   const router = useRouter();
-
+  const pathname = usePathname();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = useCallback(
@@ -40,9 +41,34 @@ const AppBar = () => {
   const publicPages = useMemo(
     () => [
       {
-        to: "/income-tax",
-        label: "Income Tax Calculator",
-        Icon: IncomeTaxPage,
+        to: "/income-tax-calculator",
+        label: "Income Tax",
+        tooltip: "Income Tax Calculator",
+      },
+      {
+        to: "/sip-calculator",
+        label: "SIP",
+        tooltip: "SIP Calculator",
+      },
+      {
+        to: "/lumpsum-calculator",
+        label: "Lumpsum",
+        tooltip: "Lumpsum Calculator",
+      },
+      {
+        to: "/fd-calculator",
+        label: "Fixed Deposit",
+        tooltip: "FD Calculator",
+      },
+      {
+        to: "/rd-calculator",
+        label: "Recurring Deposit",
+        tooltip: "RD Calculator",
+      },
+      {
+        to: "/loan-emi-calculator",
+        label: "Loan EMI",
+        tooltip: "Loan EMI Calculator",
       },
     ],
     []
@@ -54,12 +80,7 @@ const AppBar = () => {
     <>
       <Container className={styles.appbarContainer} maxWidth={false}>
         <Toolbar disableGutters>
-          <h6 className={styles.logo} onClick={handleLogoClicked}>
-            <span className="profit">Investment</span>
-            <span className="loss">Calculators</span>
-          </h6>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "none" } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: "block", md: "none" } }}>
             <IconButton
               size="large"
               aria-controls="menu-appbar"
@@ -96,6 +117,28 @@ const AppBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+          </Box>
+          <h6 className={styles.logo} onClick={handleLogoClicked}>
+            <span className="profit">Investment</span>
+            <span className="loss">Calculators</span>
+          </h6>
+
+          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
+            {publicPages.map(({ label, tooltip, to }) => {
+              const isActive = pathname === to;
+              return (
+                <Tooltip key={label} title={tooltip}>
+                  <a
+                    href={to}
+                    className={classnames(styles.navLink, {
+                      [styles.activeNavLink]: isActive,
+                    })}
+                  >
+                    {label}
+                  </a>
+                </Tooltip>
+              );
+            })}
           </Box>
         </Toolbar>
       </Container>
