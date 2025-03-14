@@ -70,7 +70,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiAccordionSummary: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--appbar-background)",
+                backgroundColor: "var(--dark-background)",
                 color: "var(--foreground)",
                 "&.Mui-expanded": {
                   borderBottom: "1px solid var(--border-color)",
@@ -148,7 +148,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiAccordionSummary: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--appbar-background)",
+                backgroundColor: "var(--dark-background)",
                 color: "var(--foreground)",
                 "&.Mui-expanded": {
                   borderBottom: "1px solid var(--border-color)",

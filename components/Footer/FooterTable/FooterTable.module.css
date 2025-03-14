@@ -1,0 +1,21 @@
+.footerTable {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.footerColumn {
+    margin: 32px;
+}
+
+.columnItemTitle {
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--foreground)
+}
+
+.columnItem {
+    margin: 16px 0;
+    color: var(--foreground-secondary)
+}

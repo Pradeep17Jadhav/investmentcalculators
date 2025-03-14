@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Inter, Merriweather } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import Script from "next/script";
-import "./globals.css";
 import AppBar from "@/components/AppBar/AppBar";
 import ThemeProvider from "@/components/ThemeProvider/ThemeProvider";
+import Footer from "@/components/Footer/Footer";
+
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -123,6 +125,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AppBar />
           <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
