@@ -1,6 +1,6 @@
 .blogPost {
     max-width: 1200px;
-    margin: 64px auto 64px;
+    margin: 40px auto 64px;
     line-height: 28px;
 }
 
@@ -27,8 +27,8 @@
 }
 
 .blogPost h4 {
-    font-size: 1.2em;
-    margin: 24px 0 16px;
+    font-size: 1.1em;
+    margin: 24px 0 12px;
 }
 
 .blogPost p {
@@ -82,25 +82,9 @@
 
 .imageContainer {
     overflow: hidden;
-    margin: 12px 0 24px;
+    margin: 24px 0 24px;
 }
 
 .container {
-    display: flex;
-    flex-direction: row;
-    gap: 32px;
-    padding: 16px;
-}
-
-.leftSection {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.rightSection {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 0;
-    min-width: 400px;
+    padding: 0 16px;
 }

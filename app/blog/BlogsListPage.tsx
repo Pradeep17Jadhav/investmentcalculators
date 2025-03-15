@@ -11,7 +11,7 @@ const BlogsListPage = () => {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>Our Blogs</h1>
       <div className={styles.blogCardsContainer}>
-        <Grid container spacing={3} alignItems="center" justifyContent="center">
+        <Grid container spacing={4} alignItems="center" justifyContent="center">
           {blogs.map((blog) => (
             <Grid
               key={blog.slug}

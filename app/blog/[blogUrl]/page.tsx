@@ -42,5 +42,5 @@ export default async function BlogSlugPage({ params }: Props) {
   const blog = await getBlogBySlug(blogUrl);
   if (!blog) return notFound();
 
-  return <BlogPage blog={blog} />;
+  return <BlogPage metadata={blog.metadata} content={blog.content} />;
 }

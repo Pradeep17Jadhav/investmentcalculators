@@ -1,6 +1,7 @@
 import Grid from "@mui/material/Grid/Grid";
-import styles from "./FooterTable.module.css";
 import Link from "next/link";
+
+import styles from "./FooterTable.module.css";
 
 type Props = {
   footerData: FooterData;

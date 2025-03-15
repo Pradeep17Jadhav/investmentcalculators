@@ -25,5 +25,6 @@
 }
 
 .activeNavLink, .navLink:hover {
-    background-color: var(--contrast-background);
+    background-color: var(--highlight-color-blue);
+    color: #fff;
 }

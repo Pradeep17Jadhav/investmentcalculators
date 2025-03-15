@@ -33,7 +33,7 @@
 }
 
 .container:hover .img {
-    transform: scale(1.1);
+    animation: rotateAnimation 1s ease-in-out;
 }
 
 .title {
@@ -71,4 +71,22 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+@keyframes rotateAnimation {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    30% {
+        transform: scale(1.1) rotate(2deg);
+    }
+
+    70% {
+        transform: scale(1.1) rotate(-2deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
 }

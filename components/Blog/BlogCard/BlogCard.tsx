@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BlogMetadata } from "@/helpers/blogs";
+import { BlogMetadata, formatDate } from "@/helpers/blogs";
 
 import styles from "./BlogCard.module.css";
 
@@ -30,8 +30,10 @@ const BlogCard = ({ blog }: Props) => {
         <div className={styles.description}>{blog.description}</div>
         <hr />
         <div className={styles.blogInfo}>
-          <div className={styles.blogInfoItem}>{blog.date}</div>
-          <div className={styles.blogInfoItem}>5 min read</div>
+          <div className={styles.blogInfoItem}>{formatDate(blog.date)}</div>
+          <div
+            className={styles.blogInfoItem}
+          >{`${blog.readTime} min read`}</div>
         </div>
       </div>
     </div>

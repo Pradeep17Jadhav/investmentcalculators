@@ -1,35 +1,13 @@
-import { BlogMetadata } from "@/helpers/blogs";
+import { BlogMetadata, formatDate, getRecentBlogs } from "@/helpers/blogs";
 import { compileMDX } from "next-mdx-remote/rsc";
 import Image from "next/image";
+import Grid from "@mui/material/Grid/Grid";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SidebarLists from "@/components/SidebarLists/SidebarLists";
 
 import styles from "./BlogPage.module.css";
-
-const recentPosts = {
-  listTitle: "Recent posts",
-  list: [
-    {
-      title: "Smart Investing: How to Build Wealth with Minimal Risk",
-      url: "",
-    },
-    { title: "Tax-Saving Strategies: Maximize Your Savings Legally", url: "" },
-    {
-      title: "Mutual Funds vs. Stocks: Which Investment Is Right for You?",
-      url: "",
-    },
-    {
-      title: "Financial Planning for Beginners: A Step-by-Step Guide",
-      url: "",
-    },
-    {
-      title: "Retirement Planning Made Easy: Secure Your Future Today",
-      url: "",
-    },
-  ],
-};
 
 const relatedPosts = {
   listTitle: "Related posts",
@@ -70,55 +48,67 @@ const relatedPosts = {
 };
 
 type Props = {
-  blog: {
-    metadata: BlogMetadata;
-    content: string;
-  };
+  metadata: BlogMetadata;
+  content: string;
 };
 
-const BlogPage = async ({ blog }: Props) => {
-  const { content } = await compileMDX<{ title: string }>({
-    source: blog.content,
+const BlogPage = async ({ metadata, content }: Props) => {
+  const { content: renderableContent } = await compileMDX<{ title: string }>({
+    source: content,
     options: { parseFrontmatter: false },
   });
-  const title = blog.metadata.title;
-  const date = blog.metadata.date;
-  const image = blog.metadata.image;
-  const author = blog.metadata.author;
+
+  const recentPosts = {
+    listTitle: "Recent posts",
+    list: getRecentBlogs(metadata.slug),
+  };
+
+  const title = metadata.title;
+  const date = metadata.date;
+  const image = metadata.image;
+  const author = metadata.author;
+  const readTime = metadata.readTime;
+
   return (
     <div className={styles.blogPost}>
       <div className={styles.container}>
-        <div className={styles.leftSection}>
-          <div className={styles.title}>
-            <h1>{title}</h1>
-          </div>
-          <div className={styles.blogInfo}>
-            <div className={styles.blogInfoItem}>
-              <CalendarTodayIcon className={styles.icon} fontSize="small" />
-              {date}
-            </div>
-            <div className={styles.blogInfoItem}>
-              <PersonIcon className={styles.icon} fontSize="small" />
-              <div>{author}</div>
-            </div>
-            <div className={styles.blogInfoItem}>
-              <AccessTimeIcon className={styles.icon} fontSize="small" />
-              <div>5 min read</div>
-            </div>
-          </div>
-          <hr />
+        <Grid container spacing={4}>
+          <Grid item sm={8} xs={12}>
+            <div className={styles.leftSection}>
+              <div className={styles.title}>
+                <h1>{title}</h1>
+              </div>
+              <div className={styles.blogInfo}>
+                <div className={styles.blogInfoItem}>
+                  <CalendarTodayIcon className={styles.icon} fontSize="small" />
+                  {formatDate(date)}
+                </div>
+                <div className={styles.blogInfoItem}>
+                  <PersonIcon className={styles.icon} fontSize="small" />
+                  <div>{author}</div>
+                </div>
+                <div className={styles.blogInfoItem}>
+                  <AccessTimeIcon className={styles.icon} fontSize="small" />
+                  <div>{`${readTime} min read`}</div>
+                </div>
+              </div>
+              <hr />
 
-          {!!image && (
-            <div className={styles.imageContainer}>
-              <Image className={styles.img} src={image} alt={title} fill />
+              {!!image && (
+                <div className={styles.imageContainer}>
+                  <Image className={styles.img} src={image} alt={title} fill />
+                </div>
+              )}
+              <div className={styles.content}>{renderableContent}</div>
             </div>
-          )}
-          <div className={styles.content}>{content}</div>
-        </div>
-        <div className={styles.rightSection}>
-          <SidebarLists blogPosts={recentPosts} />
-          <SidebarLists blogPosts={relatedPosts} />
-        </div>
+          </Grid>
+          <Grid item sm={4} xs={12}>
+            <div className={styles.rightSection}>
+              <SidebarLists blogPosts={recentPosts} />
+              <SidebarLists blogPosts={relatedPosts} />
+            </div>
+          </Grid>
+        </Grid>
       </div>
       <hr />
     </div>

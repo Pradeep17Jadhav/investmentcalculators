@@ -18,13 +18,13 @@
 
 .columnItem {
     margin: 16px 0;
-    color: var(--foreground-secondary)
+    color: var(--foreground-secondary);
+    transition: color 0.15s ease-in-out;
 }
 
-.columnItem:hover {
-    color: var(--foreground)
+.columnItem a:hover {
+    color: var(--highlight-color-blue);
 }
-
 
 @media (min-width: 1200px) {
     .footerColumn {
