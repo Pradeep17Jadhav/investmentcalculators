@@ -42,6 +42,11 @@ const AppBar = () => {
   const publicPages = useMemo(
     () => [
       {
+        to: "/blog",
+        label: "Blog",
+        tooltip: "Read our blogs",
+      },
+      {
         to: "/income-tax-calculator",
         label: "Income Tax",
         tooltip: "Income Tax Calculator",

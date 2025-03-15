@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 64px auto 0;
+}
+
+.blogCardsContainer {
+    margin-bottom: 64px;
+}
+
+.container hr {
+    border: 1px solid var(--border-color);
+    margin: 8px 4px;
+    width: 100%;
+}
+
+.pageTitle {
+    margin-bottom: 64px;
+    color: var(--foreground-secondary)
+}

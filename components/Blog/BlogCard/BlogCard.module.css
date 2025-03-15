@@ -1,0 +1,74 @@
+.container {
+    width: 360px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.container hr {
+    border: 1px dashed var(--border-color);
+    margin: 8px 4px;
+}
+
+.cardInfoContainer {
+    padding: 16px;
+    height: 180px;
+}
+
+.imageContainer {
+    overflow: hidden;
+}
+
+.img {
+    object-fit: cover;
+    vertical-align: middle;
+    object-position: top;
+    position: relative !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+    box-shadow: var(--shadow-card);
+}
+
+.container:hover .img {
+    transform: scale(1.1);
+}
+
+.title {
+    font-weight: 500;
+    margin-bottom: 16px;
+    text-align: center;
+    height: 40px;
+}
+
+.description {
+    display: -webkit-box;
+    color: var(--foreground-secondary);
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 0.9em;
+    font-weight: 300;
+    margin-bottom: 16px;
+    text-align: center;
+    overflow: hidden;
+}
+
+
+.blogInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    font-size: 0.8em;
+    color: var(--foreground-secondary);
+    justify-content: center;
+    margin: 12px 0 8px 0;
+}
+
+.blogInfoItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

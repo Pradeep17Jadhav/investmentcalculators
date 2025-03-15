@@ -1,0 +1,24 @@
+.container {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.8em;
+    font-weight: 300;
+    margin-bottom: 24px;
+}
+
+.titleContainer {
+    height: 48px;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 500;
+    font-size: 1.1em;
+    padding: 8px 16px;
+}
+
+.item {
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 16px;
+}

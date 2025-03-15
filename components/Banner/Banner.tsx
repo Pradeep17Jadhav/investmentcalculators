@@ -1,11 +1,11 @@
 "use client";
 
+import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "./Banner.module.css";
-import { useCallback } from "react";
-import Link from "next/link";
 
 type Props = {
   imgSrc: string;

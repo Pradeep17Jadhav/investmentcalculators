@@ -14,12 +14,7 @@ const RootPage = async () => {
     <div className={defaultStyles.page}>
       <h1 className={styles.pageHeader}>Investment Calculators</h1>
       <div className={styles.calculatorsContainer}>
-        <Grid
-          container
-          justifyContent="center"
-          alignItems={"center"}
-          spacing={4}
-        >
+        <Grid container justifyContent="center" alignItems="center" spacing={4}>
           {calculatorTiles.map((tile) => (
             <Grid
               key={tile.path}
