@@ -1,6 +1,6 @@
 .button {
     border: 1px solid var(--highlight-color-blue);
-    color: #fff;
+    color: var(--foreground);
     padding: 16px 64px;
     border-radius: 48px;
     transition: background-color 0.3s ease-in-out;
@@ -8,6 +8,7 @@
 
 .button:hover {
     background-color: var(--highlight-color-blue-dark);
+    color: #FFF;
 }
 
 .button:active {

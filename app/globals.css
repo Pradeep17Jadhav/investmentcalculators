@@ -3,6 +3,7 @@
   --highlight-color-blue: #0089E7;
   --highlight-color-blue-dark: #0b7ac4;
   --background: #fff;
+  --background-secondary: #FFF;
   --foreground: #171717;
   --foreground-secondary: rgba(23, 23, 23, 0.75);
   --background-image: #fff;
@@ -15,17 +16,18 @@
   --shadow-heavy: 0 8px 16px rgba(0, 0, 5, 0.2);
   --shadow-appbar: rgba(0, 0, 0, 0.08) 0px 1px 4px;
   --dark-background: #fff;
-  --contrast-background: #f4f4f4;
   --banner-background: #f1f8ff;
   --table-background: #fff;
   --banner-shadow: #ffffffee;
   --footer-background: #f2f2f2;
+  --appbar-background: #FFF;
 }
 
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #080E15;
+    --background-secondary: #19202a;
     --foreground: #ededed;
     --foreground-secondary: rgba(237, 237, 237, 0.75);
     --background-image: radial-gradient(at 50% 50%, rgba(0, 41, 82, 0.5), rgb(9, 11, 17));
@@ -38,11 +40,11 @@
     --shadow-heavy: 0 8px 16px rgba(0, 0, 5, 0.5);
     --shadow-appbar: rgba(0, 0, 0, 0.80) 0px 3px 4px;
     --dark-background: #080B11;
-    --contrast-background: #0a141f;
     --banner-background: #071E34;
     --table-background: #090c11;
     --banner-shadow: #000000ee;
-    --footer-background: #080B11;
+    --footer-background: #161b25;
+    --appbar-background: #161b25;
   }
 }
 
