@@ -13,7 +13,9 @@
 .columnItemTitle {
     font-weight: 600;
     font-size: 18px;
-    color: var(--foreground)
+    color: var(--foreground);
+    padding-left: 8px;
+    border-left: 4px solid var(--highlight-color-blue);
 }
 
 .columnItem {

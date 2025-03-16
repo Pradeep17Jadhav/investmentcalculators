@@ -1,9 +1,24 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    padding: 64px 0 0 0;
+}
+
 .pageHeader {
+    text-align: center;
+    margin: 0 0 32px 0;
+}
+
+.sectionContainer {
+    max-width: 1200px;
+    margin-bottom: 96px;
     text-align: center;
 }
 
-.calculatorsContainer {
-    max-width: 1200px;
+.viewMoreBlogsBtn {
+    margin: 48px 0 0 0;
 }
 
 @media (max-width: 600px) {

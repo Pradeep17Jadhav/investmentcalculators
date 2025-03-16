@@ -1,5 +1,11 @@
-.logo {
+.appbarContainer .logo {
     cursor: pointer;
+    margin: 0 8px;
+}
+
+
+.logoContainer {
+    flex-grow: 1;
 }
 
 .appbarContainer {
@@ -11,20 +17,24 @@
     box-shadow: var(--shadow-appbar);
 }
 
+.navLinkContainer {
+    height: 64px;
+}
+
 .navLink {
+    box-sizing: content-box;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     padding: 0 16px;
-    margin: 0 8px;
-    height: 40px;
-    border-radius: 8px;
-    border: 1px solid var(--contrast-background);
+    margin: 0;
+    min-height: 100%;
     font-size: 0.9em;
+    border-bottom: 2px solid transparent;
 }
 
 .activeNavLink, .navLink:hover {
-    background-color: var(--highlight-color-blue);
+    border-bottom: 2px solid var(--highlight-color-blue);
     color: #fff;
 }

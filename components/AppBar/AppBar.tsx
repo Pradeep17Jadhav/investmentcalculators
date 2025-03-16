@@ -17,6 +17,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import styles from "./AppBar.module.css";
 import Link from "next/link";
+import Logo from "../Logo/Logo";
+import { PATHS } from "@/constants/path";
 
 const AppBar = () => {
   const router = useRouter();
@@ -80,8 +82,6 @@ const AppBar = () => {
     []
   );
 
-  const handleLogoClicked = useCallback(() => router.push("/"), [router]);
-
   return (
     <>
       <Container className={styles.appbarContainer} maxWidth={false}>
@@ -124,12 +124,13 @@ const AppBar = () => {
               ))}
             </Menu>
           </Box>
-          <h6 className={styles.logo} onClick={handleLogoClicked}>
-            <span className="profit">Investment</span>
-            <span className="loss">Calculators</span>
-          </h6>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
+          <Link className={styles.logoContainer} href={PATHS.HOME_PAGE}>
+            <Logo className={styles.logo} width={240} height={32} />
+          </Link>
+          <Box
+            className={styles.navLinkContainer}
+            sx={{ flexGrow: 0, display: { xs: "none", sm: "flex" } }}
+          >
             {publicPages.map(({ label, tooltip, to }) => {
               const isActive = pathname === to;
               return (

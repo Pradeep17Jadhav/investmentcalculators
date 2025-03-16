@@ -1,6 +1,6 @@
 import FooterTable from "./FooterTable/FooterTable";
 import { getFooterData } from "./helpers";
-import FooterLogo from "./FooterLogo/FooterLogo";
+import Logo from "../Logo/Logo";
 
 import styles from "./Footer.module.css";
 
@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <div className={styles.footer}>
       <div className={styles.container}>
-        <FooterLogo />
+        <Logo />
         <FooterTable footerData={footerData} />
         <hr className={styles.hr} />
         <div className={styles.madeWithLove}>Made With ❤️ In Mumbai</div>

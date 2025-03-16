@@ -30,10 +30,11 @@
 
 .container:hover {
     box-shadow: var(--shadow-card);
+    border-bottom: 1px solid var(--highlight-color-blue);
 }
 
 .container:hover .img {
-    animation: rotateAnimation 1s ease-in-out;
+    transform: scale(1.1)
 }
 
 .title {

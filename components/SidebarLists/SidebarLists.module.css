@@ -21,4 +21,9 @@
     text-overflow: ellipsis;
     border-bottom: 1px solid var(--border-color);
     padding: 8px 16px;
+    border-left: 2px solid transparent;
+}
+
+.item:hover {
+    border-left: 2px solid var(--highlight-color-blue);
 }
