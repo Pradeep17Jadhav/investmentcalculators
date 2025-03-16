@@ -24,7 +24,6 @@ const BlogsListPage = () => {
           ))}
         </Grid>
       </div>
-      <hr />
     </div>
   );
 };

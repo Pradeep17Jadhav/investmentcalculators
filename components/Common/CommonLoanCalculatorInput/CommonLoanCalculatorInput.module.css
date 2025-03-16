@@ -1,0 +1,5 @@
+.caption {
+    font-size: 0.9em;
+    color: var(--foreground-secondary);
+    margin-bottom: 12px;
+}

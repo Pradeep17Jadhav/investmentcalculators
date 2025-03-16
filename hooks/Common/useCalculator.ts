@@ -185,7 +185,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
   );
 
   useEffect(() => {
-    if (!investment || !expectedReturns || !investmentPeriod) {
+    if (!investment || !expectedReturns || !investmentPeriod.months) {
       setIsValidForm(false);
       setTotalInvestment(0);
       setMaturityValue(0);

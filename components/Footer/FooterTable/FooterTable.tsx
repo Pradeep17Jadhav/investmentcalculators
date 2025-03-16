@@ -24,11 +24,16 @@ const FooterTable = ({ footerData }: Props) => {
         <Grid key={column.title} item xs={6} sm={6} md={3}>
           <div key={column.title} className={styles.footerColumn}>
             <div className={styles.columnItemTitle}>{column.title}</div>
-            {column.columnItems.map((columnItem) => (
-              <div key={columnItem.href} className={styles.columnItem}>
-                <Link href={columnItem.href}>{columnItem.columnItemLabel}</Link>
-              </div>
-            ))}
+            {column.columnItems.map((columnItem) => {
+              const href = `/${columnItem.href.replace(/^\/+/, "")}`;
+              console.log("r", columnItem.href);
+              console.log("p", href);
+              return (
+                <div key={href} className={styles.columnItem}>
+                  <Link href={href}>{columnItem.columnItemLabel}</Link>
+                </div>
+              );
+            })}
           </div>
         </Grid>
       ))}

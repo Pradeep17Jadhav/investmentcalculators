@@ -1,5 +1,5 @@
 import { getConfig } from "@/helpers/config";
-import { Config } from "@/types/ConfigTypes";
+import { Config, LoanCalculatorType } from "@/types/ConfigTypes";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
 
 import styles from "./LoanPage.module.css";
+import LoanCalculatorSummary from "@/components/Loan/LoanCalculatorSummary";
+import CommonLoanCalculator from "@/components/Common/CommonLoanCalculator/CommonLoanCalculator";
 
 const LoanPage = async () => {
   const config: Config = await getConfig();
@@ -17,8 +19,12 @@ const LoanPage = async () => {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>Loan EMI Calculator</h1>
       <h2 className={styles.pageSubtitle}>
-        Loan EMI Calculator - Calculate EMI for Home, Personal & Car Loans
+        Calculate EMI for Home, Personal & Car Loans
       </h2>
+      <CommonLoanCalculator
+        loanCalculatorType={LoanCalculatorType.HOME}
+        Summary={LoanCalculatorSummary}
+      />
       <div className={styles.faqs}>
         {faqs.map((faq, index) => (
           <Accordion key={index}>

@@ -41,14 +41,7 @@ const RootPage = async () => {
         <h1 className={styles.pageHeader}>Recent Blogs</h1>
         <Grid container justifyContent="center" alignItems="center" spacing={4}>
           {recentBlogs.map((blog) => (
-            <Grid
-              key={blog.slug}
-              className={styles.leftColumn}
-              item
-              xs={12}
-              sm={6}
-              lg={4}
-            >
+            <Grid key={blog.slug} className={styles.leftColumn} item>
               <BlogCard blog={blog} />
             </Grid>
           ))}

@@ -100,6 +100,12 @@ export enum CalculatorType {
   Lumpsum = "LUMPSUM",
 }
 
+export enum LoanCalculatorType {
+  HOME = "HOME",
+  CAR = "CAR",
+  PERSONAL = "PERSONAL",
+}
+
 export type InvestmentPeriod = {
   years: number;
   months: number;
