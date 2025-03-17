@@ -5,47 +5,10 @@ import Grid from "@mui/material/Grid/Grid";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import SidebarLists from "@/components/SidebarLists/SidebarLists";
+import SidebarLists from "@/components/Blog/Sidebar/SidebarLists/SidebarLists";
+import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
 
 import styles from "./BlogPage.module.css";
-
-const relatedPosts = {
-  listTitle: "Related posts",
-  list: [
-    {
-      title: "The Power of Compounding: How Small Investments Grow Big",
-      url: "",
-    },
-    {
-      title: "Budgeting 101: Simple Steps to Take Control of Your Finances",
-      url: "",
-    },
-    {
-      title: "Understanding Credit Scores: How to Improve Yours Quickly",
-      url: "",
-    },
-    { title: "Stock Market Basics: A Beginner’s Guide to Investing", url: "" },
-    { title: "How to Build an Emergency Fund and Why It’s Essential", url: "" },
-    {
-      title: "Debt-Free Living: Smart Strategies to Pay Off Loans Faster",
-      url: "",
-    },
-    {
-      title:
-        "Real Estate vs. Stocks: Which is the Better Long-Term Investment?",
-      url: "",
-    },
-    {
-      title: "Gold vs. Mutual Funds: Where Should You Invest in 2025?",
-      url: "",
-    },
-    { title: "Financial Mistakes to Avoid in Your 20s and 30s", url: "" },
-    {
-      title: "Best Passive Income Ideas to Grow Wealth While You Sleep",
-      url: "",
-    },
-  ],
-};
 
 type Props = {
   metadata: BlogMetadata;
@@ -58,11 +21,8 @@ const BlogPage = async ({ metadata, content }: Props) => {
     options: { parseFrontmatter: false },
   });
 
-  const recentPosts = {
-    listTitle: "Recent posts",
-    list: getRecentBlogs(metadata.slug),
-  };
-
+  const recentBlogs = getRecentBlogs(metadata.slug, 3);
+  const relatedBlogs = getRecentBlogs(metadata.slug, 5);
   const title = metadata.title;
   const date = metadata.date;
   const image = metadata.image;
@@ -104,8 +64,8 @@ const BlogPage = async ({ metadata, content }: Props) => {
           </Grid>
           <Grid item sm={4} xs={12}>
             <div className={styles.rightSection}>
-              <SidebarLists blogPosts={recentPosts} />
-              <SidebarLists blogPosts={relatedPosts} />
+              <SidebarLists title="Related Blogs" blogs={relatedBlogs} />
+              <SidebarCards title="Latest Blogs" blogs={recentBlogs} />
             </div>
           </Grid>
         </Grid>

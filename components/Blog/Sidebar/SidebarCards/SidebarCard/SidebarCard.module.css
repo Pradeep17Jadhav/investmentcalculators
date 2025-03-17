@@ -1,0 +1,78 @@
+.container {
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    height: 120px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.cardInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    height: 120px;
+}
+
+
+.imageContainer {
+    overflow: hidden;
+    max-width: 100px;
+    min-width: 100px;
+    width: 100px;
+}
+
+.img {
+    object-fit: cover;
+    vertical-align: middle;
+    object-position: top;
+    position: relative !important;
+}
+
+.container:hover {
+    transform: scale(1.03)
+}
+
+.title {
+    font-weight: 500;
+    margin-bottom: 16px;
+    text-align: center;
+    height: 40px;
+    line-height: 1.4em;
+}
+
+.blogInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    font-size: 0.8em;
+    color: var(--foreground-secondary);
+    justify-content: center;
+    margin: 12px 0 8px 0;
+}
+
+.blogInfoItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.blogInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    font-size: 0.8em;
+    color: var(--foreground-secondary);
+    justify-content: center;
+    margin: 12px 0 8px 0;
+}
+
+.blogInfoItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

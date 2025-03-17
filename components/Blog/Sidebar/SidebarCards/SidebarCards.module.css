@@ -1,0 +1,13 @@
+.container {
+    transition: box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 16px
+}
+
+.title {
+    font-weight: 500;
+    font-size: 1.5em;
+    margin: 0;
+    font-family: "Inter", Helvetica, sans-serif;
+}

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { Blogs } from "@/types/BlogTypes";
 
 const BLOGS_DIR = path.join(process.cwd(), "content/blogs");
 
@@ -10,9 +11,9 @@ export type BlogMetadata = {
   date: string;
   keywords?: string[];
   slug: string;
-  image?: string;
-  author?: string;
-  readTime?: number;
+  image: string;
+  author: string;
+  readTime: number;
 };
 
 export const getAllBlogs = (): BlogMetadata[] => {
@@ -22,9 +23,8 @@ export const getAllBlogs = (): BlogMetadata[] => {
       const filePath = path.join(BLOGS_DIR, filename);
       const fileContents = fs.readFileSync(filePath, "utf-8");
       const { data, content } = matter(fileContents);
-      const wordCount = content
-        .split(/\s+/)
-        .filter((word) => word.length > 0).length;
+      const wordCount = getWordCount(content);
+      const readTime = estimateReadingTime(wordCount);
 
       return {
         title: data.title ?? "Untitled",
@@ -34,20 +34,26 @@ export const getAllBlogs = (): BlogMetadata[] => {
         keywords: data.keywords ?? [],
         slug: data.slug || filename.replace(".mdx", ""),
         image: data.image ?? "/thumbnail.webp",
-        readTime: estimateReadingTime(wordCount) ?? 1,
+        readTime: readTime ?? 1,
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
-export const getRecentBlogs = (currentSlug: string, count: number = 5) => {
+export const getRecentBlogs = (
+  currentSlug: string,
+  count: number = 5
+): Blogs => {
   return getAllBlogs()
-    .slice(0, count)
     .map((blog) => ({
       title: blog.title,
       url: blog.slug,
+      image: blog.image,
+      date: blog.date,
+      readTime: blog.readTime,
     }))
-    .filter((blog) => blog.url !== currentSlug);
+    .filter((blog) => blog.url !== currentSlug)
+    .slice(0, count);
 };
 
 export function getBlogBySlug(slug: string) {
@@ -56,9 +62,8 @@ export function getBlogBySlug(slug: string) {
 
   const fileContents = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContents);
-  const wordCount = content
-    .split(/\s+/)
-    .filter((word) => word.length > 0).length;
+  const wordCount = getWordCount(content);
+  const readTime = estimateReadingTime(wordCount);
 
   const metadata: BlogMetadata = {
     title: data.title ?? "Untitled",
@@ -68,9 +73,8 @@ export function getBlogBySlug(slug: string) {
     keywords: data.keywords ?? [],
     image: data.image ?? null,
     slug: data.slug || slug.replace(".mdx", ""),
-    readTime: estimateReadingTime(wordCount) ?? 1,
+    readTime: readTime ?? 1,
   };
-
   return { metadata, content };
 }
 
@@ -83,3 +87,6 @@ export const formatDate = (date: string) =>
     month: "long",
     year: "numeric",
   });
+
+export const getWordCount = (text: string) =>
+  text.split(/\s+/).filter((word) => word.length > 0).length;

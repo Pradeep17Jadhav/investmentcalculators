@@ -9,8 +9,8 @@
   --background-image: #fff;
   --paper-1: #fff;
   --border-color: hsla(220, 20%, 80%, 0.4);
-  --border-color-hovered: rgb(30, 125, 215);
-  --border-color-focused: rgb(25, 115, 200);
+  --border-color-hovered: #1e7dd7;
+  --border-color-focused: #1973c8;
   --shadow: rgba(9, 11, 17, 0.05) 0px 5px 15px 0px, rgba(19, 23, 32, 0.05) 0px 15px 35px -5px;
   --shadow-card: rgba(9, 11, 17, 0.05) 0px 5px 15px 0px, rgba(19, 23, 32, 0.05) 0px 15px 35px -5px;
   --shadow-heavy: 0 8px 16px rgba(0, 0, 5, 0.2);
@@ -21,6 +21,7 @@
   --banner-shadow: #ffffffee;
   --footer-background: #f2f2f2;
   --appbar-background: #FFF;
+  --hover-background: rgba(0, 139, 231, 0.08);
 }
 
 
@@ -45,6 +46,7 @@
     --banner-shadow: #000000ee;
     --footer-background: #161b25;
     --appbar-background: #161b25;
+    --hover-background: rgba(0, 139, 231, 0.08);
   }
 }
 
