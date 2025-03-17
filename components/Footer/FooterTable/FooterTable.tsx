@@ -26,8 +26,6 @@ const FooterTable = ({ footerData }: Props) => {
             <div className={styles.columnItemTitle}>{column.title}</div>
             {column.columnItems.map((columnItem) => {
               const href = `/${columnItem.href.replace(/^\/+/, "")}`;
-              console.log("r", columnItem.href);
-              console.log("p", href);
               return (
                 <div key={href} className={styles.columnItem}>
                   <Link href={href}>{columnItem.columnItemLabel}</Link>

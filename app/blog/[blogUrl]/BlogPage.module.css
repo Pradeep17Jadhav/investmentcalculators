@@ -4,6 +4,10 @@
     line-height: 28px;
 }
 
+.blogPost .content a {
+    color: var(--highlight-color-blue)
+}
+
 .blogPost hr {
     border: 1px solid var(--border-color);
     margin: 12px 0;
