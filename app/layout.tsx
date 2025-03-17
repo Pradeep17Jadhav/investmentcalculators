@@ -97,6 +97,12 @@ export default function RootLayout({
               "@type": "WebSite",
               name: "Investment Calculators",
               url: "https://investmentcalculators.in",
+              alternateName: [
+                "InvestmentCalculators",
+                "Investment Calculator",
+                "InvestmentCalculator",
+                "Inv Calculators",
+              ],
             }),
           }}
         />
@@ -110,6 +116,12 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebPage",
               name: "Investment Calculators",
+              alternateName: [
+                "InvestmentCalculators",
+                "Investment Calculator",
+                "InvestmentCalculator",
+                "Inv Calculators",
+              ],
               description:
                 "Free online financial calculators for SIP, EMI, FD, RD, and income tax to help users plan their investments effectively.",
               url: "https://investmentcalculators.in",
