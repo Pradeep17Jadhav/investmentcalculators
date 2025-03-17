@@ -1,7 +1,8 @@
 import BlogsListPage from "./BlogsListPage";
 
 export const metadata = {
-  title: "Finance & Investment Blog - Expert Insights & Tips",
+  title:
+    "Investment Blogs - Expert Insights on Investments, Taxes, Mutual Funds & Financial Planning",
   description:
     "Explore expert insights on finance, investment, and insurance. Stay updated with the latest trends, strategies, and guides to grow your wealth.",
   keywords:
