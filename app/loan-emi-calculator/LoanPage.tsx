@@ -8,7 +8,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 
 import styles from "./LoanPage.module.css";
 import LoanCalculatorSummary from "@/components/Loan/LoanCalculatorSummary";
-import CommonLoanCalculator from "@/components/Common/CommonLoanCalculator/CommonLoanCalculator";
+import CommonLoanCalculator from "@/components/Common/LoanCalculator/CommonLoanCalculator/CommonLoanCalculator";
 
 const LoanPage = async () => {
   const config: Config = await getConfig();

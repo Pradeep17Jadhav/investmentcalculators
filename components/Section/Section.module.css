@@ -3,7 +3,7 @@
     flex-direction: column;
     border: 1px solid var(--border-color);
     border-radius: 0.80rem;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-section);
     background-color: var(--paper-1);
     height: 100%;
     padding: 1.5rem;
@@ -11,7 +11,7 @@
 }
 
 .section:hover {
-    box-shadow: var(--shadow-heavy);
+    box-shadow: var(--shadow);
 }
 
 @media (max-width: 900px) {

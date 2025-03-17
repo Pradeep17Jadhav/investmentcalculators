@@ -1,5 +1,5 @@
-export const toDecimal = (num: number, decimals?: number) =>
-  parseFloat(num.toFixed(decimals || 2));
+export const toDecimal = (num: number, decimals: number = 2) =>
+  Number(num.toFixed(decimals));
 
 export const sanitizeROI = (roi: string) => {
   const validROI = roi.replace(/[^0-9.]/g, "").replace(/^(\d*\.\d*)\./g, "$1");
