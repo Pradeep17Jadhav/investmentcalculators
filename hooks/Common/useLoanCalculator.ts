@@ -73,7 +73,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
           currInvestment,
           true,
           0,
-          10000000
+          1000000000
         )
       );
     },
