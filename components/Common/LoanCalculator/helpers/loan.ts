@@ -1,0 +1,48 @@
+import {
+  AmortisationTableFrequency,
+  AmortizationRow,
+  TableColumn,
+} from "../../../../types/Loan/LoanTypes";
+import { formatPrice } from "@/helpers/price";
+import { columnsWithPrice } from "../constants";
+
+export const getCellValue = (
+  col: TableColumn,
+  row: AmortizationRow,
+  frequency: AmortisationTableFrequency
+) => {
+  if (columnsWithPrice.includes(col.key)) {
+    return `₹${formatPrice(row[col.key as keyof AmortizationRow])}`;
+  }
+  if (col.key === "loanPaidPercent") {
+    return `${row[col.key as keyof AmortizationRow].toFixed(2)}%`;
+  }
+  if (col.key === "year") {
+    return getPrintableMonthYear(
+      frequency,
+      row[col.key as keyof AmortizationRow]
+    );
+  }
+
+  return row[col.key as keyof AmortizationRow];
+};
+
+/**
+ * Converts from YYYYMM i.e. 202503 to March 2025
+ * @param frequency
+ * @param YYYYMM
+ * @returns
+ */
+export const getPrintableMonthYear = (
+  frequency: AmortisationTableFrequency,
+  YYYYMM: number
+) => {
+  const yearMonthStr = YYYYMM.toString();
+  if (frequency === AmortisationTableFrequency.Yearly) {
+    return yearMonthStr;
+  }
+  return new Date(
+    parseInt(yearMonthStr.substring(0, 4)),
+    parseInt(yearMonthStr.substring(4, 6)) - 1
+  ).toLocaleString("en-US", { month: "short", year: "numeric" });
+};

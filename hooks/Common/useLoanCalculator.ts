@@ -101,7 +101,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
           investmentPeriod.months,
           false,
           0,
-          600
+          1200
         ),
       }));
     },

@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo } from "react";
-import CommonLoanCalculatorInput from "../CommonLoanCalculatorInput/CommonLoanCalculatorInput";
 import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
 import { useLoanCalculator } from "@/hooks/Common/useLoanCalculator";
 import { LoanCalculatorType } from "@/types/ConfigTypes";
 import { LoanCalculatorProps } from "@/components/Loan/LoanCalculatorSummary";
-import LoanAmmortisation from "../LoanAmmortisation/LoanAmmortisation";
+import { AmortisationTableFrequency } from "@/types/Loan/LoanTypes";
 import { useLoanAmortization } from "@/hooks/Loan/useLoanAmmortisation";
+import LoanAmmortisation from "../LoanAmmortisation/LoanAmmortisation";
+import CommonLoanCalculatorInput from "../CommonLoanCalculatorInput/CommonLoanCalculatorInput";
 
 import styles from "./CommonLoanCalculator.module.css";
 
@@ -31,11 +32,11 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     handleTenureChange,
   } = useLoanCalculator({ loanCalculatorType });
 
-  const { rowData: ammortisationData } = useLoanAmortization(
-    loanAmount,
-    roi,
-    tenure.months
-  );
+  const {
+    yearlyRowData: yearlyAmortisationData,
+    monthlyRowData: monthlyAmortisationData,
+    downloadAmmortisation,
+  } = useLoanAmortization(loanAmount, roi, tenure.months);
 
   const input = useMemo(
     () => (
@@ -77,7 +78,18 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         }
       />
       {isValidForm && (
-        <LoanAmmortisation ammortisationData={ammortisationData} />
+        <>
+          <LoanAmmortisation
+            ammortisationData={yearlyAmortisationData}
+            downloadAmmortisation={downloadAmmortisation}
+            frequency={AmortisationTableFrequency.Yearly}
+          />
+          <LoanAmmortisation
+            ammortisationData={monthlyAmortisationData}
+            downloadAmmortisation={downloadAmmortisation}
+            frequency={AmortisationTableFrequency.Monthly}
+          />
+        </>
       )}
     </div>
   );

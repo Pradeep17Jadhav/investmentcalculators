@@ -20,6 +20,8 @@
     "dayjs": "^1.11.13",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "next": "15.1.7",
     "next-mdx-remote": "^5.0.0",
     "next-sitemap": "^4.2.3",

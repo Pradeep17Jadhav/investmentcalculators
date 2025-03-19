@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
-import { AmortizationRow } from "@/types/Loan/LoanTypes";
+import {
+  AmortisationTableFrequency,
+  AmortizationRow,
+  LoanData,
+} from "@/types/Loan/LoanTypes";
+import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGenerator";
 
 export const useLoanAmortization = (
   loanAmount: number,
@@ -9,7 +14,9 @@ export const useLoanAmortization = (
   tenureMonths: number,
   startDate?: string
 ) => {
-  const [rowData, setRowData] = useState<AmortizationRow[]>([]);
+  const [yearlyRowData, setYearlyRowData] = useState<AmortizationRow[]>([]);
+  const [monthlyRowData, setMonthlyRowData] = useState<AmortizationRow[]>([]);
+  const [emi, setEmi] = useState(0);
   const sanitizedROI = sanitizeROI(roi);
   const isIncompleteROT = sanitizedROI[sanitizedROI.length - 1] === ".";
   const rateOfInterest = isIncompleteROT
@@ -22,8 +29,10 @@ export const useLoanAmortization = (
     const emi =
       (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /
       (Math.pow(1 + monthlyRate, tenureMonths) - 1);
-
     let balance = loanAmount;
+    const monthlyData: AmortizationRow[] = [];
+    setEmi(emi);
+
     const yearData: Record<
       number,
       Omit<AmortizationRow, "loanPaidPercent">
@@ -34,8 +43,9 @@ export const useLoanAmortization = (
       const principal = emi - interest;
       balance -= principal;
       const emiDate = baseDate.add(i, "month");
-      const year = emiDate.year();
+      const monthYear = Number(emiDate.format("YYYYMM"));
 
+      const year = emiDate.year();
       if (!yearData[year]) {
         yearData[year] = {
           year,
@@ -50,9 +60,18 @@ export const useLoanAmortization = (
       yearData[year].interestPaid += interest;
       yearData[year].totalPaid += emi;
       yearData[year].balance = Math.max(0, balance);
+
+      monthlyData.push({
+        year: monthYear,
+        principalPaid: Math.round(principal),
+        interestPaid: Math.round(interest),
+        totalPaid: Math.round(emi),
+        balance: Math.round(Math.max(0, balance)),
+        loanPaidPercent: toDecimal(((loanAmount - balance) / loanAmount) * 100),
+      });
     }
 
-    const formattedRowData: AmortizationRow[] = Object.values(yearData).map(
+    const formattedYearlyData: AmortizationRow[] = Object.values(yearData).map(
       (yearEntry) => ({
         ...yearEntry,
         principalPaid: Math.round(yearEntry.principalPaid),
@@ -65,13 +84,43 @@ export const useLoanAmortization = (
       })
     );
 
-    setRowData(formattedRowData);
+    setYearlyRowData(formattedYearlyData);
+    setMonthlyRowData(monthlyData);
   }, [loanAmount, rateOfInterest, tenureMonths, baseDate]);
+
+  const downloadAmmortisation = useCallback(
+    (
+      tableFrequency: AmortisationTableFrequency = AmortisationTableFrequency.Monthly
+    ) => {
+      const tableData =
+        tableFrequency === AmortisationTableFrequency.Yearly
+          ? yearlyRowData
+          : monthlyRowData;
+      const monthYear = Number(baseDate.format("YYYYMM"));
+      const loanData: LoanData = {
+        loanAmount,
+        rateOfInterest,
+        tenureMonths,
+        emi,
+        monthYear,
+      };
+      generatePDF(tableData, loanData, tableFrequency);
+    },
+    [
+      baseDate,
+      emi,
+      loanAmount,
+      monthlyRowData,
+      rateOfInterest,
+      tenureMonths,
+      yearlyRowData,
+    ]
+  );
 
   useEffect(() => {
     calculateAmortization();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loanAmount, roi, tenureMonths]);
+  }, [loanAmount, roi, tenureMonths, startDate]);
 
-  return { rowData };
+  return { yearlyRowData, monthlyRowData, downloadAmmortisation };
 };

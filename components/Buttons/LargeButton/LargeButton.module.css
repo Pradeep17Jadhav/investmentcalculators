@@ -1,16 +1,33 @@
+.link {
+    border: 1px solid var(--highlight-color-blue);
+    color: var(--foreground);
+    padding: 16px 64px;
+    border-radius: 48px;
+    transition: background-color 0.3s ease-in-out;
+    background: none;
+}
+
 .button {
     border: 1px solid var(--highlight-color-blue);
     color: var(--foreground);
     padding: 16px 64px;
     border-radius: 48px;
     transition: background-color 0.3s ease-in-out;
+    background: none;
+    font-size: 1em;
+    cursor: pointer;
 }
 
-.button:hover {
+.button:hover, .link:hover {
     background-color: var(--highlight-color-blue-dark);
     color: #FFF;
 }
 
-.button:active {
+.button:active, .link:active {
     background-color: var(--highlight-color-blue);
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
 }

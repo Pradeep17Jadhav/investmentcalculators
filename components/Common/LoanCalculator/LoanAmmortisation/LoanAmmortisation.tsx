@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import Section from "@/components/Section/Section";
 import Table from "@mui/material/Table/Table";
 import TableBody from "@mui/material/TableBody/TableBody";
@@ -5,72 +6,42 @@ import TableCell from "@mui/material/TableCell/TableCell";
 import TableContainer from "@mui/material/TableContainer/TableContainer";
 import TableHead from "@mui/material/TableHead/TableHead";
 import TableRow from "@mui/material/TableRow/TableRow";
-import { AmortizationRow } from "@/types/Loan/LoanTypes";
-import { formatPrice } from "@/helpers/price";
+import {
+  AmortisationTableFrequency,
+  AmortizationRow,
+  TableColumn,
+} from "@/types/Loan/LoanTypes";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useCallback } from "react";
+import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
+import { desktopColumns, tabletColumns } from "../constants";
+import { getCellValue } from "../helpers/loan";
 
 import styles from "./LoanAmmortisation.module.css";
 
-type TableColumn = {
-  key: string;
-  label: string;
-};
-type TableColumns = TableColumn[];
-
-enum ColumnLabels {
-  YEAR = "Year",
-  PRINCIPAL = "Principal",
-  INTEREST = "Interest",
-  BALANCE = "Balance",
-  TOTAL_PAYMENT = "Total Payment",
-  LOAN_PAID_PERCENT = "Loan Paid %",
-}
-
 type Props = {
   ammortisationData: AmortizationRow[];
+  downloadAmmortisation: (tableFrequency?: AmortisationTableFrequency) => void;
+  frequency?: AmortisationTableFrequency;
 };
 
-const LoanAmmortisation = ({ ammortisationData }: Props) => {
+const LoanAmmortisation = ({
+  ammortisationData,
+  downloadAmmortisation,
+  frequency = AmortisationTableFrequency.Monthly,
+}: Props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md")); // >900px
-
-  const desktopColumns: TableColumns = [
-    { key: "year", label: ColumnLabels.YEAR },
-    { key: "principalPaid", label: ColumnLabels.PRINCIPAL },
-    { key: "interestPaid", label: ColumnLabels.INTEREST },
-    { key: "totalPaid", label: ColumnLabels.TOTAL_PAYMENT },
-    { key: "balance", label: ColumnLabels.BALANCE },
-    { key: "loanPaidPercent", label: ColumnLabels.LOAN_PAID_PERCENT },
-  ];
-
-  const tabletColumns: TableColumns = [
-    { key: "year", label: ColumnLabels.YEAR },
-    { key: "principalPaid", label: ColumnLabels.PRINCIPAL },
-    { key: "interestPaid", label: ColumnLabels.INTEREST },
-    { key: "balance", label: ColumnLabels.BALANCE },
-  ];
-
+  const isMonthly = frequency === AmortisationTableFrequency.Monthly;
   const columns = isDesktop ? desktopColumns : tabletColumns;
 
-  const getCellValue = useCallback((col: TableColumn, row: AmortizationRow) => {
-    const columnsWithPrice = [
-      "principalPaid",
-      "interestPaid",
-      "totalPaid",
-      "balance",
-    ];
-    if (columnsWithPrice.includes(col.key)) {
-      return `₹${formatPrice(row[col.key as keyof AmortizationRow])}`;
-    }
-    if (col.key === "loanPaidPercent") {
-      return `${row[col.key as keyof AmortizationRow].toFixed(2)}%`;
-    }
-    return row[col.key as keyof AmortizationRow];
-  }, []);
+  const handleAmortisationDownload = useCallback(() => {
+    downloadAmmortisation(frequency);
+  }, [downloadAmmortisation, frequency]);
 
   return (
-    <Section title="Amortisation Schedule">
+    <Section
+      title={`${isMonthly ? "Monthly" : "Yearly"} Amortisation Schedule`}
+    >
       <TableContainer>
         <Table
           className={styles.table}
@@ -84,7 +55,11 @@ const LoanAmmortisation = ({ ammortisationData }: Props) => {
                   key={col.key}
                   align={col.key === "year" ? "left" : "right"}
                 >
-                  {col.label}
+                  {col.key === "year"
+                    ? isMonthly
+                      ? "Month"
+                      : "Year"
+                    : col.label}
                 </TableCell>
               ))}
             </TableRow>
@@ -98,7 +73,7 @@ const LoanAmmortisation = ({ ammortisationData }: Props) => {
                     align={col.key === "year" ? "left" : "right"}
                     sx={{ backgroundColor: "transparent" }}
                   >
-                    {getCellValue(col, row)}
+                    {getCellValue(col, row, frequency)}
                   </TableCell>
                 ))}
               </TableRow>
@@ -106,6 +81,13 @@ const LoanAmmortisation = ({ ammortisationData }: Props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <LargeButton
+        className={styles.downloadPdfBtn}
+        onClick={handleAmortisationDownload}
+        centered
+      >
+        Download Ammortisation PDF
+      </LargeButton>
     </Section>
   );
 };

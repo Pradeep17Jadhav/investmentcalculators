@@ -1,3 +1,7 @@
 .table {
     font-variant-numeric: tabular-nums;
 }
+
+.downloadPdfBtn {
+    margin-top: 12px;
+}

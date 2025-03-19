@@ -1,19 +1,46 @@
 import React from "react";
+import Link from "next/link";
+import classnames from "classnames";
 
 import styles from "./LargeButton.module.css";
-import Link from "next/link";
 
 type Props = {
   children: React.ReactNode;
-  className: string;
-  href: string;
+  className?: string;
+  href?: string;
+  target?: string;
+  centered?: boolean;
+  onClick?: () => void;
 };
-const LargeButton = ({ children, className, href }: Props) => {
+const LargeButton = ({
+  children,
+  className,
+  href,
+  onClick,
+  target,
+  centered,
+}: Props) => {
+  const linkProps = {
+    onClick,
+    target: target || "_self",
+    rel: target === "_blank" ? "noopener noreferrer" : undefined,
+    className: styles.link,
+  };
+
   return (
-    <div className={className}>
-      <Link className={styles.button} href={href}>
-        {children}
-      </Link>
+    <div className={classnames(className, { [styles.centered]: centered })}>
+      {href ? (
+        <Link href={href} {...linkProps}>
+          {children}
+        </Link>
+      ) : (
+        <button
+          onClick={onClick}
+          className={classnames(styles.button, className)}
+        >
+          {children}
+        </button>
+      )}
     </div>
   );
 };
