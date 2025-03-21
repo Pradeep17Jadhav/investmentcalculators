@@ -20,37 +20,37 @@ const LegalRegulatoryPage = async () => {
     <div className={styles.container}>
       <div className={styles.section}>
         <h3>Legal Compliance</h3>
-        <div>{termsData.legalCompliance}</div>
+        <p>{termsData.legalCompliance}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Disclaimer</h3>
-        <div>{termsData.disclaimer}</div>
+        <p>{termsData.disclaimer}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Regulatory Oversight</h3>
-        <div>{termsData.regulatoryOversight}</div>
+        <p>{termsData.regulatoryOversight}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Dispute Resolution</h3>
-        <div>{termsData.disputeResolution}</div>
+        <p>{termsData.disputeResolution}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Changes to Legal & Regulatory</h3>
-        <div>{termsData.changesToLegal}</div>
+        <p>{termsData.changesToLegal}</p>
       </div>
       <div className={styles.section}>
         <h3>Contact Us</h3>
-        <div>{termsData.contactUs}</div>
-        <div>
+        <p>{termsData.contactUs}</p>
+        <p>
           Email:{" "}
           <a href="mailto:contact@pradeepjadhav.com">
             contact@pradeepjadhav.com
           </a>
-        </div>
+        </p>
       </div>
     </div>
   );

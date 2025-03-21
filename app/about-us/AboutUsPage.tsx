@@ -19,33 +19,33 @@ const AboutUsPage = async () => {
     <div className={styles.container}>
       <div className={styles.section}>
         <h3>About Us</h3>
-        <div>{aboutUsData.aboutUs}</div>
+        <p>{aboutUsData.aboutUs}</p>
       </div>
       <div className={styles.section}>
         <h3>Our Goal</h3>
-        <div>{aboutUsData.goal}</div>
+        <p>{aboutUsData.goal}</p>
       </div>
       <div className={styles.section}>
         <h3>Mission</h3>
-        <div>{aboutUsData.mission}</div>
+        <p>{aboutUsData.mission}</p>
       </div>
       <div className={styles.section}>
         <h3>Vision</h3>
-        <div>{aboutUsData.vision}</div>
+        <p>{aboutUsData.vision}</p>
       </div>
       <div className={styles.section}>
         <h3>Disclaimer</h3>
-        <div>{aboutUsData.disclaimer}</div>
+        <p>{aboutUsData.disclaimer}</p>
       </div>
       <div className={styles.section}>
         <h3>Contact Us</h3>
-        <div>{aboutUsData.contactUs}</div>
-        <div>
+        <p>{aboutUsData.contactUs}</p>
+        <p>
           Email:{" "}
           <a href="mailto:contact@pradeepjadhav.com">
             contact@pradeepjadhav.com
           </a>
-        </div>
+        </p>
       </div>
     </div>
   );

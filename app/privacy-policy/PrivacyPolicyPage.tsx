@@ -29,53 +29,57 @@ const PrivacyPolicyPage = async () => {
     <div className={styles.container}>
       <div className={styles.section}>
         <h3>Introduction</h3>
-        <div>{privacyPolicyData.introduction}</div>
+        <p>{privacyPolicyData.introduction}</p>
       </div>
       <div className={styles.section}>
         <h3>Information We Might Collect</h3>
-        <ul>
-          {privacyPolicyData.informationCollected.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
+        <p>
+          <ul>
+            {privacyPolicyData.informationCollected.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </p>
       </div>
       <div className={styles.section}>
         <h3>How We Use Your Information</h3>
-        <ul>
-          {privacyPolicyData.informationUsedTo.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
+        <p>
+          <ul>
+            {privacyPolicyData.informationUsedTo.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </p>
       </div>
 
       <div className={styles.section}>
         <h3>Data Protection</h3>
-        <div>{privacyPolicyData.dataProtection}</div>
+        <p>{privacyPolicyData.dataProtection}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Cookies</h3>
-        <div>{privacyPolicyData.cookies}</div>
+        <p>{privacyPolicyData.cookies}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Third-Party Links</h3>
-        <div>{privacyPolicyData.tplinks}</div>
+        <p>{privacyPolicyData.tplinks}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Changes to the Privacy Policy</h3>
-        <div>{privacyPolicyData.changesToPolicy}</div>
+        <p>{privacyPolicyData.changesToPolicy}</p>
       </div>
       <div className={styles.section}>
         <h3>Contact Us</h3>
-        <div>{privacyPolicyData.contactUs}</div>
-        <div>
+        <p>{privacyPolicyData.contactUs}</p>
+        <p>
           Email:{" "}
           <a href="mailto:contact@pradeepjadhav.com">
             contact@pradeepjadhav.com
           </a>
-        </div>
+        </p>
       </div>
     </div>
   );

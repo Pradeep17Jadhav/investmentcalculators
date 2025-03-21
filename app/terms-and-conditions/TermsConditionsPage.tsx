@@ -28,53 +28,57 @@ const TermsConditionsPage = async () => {
     <div className={styles.container}>
       <div className={styles.section}>
         <h3>Introduction</h3>
-        <div>{termsData.introduction}</div>
+        <p>{termsData.introduction}</p>
       </div>
       <div className={styles.section}>
         <h3>Use of Website</h3>
-        <ul>
-          {termsData.useOfWebsite.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
+        <p>
+          <ul>
+            {termsData.useOfWebsite.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </p>
       </div>
       <div className={styles.section}>
         <h3>Calculators Disclaimer</h3>
-        <ul>
-          {termsData.disclaimers.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
+        <p>
+          <ul>
+            {termsData.disclaimers.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </p>
       </div>
 
       <div className={styles.section}>
         <h3>Intellectual Property</h3>
-        <div>{termsData.intellectualProperty}</div>
+        <p>{termsData.intellectualProperty}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Limitation of Liability</h3>
-        <div>{termsData.limitationOfLiability}</div>
+        <p>{termsData.limitationOfLiability}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Governing Law</h3>
-        <div>{termsData.laws}</div>
+        <p>{termsData.laws}</p>
       </div>
 
       <div className={styles.section}>
         <h3>Changes to the Terms</h3>
-        <div>{termsData.changesToTerms}</div>
+        <p>{termsData.changesToTerms}</p>
       </div>
       <div className={styles.section}>
         <h3>Contact Us</h3>
-        <div>{termsData.contactUs}</div>
-        <div>
+        <p>{termsData.contactUs}</p>
+        <p>
           Email:{" "}
           <a href="mailto:contact@pradeepjadhav.com">
             contact@pradeepjadhav.com
           </a>
-        </div>
+        </p>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const RDPage = async () => {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>Recurring Deposit (RD) Calculator</h1>
       <h2 className={styles.pageSubtitle}>
-        RD Calculator - Calculate Recurring Deposit Interest & Maturity Value
+        Calculate Recurring Deposit Interest & Maturity Value
       </h2>
       <CommonCalculator
         calculatorType={CalculatorType.RD}

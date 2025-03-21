@@ -19,7 +19,7 @@ const LumpsumPage = async () => {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>Lumpsum Investment Calculator</h1>
       <h2 className={styles.pageSubtitle}>
-        Calculate Lumpsum Investment Returns & Growth
+        Calculate Lumpsum Investment Returns
       </h2>
       <CommonCalculator
         calculatorType={CalculatorType.Lumpsum}

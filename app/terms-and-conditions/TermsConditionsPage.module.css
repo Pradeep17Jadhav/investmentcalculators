@@ -6,6 +6,10 @@
     padding: 16px;
 }
 
+.container p {
+    font-size: 0.8em;
+}
+
 .section {
     margin-bottom: 64px;
 }

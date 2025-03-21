@@ -17,11 +17,9 @@ const FDPage = async () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.pageTitle}>
-        Fixed Deposit (FD) Interest Calculator
-      </h1>
+      <h1 className={styles.pageTitle}>Fixed Deposit (FD) Calculator</h1>
       <h2 className={styles.pageSubtitle}>
-        FD Calculator - Calculate Fixed Deposit Interest & Maturity Value
+        Calculate Fixed Deposit Interest & Maturity Value
       </h2>
       <CommonCalculator
         calculatorType={CalculatorType.FD}
