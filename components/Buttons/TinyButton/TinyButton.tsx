@@ -19,7 +19,7 @@ const TinyButton = ({
 }: Props) => {
   return (
     <div
-      className={classnames(className, {
+      className={classnames({
         [styles.centered]: centered,
       })}
     >
