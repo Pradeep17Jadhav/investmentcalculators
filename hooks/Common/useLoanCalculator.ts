@@ -3,7 +3,7 @@ import {
   getUpdatedInterestRateWithValidation,
   getUpdatedNumberWithValidation,
 } from "@/helpers/price";
-import { InvestmentPeriod, LoanCalculatorType } from "@/types/ConfigTypes";
+import { Tenure, LoanCalculatorType } from "@/types/ConfigTypes";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
 
 type Props = {
@@ -22,13 +22,13 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   const [totalPayment, setTotalPayment] = useState(0);
   const [roi, setRoi] = useState("");
   const [emi, setEmi] = useState(0);
-  const [tenure, setTenure] = useState<InvestmentPeriod>(initialTenure);
+  const [tenure, setTenure] = useState<Tenure>(initialTenure);
   const [interest, setInterest] = useState(0);
   const [timesPaid, setTimesPaid] = useState(0);
 
   const calculateHomeLoan = useCallback(() => {
     const monthlyRate = parseFloat(roi) / 12 / 100;
-    const totalMonths = tenure.months;
+    const totalMonths = tenure.years * 12 + tenure.months;
 
     const emi =
       (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) /
@@ -65,8 +65,11 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   }, [calculateHomeLoan, loanCalculatorType]);
 
   const handleLoanAmountChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const newInvestment = e.target.value || "0";
+    (
+      e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      amount?: string
+    ) => {
+      const newInvestment = e?.target.value || amount || "0";
       setLoanAmount((currInvestment) =>
         getUpdatedNumberWithValidation(
           newInvestment,
@@ -81,8 +84,8 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   );
 
   const handleROIChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const newROIInput = e.target.value || "0";
+    (e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, roi?: string) => {
+      const newROIInput = e?.target.value || roi || "0";
       const sanitizedROI = sanitizeROI(newROIInput);
       setRoi((currROI) =>
         getUpdatedInterestRateWithValidation(sanitizedROI, currROI)
@@ -91,17 +94,40 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     []
   );
 
-  const handleTenureChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const newInvestmentPeriod = e.target.value || "0";
-      setTenure((investmentPeriod) => ({
-        ...investmentPeriod,
-        months: getUpdatedNumberWithValidation(
-          newInvestmentPeriod,
-          investmentPeriod.months,
+  const handleTenureYearsChange = useCallback(
+    (
+      e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      years?: string
+    ) => {
+      const newTenureYears = e?.target.value || years || "0";
+      setTenure((tenure) => ({
+        ...tenure,
+        years: getUpdatedNumberWithValidation(
+          newTenureYears,
+          tenure.years,
           false,
           0,
-          1200
+          100
+        ),
+      }));
+    },
+    []
+  );
+
+  const handleTenureMonthsChange = useCallback(
+    (
+      e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      months?: string
+    ) => {
+      const newInvestmentPeriod = e?.target.value || months || "0";
+      setTenure((tenure) => ({
+        ...tenure,
+        months: getUpdatedNumberWithValidation(
+          newInvestmentPeriod,
+          tenure.months,
+          false,
+          0,
+          11
         ),
       }));
     },
@@ -109,7 +135,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   );
 
   useEffect(() => {
-    if (!loanAmount || !parseFloat(roi) || !tenure.months) {
+    if (!loanAmount || !parseFloat(roi) || (!tenure.months && !tenure.years)) {
       setIsValidForm(false);
       setTotalPayment(0);
       setEmi(0);
@@ -133,6 +159,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     emi,
     handleLoanAmountChange,
     handleROIChange,
-    handleTenureChange,
+    handleTenureYearsChange,
+    handleTenureMonthsChange,
   };
 };

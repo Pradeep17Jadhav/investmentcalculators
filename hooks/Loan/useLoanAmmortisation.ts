@@ -7,13 +7,15 @@ import {
   LoanData,
 } from "@/types/Loan/LoanTypes";
 import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGenerator";
+import { Tenure } from "@/types/ConfigTypes";
 
 export const useLoanAmortization = (
   loanAmount: number,
   roi: string,
-  tenureMonths: number,
+  tenure: Tenure,
   startDate?: string
 ) => {
+  const tenureMonths = tenure.years * 12 + tenure.months;
   const [yearlyRowData, setYearlyRowData] = useState<AmortizationRow[]>([]);
   const [monthlyRowData, setMonthlyRowData] = useState<AmortizationRow[]>([]);
   const [emi, setEmi] = useState(0);

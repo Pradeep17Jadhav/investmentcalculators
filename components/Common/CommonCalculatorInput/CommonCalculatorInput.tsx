@@ -5,7 +5,7 @@ import { ToWords } from "to-words";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import { InputAdornment, TextField } from "@mui/material";
-import { CalculatorType, InvestmentPeriod } from "@/types/ConfigTypes";
+import { CalculatorType, Tenure } from "@/types/ConfigTypes";
 
 import styles from "./CommonCalculatorInput.module.css";
 
@@ -31,7 +31,7 @@ type Props = {
   calculatorType: CalculatorType;
   investment: number;
   expectedReturns: number;
-  investmentPeriod: InvestmentPeriod;
+  investmentPeriod: Tenure;
 };
 
 const CommonCalculatorInput = ({

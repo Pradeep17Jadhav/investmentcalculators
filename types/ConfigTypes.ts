@@ -106,7 +106,7 @@ export enum LoanCalculatorType {
   PERSONAL = "PERSONAL",
 }
 
-export type InvestmentPeriod = {
+export type Tenure = {
   years: number;
   months: number;
   days: number;

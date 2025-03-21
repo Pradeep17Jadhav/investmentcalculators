@@ -29,14 +29,15 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     emi,
     handleLoanAmountChange,
     handleROIChange,
-    handleTenureChange,
+    handleTenureYearsChange,
+    handleTenureMonthsChange,
   } = useLoanCalculator({ loanCalculatorType });
 
   const {
     yearlyRowData: yearlyAmortisationData,
     monthlyRowData: monthlyAmortisationData,
     downloadAmmortisation,
-  } = useLoanAmortization(loanAmount, roi, tenure.months);
+  } = useLoanAmortization(loanAmount, roi, tenure);
 
   const input = useMemo(
     () => (
@@ -44,7 +45,8 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         loanCalculatorType={loanCalculatorType}
         handleLoanAmountChange={handleLoanAmountChange}
         handleROIChange={handleROIChange}
-        handleTenureChange={handleTenureChange}
+        handleTenureYearsChange={handleTenureYearsChange}
+        handleTenureMonthsChange={handleTenureMonthsChange}
         loanAmount={loanAmount}
         roi={roi}
         tenure={tenure}
@@ -53,7 +55,8 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     [
       handleLoanAmountChange,
       handleROIChange,
-      handleTenureChange,
+      handleTenureYearsChange,
+      handleTenureMonthsChange,
       loanAmount,
       loanCalculatorType,
       roi,

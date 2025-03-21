@@ -48,7 +48,7 @@
 }
 
 .blogPost .content ul, .blogPost .content ol {
-    margin: 16px 0;
+    margin: 16px 0 16px 16px;
     font-weight: 300;
 }
 

@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { toDecimal } from "@/helpers/numbers";
 import { getUpdatedNumberWithValidation } from "@/helpers/price";
-import { CalculatorType, InvestmentPeriod } from "@/types/ConfigTypes";
+import { CalculatorType, Tenure } from "@/types/ConfigTypes";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -18,7 +18,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const [investment, setInvestment] = useState(0);
   const [totalInvestment, setTotalInvestment] = useState(0);
   const [expectedReturns, setExpectedReturns] = useState(0);
-  const [investmentPeriod, setInvestmentPeriod] = useState<InvestmentPeriod>(
+  const [investmentPeriod, setInvestmentPeriod] = useState<Tenure>(
     initialInvestmentPeriod
   );
   const [profit, setProfit] = useState(0);
