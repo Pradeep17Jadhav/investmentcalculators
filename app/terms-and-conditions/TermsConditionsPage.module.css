@@ -10,6 +10,10 @@
     font-size: 0.8em;
 }
 
+.container p ul, .container p ol {
+    margin-left: 16px;
+}
+
 .section {
     margin-bottom: 64px;
 }
