@@ -42,18 +42,14 @@ export const getAllBlogs = (): BlogMetadata[] => {
 
 export const getRecentBlogs = (
   currentSlug: string,
-  count: number = 5
+  count: number = 5,
+  random: boolean = false
 ): Blogs => {
-  return getAllBlogs()
-    .map((blog) => ({
-      title: blog.title,
-      url: blog.slug,
-      image: blog.image,
-      date: blog.date,
-      readTime: blog.readTime,
-    }))
-    .filter((blog) => blog.url !== currentSlug)
-    .slice(0, count);
+  let blogs = getAllBlogs().filter((blog) => blog.slug !== currentSlug);
+  if (random) {
+    blogs = blogs.sort(() => Math.random() - 0.5);
+  }
+  return blogs.slice(0, count);
 };
 
 export function getBlogBySlug(slug: string) {

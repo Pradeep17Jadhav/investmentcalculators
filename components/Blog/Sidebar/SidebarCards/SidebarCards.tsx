@@ -13,7 +13,7 @@ const SidebarCards = ({ title, blogs }: Props) => {
     <div className={styles.container}>
       <div className={styles.title}>{title}</div>
       {blogs.map((blog) => (
-        <SidebarCard key={blog.url} blog={blog} />
+        <SidebarCard key={blog.slug} blog={blog} />
       ))}
     </div>
   );

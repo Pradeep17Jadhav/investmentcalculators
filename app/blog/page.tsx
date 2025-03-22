@@ -1,4 +1,4 @@
-import BlogsListPage from "./BlogsListPage";
+import BlogsListPage from "./BlogListPage/BlogsListPage";
 
 const title =
   "Investment Blogs - Expert Insights on Investments, Taxes, Mutual Funds & Financial Planning";

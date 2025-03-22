@@ -1,9 +1,3 @@
-export type Blog = {
-  title: string;
-  url: string;
-  image: string;
-  date: string;
-  readTime: number;
-};
+import { BlogMetadata } from "@/helpers/blogs";
 
-export type Blogs = Blog[];
+export type Blogs = BlogMetadata[];

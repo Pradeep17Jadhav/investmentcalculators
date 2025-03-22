@@ -80,6 +80,10 @@ const CommonCalculatorInput = ({
     }
   }, [calculatorType]);
 
+  const shouldShowMonths =
+    calculatorType === CalculatorType.FD ||
+    calculatorType === CalculatorType.RD;
+
   return (
     <Section title={commonCalculatorLabels[calculatorType].title}>
       <InputElement
@@ -123,6 +127,7 @@ const CommonCalculatorInput = ({
         isActiveMonthButton={isActiveMonthButton}
         selectYears={selectYears}
         selectMonths={selectMonths}
+        showMonths={shouldShowMonths}
       />
     </Section>
   );

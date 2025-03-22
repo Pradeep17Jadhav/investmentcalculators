@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import Link from "next/link";
 import Image from "next/image";
 import { BlogMetadata, formatDate } from "@/helpers/blogs";
@@ -6,11 +7,12 @@ import styles from "./BlogCard.module.css";
 
 type Props = {
   blog: BlogMetadata;
+  mini?: boolean;
 };
 
-const BlogCard = ({ blog }: Props) => {
+const BlogCard = ({ blog, mini }: Props) => {
   return (
-    <div className={styles.container}>
+    <div className={classnames(styles.container, { [styles.mini]: mini })}>
       <div className={styles.imageContainer}>
         {!!blog.image && (
           <Link href={`blog/${blog.slug}`}>

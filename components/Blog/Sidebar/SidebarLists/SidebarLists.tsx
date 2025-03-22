@@ -1,11 +1,7 @@
 import classnames from "classnames";
 import Link from "next/link";
 import styles from "./SidebarLists.module.css";
-
-type Blogs = {
-  title: string;
-  url: string;
-}[];
+import { Blogs } from "@/types/BlogTypes";
 
 type Props = {
   title: string;
@@ -16,10 +12,10 @@ const SidebarLists = ({ title, blogs }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>{title}</div>
-      {blogs.map((post, index) => (
-        <Link className={styles.link} key={index} href={post.url || "#"}>
+      {blogs.map((blog, index) => (
+        <Link className={styles.link} key={index} href={blog.slug || "#"}>
           <div className={classnames(styles.item, styles.itemDivider)}>
-            {post.title}
+            {blog.title}
           </div>
         </Link>
       ))}

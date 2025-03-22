@@ -22,7 +22,7 @@ const BlogPage = async ({ metadata, content }: Props) => {
   });
 
   const recentBlogs = getRecentBlogs(metadata.slug, 3);
-  const relatedBlogs = getRecentBlogs(metadata.slug, 5);
+  const relatedBlogs = getRecentBlogs(metadata.slug, 10, true);
   const title = metadata.title;
   const date = metadata.date;
   const image = metadata.image;
@@ -70,7 +70,6 @@ const BlogPage = async ({ metadata, content }: Props) => {
           </Grid>
         </Grid>
       </div>
-      <hr />
     </div>
   );
 };
