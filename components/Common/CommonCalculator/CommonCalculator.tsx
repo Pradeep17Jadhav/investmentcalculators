@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import CommonCalculatorInput from "../CommonCalculatorInput/CommonCalculatorInput";
-import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
+import TwoColumnContainer from "@/components/Common/TwoColumnContainer/TwoColumnContainer";
 import { useCalculator } from "@/hooks/Common/useCalculator";
 import { CalculatorType } from "@/types/ConfigTypes";
 import { LumpsumCalculatorProps } from "@/components/Lumpsum/LumpsumCalculatorSummary";
@@ -22,13 +22,14 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
     yearlyInvestment,
     totalInvestment,
     expectedReturns,
-    investmentPeriod,
+    tenure,
     profit,
     maturityValue,
     timesMultiplied,
     handleInvestmentChange,
-    handleExpectedReturnsChange,
-    handleInvestmentPeriodChange,
+    handleROIChange,
+    handleTenureYearsChange,
+    handleTenureMonthsChange,
   } = useCalculator({ calculatorType });
 
   const input = useMemo(
@@ -36,21 +37,23 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
       <CommonCalculatorInput
         calculatorType={calculatorType}
         handleInvestmentChange={handleInvestmentChange}
-        handleExpectedReturnsChange={handleExpectedReturnsChange}
-        handleInvestmentPeriodChange={handleInvestmentPeriodChange}
+        handleROIChange={handleROIChange}
+        handleTenureYearsChange={handleTenureYearsChange}
+        handleTenureMonthsChange={handleTenureMonthsChange}
         investment={investment}
         expectedReturns={expectedReturns}
-        investmentPeriod={investmentPeriod}
+        tenure={tenure}
       />
     ),
     [
       calculatorType,
-      expectedReturns,
-      handleExpectedReturnsChange,
       handleInvestmentChange,
-      handleInvestmentPeriodChange,
-      investmentPeriod,
+      handleROIChange,
+      handleTenureYearsChange,
+      handleTenureMonthsChange,
       investment,
+      expectedReturns,
+      tenure,
     ]
   );
 

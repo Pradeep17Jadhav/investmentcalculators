@@ -1,0 +1,13 @@
+.inputContainer {
+    margin-bottom: 32px;
+}
+
+.tenureContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.inputItem {
+    flex-grow: 1;
+}

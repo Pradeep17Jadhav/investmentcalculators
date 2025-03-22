@@ -12,3 +12,11 @@ export const sanitizeROI = (roi: string) => {
   }
   return validROI;
 };
+
+export const isNumber = (value: unknown): value is number => {
+  return typeof value === "number" && !isNaN(value);
+};
+
+export const isObject = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === "object" && value !== null;
+};

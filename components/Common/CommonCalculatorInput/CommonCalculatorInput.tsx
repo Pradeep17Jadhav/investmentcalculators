@@ -1,119 +1,128 @@
 "use client";
 
-import { ChangeEvent } from "react";
-import { ToWords } from "to-words";
+import { ChangeEvent, useMemo } from "react";
 import Section from "@/components/Section/Section";
-import { formatPrice } from "@/helpers/price";
-import { InputAdornment, TextField } from "@mui/material";
 import { CalculatorType, Tenure } from "@/types/ConfigTypes";
-
-import styles from "./CommonCalculatorInput.module.css";
-
-type CalculatorInputLabels = {
-  [key in CalculatorType]: {
-    title: string;
-    investment: string;
-    returns: string;
-    tenure: string;
-  };
-};
+import InputElement from "../InputElement/InputElement";
+import {
+  commonCalculatorLabels,
+  defaultInvestmentAmount,
+  defaultInvestmentReturnsRate,
+  defaultInvestmentTenureMonths,
+  defaultInvestmentTenureYears,
+  defaultOneTimeAmount,
+} from "./constants";
+import { useLoanSelection } from "@/hooks/Loan/useLoanSelection";
+import TenureInputElement from "../TenureInputElement/TenureInputElement";
 
 type Props = {
   handleInvestmentChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    investment?: string
   ) => void;
-  handleExpectedReturnsChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  handleROIChange: (
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    roi?: string
   ) => void;
-  handleInvestmentPeriodChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  handleTenureYearsChange: (
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    years?: string
+  ) => void;
+  handleTenureMonthsChange: (
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    months?: string
   ) => void;
   calculatorType: CalculatorType;
   investment: number;
   expectedReturns: number;
-  investmentPeriod: Tenure;
+  tenure: Tenure;
 };
 
 const CommonCalculatorInput = ({
   handleInvestmentChange,
-  handleExpectedReturnsChange,
-  handleInvestmentPeriodChange,
+  handleROIChange,
+  handleTenureYearsChange,
+  handleTenureMonthsChange,
   calculatorType,
   investment,
   expectedReturns,
-  investmentPeriod,
+  tenure: tenure,
 }: Props) => {
-  const toWords = new ToWords();
+  const {
+    isActiveInvestmentButton,
+    isActiveYearButton,
+    isActiveMonthButton,
+    isActiveROIButton,
+    selectInvestment,
+    selectYears,
+    selectMonths,
+    selectROI,
+  } = useLoanSelection({
+    investment,
+    tenure,
+    roi: expectedReturns.toString(),
+    handleInvestmentChange,
+    handleROIChange,
+    handleTenureYearsChange,
+    handleTenureMonthsChange,
+  });
 
-  const labels: CalculatorInputLabels = {
-    [CalculatorType.SIP]: {
-      title: "SIP Details",
-      investment: "Monthly Investment",
-      returns: "Expected Returns",
-      tenure: "Investment Period",
-    },
-    [CalculatorType.FD]: {
-      title: "FD Details",
-      investment: "Saving Amount",
-      returns: "Expected Returns",
-      tenure: "Investment Period",
-    },
-    [CalculatorType.RD]: {
-      title: "RD Details",
-      investment: "Monthly Savings",
-      returns: "Expected Returns",
-      tenure: "Investment Period",
-    },
-    [CalculatorType.Lumpsum]: {
-      title: "Lumpsum Investment Details",
-      investment: "Investment Amount",
-      returns: "Expected Returns",
-      tenure: "Investment Period",
-    },
-  };
+  const defaultInvestmentShortcutData = useMemo(() => {
+    switch (calculatorType) {
+      case CalculatorType.SIP:
+        return defaultInvestmentAmount;
+      case CalculatorType.FD:
+        return defaultOneTimeAmount;
+      case CalculatorType.RD:
+        return defaultInvestmentAmount;
+      case CalculatorType.Lumpsum:
+        return defaultOneTimeAmount;
+    }
+  }, [calculatorType]);
 
   return (
-    <Section title={labels[calculatorType].title}>
-      <TextField
-        placeholder={labels[calculatorType].investment}
-        variant="outlined"
-        value={investment ? formatPrice(investment) : ""}
-        onChange={handleInvestmentChange}
-        fullWidth
-        margin="normal"
+    <Section title={commonCalculatorLabels[calculatorType].title}>
+      <InputElement
+        value={investment}
+        buttonsData={defaultInvestmentShortcutData}
+        label={commonCalculatorLabels[calculatorType].investment}
+        placeholder={
+          commonCalculatorLabels[calculatorType].investmentPlaceholder
+        }
+        isPrice={true}
+        handleChange={handleInvestmentChange}
+        isActiveShortcutButton={isActiveInvestmentButton}
+        selectShortcutButton={selectInvestment}
       />
-      {!!investment && (
-        <div className={styles.caption}>{toWords.convert(investment)}</div>
-      )}
-      <TextField
-        placeholder={labels[calculatorType].returns}
-        type="number"
-        variant="outlined"
-        value={expectedReturns || ""}
-        onChange={handleExpectedReturnsChange}
-        fullWidth
-        margin="normal"
-        slotProps={{
-          input: {
-            endAdornment: <InputAdornment position="end">%</InputAdornment>,
-          },
-        }}
+
+      <InputElement
+        value={expectedReturns}
+        buttonsData={defaultInvestmentReturnsRate}
+        label={commonCalculatorLabels[calculatorType].returns}
+        placeholder={commonCalculatorLabels[calculatorType].roiPlaceholder}
+        handleChange={handleROIChange}
+        isActiveShortcutButton={isActiveROIButton}
+        selectShortcutButton={selectROI}
+        isROI={true}
       />
-      <TextField
-        placeholder={labels[calculatorType].tenure}
-        variant="outlined"
-        type="number"
-        value={investmentPeriod.months || ""}
-        onChange={handleInvestmentPeriodChange}
-        fullWidth
-        margin="normal"
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">months</InputAdornment>
-            ),
-          },
-        }}
+
+      <TenureInputElement
+        tenure={tenure}
+        label={commonCalculatorLabels[calculatorType].tenure}
+        placeholderYears={
+          commonCalculatorLabels[calculatorType].tenureYearsPlaceholder
+        }
+        placeholderMonths={
+          commonCalculatorLabels[calculatorType].tenureMonthsPlaceholder
+        }
+        yearsData={defaultInvestmentTenureYears}
+        monthsData={defaultInvestmentTenureMonths}
+        handleYearChange={handleTenureYearsChange}
+        handleMonthChange={handleTenureMonthsChange}
+        isActiveYearButton={isActiveYearButton}
+        isActiveMonthButton={isActiveMonthButton}
+        selectYears={selectYears}
+        selectMonths={selectMonths}
       />
     </Section>
   );

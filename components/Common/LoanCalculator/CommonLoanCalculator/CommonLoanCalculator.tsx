@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import TwoColumnContainer from "@/components/IncomeTax/TwoColumnContainer/TwoColumnContainer";
+import TwoColumnContainer from "@/components/Common/TwoColumnContainer/TwoColumnContainer";
 import { useLoanCalculator } from "@/hooks/Common/useLoanCalculator";
 import { LoanCalculatorType } from "@/types/ConfigTypes";
 import { LoanCalculatorProps } from "@/components/Loan/LoanCalculatorSummary";

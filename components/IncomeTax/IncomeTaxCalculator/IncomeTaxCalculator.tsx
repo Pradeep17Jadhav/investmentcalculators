@@ -6,7 +6,7 @@ import { SelectChangeEvent } from "@mui/material";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import IncomeTaxSummary from "../IncomeTaxSummary/IncomeTaxSummary";
 import IncomeTaxInput from "../IncomeTaxInput/IncomeTaxInput";
-import TwoColumnContainer from "../TwoColumnContainer/TwoColumnContainer";
+import TwoColumnContainer from "../../Common/TwoColumnContainer/TwoColumnContainer";
 
 type Props = {
   incomeTaxConfig: IncomeTaxConfig;
@@ -29,8 +29,11 @@ const IncomeTaxCalculator = ({ incomeTaxConfig }: Props) => {
   }, []);
 
   const handleIncomeChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const newIncome = e.target.value || "0";
+    (
+      e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      income?: string
+    ) => {
+      const newIncome = e?.target.value || income || "0";
       onIncomeChange(newIncome);
     },
     [onIncomeChange]

@@ -1,7 +1,7 @@
 "use client";
 
+import { ChangeEvent, useCallback } from "react";
 import Section from "@/components/Section/Section";
-import { formatPrice } from "@/helpers/price";
 import { Budget } from "@/types/ConfigTypes";
 import {
   Checkbox,
@@ -11,15 +11,14 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextField,
 } from "@mui/material";
-import { ChangeEvent } from "react";
-import styles from "./IncomeTaxInput.module.css";
-import { ToWords } from "to-words";
+import InputElement from "@/components/Common/InputElement/InputElement";
+import { defaultIncome } from "./constants";
 
 type Props = {
   handleIncomeChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    income?: string
   ) => void;
   onBudgetSelectionChange: (event: SelectChangeEvent) => void;
   toggleStdDeduction: () => void;
@@ -38,7 +37,15 @@ const IncomeTaxInput = ({
   income,
   budgetIndex,
 }: Props) => {
-  const toWords = new ToWords();
+  const isActiveIncomeButton = useCallback(
+    (selectedIncome: number) => selectedIncome === income,
+    [income]
+  );
+
+  const selectIncome = useCallback(
+    (income: number) => () => handleIncomeChange(undefined, income.toString()),
+    [handleIncomeChange]
+  );
 
   return (
     <Section title="Income Details">
@@ -56,32 +63,29 @@ const IncomeTaxInput = ({
           ))}
         </Select>
       </FormControl>
-      <FormControl margin="normal" fullWidth>
+
+      <FormControl margin="normal" fullWidth sx={{ mb: 3 }}>
         <InputLabel>Tax Regime</InputLabel>
         {budgets.map((budget) => (
-          <Select
-            key={budget.regime}
-            value={budget.regime}
-            label="Tax Regime"
-            onChange={onBudgetSelectionChange}
-          >
+          <Select key={budget.regime} value={budget.regime} label="Tax Regime">
             <MenuItem value={budget.regime}>
               {`${budget.regime} Tax Regime`}
             </MenuItem>
           </Select>
         ))}
       </FormControl>
-      <TextField
-        placeholder="Annual income"
-        variant="outlined"
-        value={income ? formatPrice(income) : ""}
-        onChange={handleIncomeChange}
-        fullWidth
-        margin="normal"
+
+      <InputElement
+        value={income}
+        buttonsData={defaultIncome}
+        label="Annual income"
+        placeholder="25,00,000"
+        isPrice={true}
+        handleChange={handleIncomeChange}
+        isActiveShortcutButton={isActiveIncomeButton}
+        selectShortcutButton={selectIncome}
       />
-      {!!income && (
-        <div className={styles.caption}>{toWords.convert(income)}</div>
-      )}
+
       <FormControlLabel
         sx={{ mb: 2 }}
         control={

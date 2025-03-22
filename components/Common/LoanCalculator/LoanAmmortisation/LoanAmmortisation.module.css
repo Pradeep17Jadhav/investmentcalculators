@@ -5,3 +5,9 @@
 .downloadPdfBtn {
     margin-top: 12px;
 }
+
+@media (max-width: 600px) {
+    .table tr td, .table tr th {
+        font-size: 0.75em !important;
+    }
+}
