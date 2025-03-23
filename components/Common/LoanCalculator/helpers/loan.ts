@@ -35,14 +35,16 @@ export const getCellValue = (
  */
 export const getPrintableMonthYear = (
   frequency: AmortisationTableFrequency,
-  YYYYMM: number
+  YYYYMM: number,
+  fullMonth: boolean = false
 ) => {
   const yearMonthStr = YYYYMM.toString();
   if (frequency === AmortisationTableFrequency.Yearly) {
     return yearMonthStr;
   }
-  return new Date(
+  const monthStr = new Date(
     parseInt(yearMonthStr.substring(0, 4)),
     parseInt(yearMonthStr.substring(4, 6)) - 1
   ).toLocaleString("en-US", { month: "short", year: "numeric" });
+  return fullMonth ? monthStr : monthStr.split(" ")[0];
 };

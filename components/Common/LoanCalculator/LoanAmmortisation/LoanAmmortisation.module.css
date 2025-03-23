@@ -6,6 +6,10 @@
     margin-top: 12px;
 }
 
+.hiddenHeader {
+    visibility: collapse;
+}
+
 @media (max-width: 600px) {
     .table tr td, .table tr th {
         font-size: 0.75em !important;

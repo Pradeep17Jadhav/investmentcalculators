@@ -5,9 +5,8 @@ import TwoColumnContainer from "@/components/Common/TwoColumnContainer/TwoColumn
 import { useLoanCalculator } from "@/hooks/Common/useLoanCalculator";
 import { LoanCalculatorType } from "@/types/ConfigTypes";
 import { LoanCalculatorProps } from "@/components/Loan/LoanCalculatorSummary";
-import { AmortisationTableFrequency } from "@/types/Loan/LoanTypes";
 import { useLoanAmortization } from "@/hooks/Loan/useLoanAmmortisation";
-import LoanAmmortisation from "../LoanAmmortisation/LoanAmmortisation";
+import LoanAmortisation from "../LoanAmmortisation/LoanAmmortisation";
 import CommonLoanCalculatorInput from "../CommonLoanCalculatorInput/CommonLoanCalculatorInput";
 
 import styles from "./CommonLoanCalculator.module.css";
@@ -77,20 +76,19 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
             totalPaid={totalPaid}
             interest={interest}
             emi={emi}
+            starts={monthlyAmortisationData[0]?.year}
+            ends={
+              monthlyAmortisationData[monthlyAmortisationData.length - 1]?.year
+            }
           />
         }
       />
       {isValidForm && (
         <>
-          <LoanAmmortisation
-            ammortisationData={yearlyAmortisationData}
+          <LoanAmortisation
+            ammortisationDataYearly={yearlyAmortisationData}
+            ammortisationDataMonthly={monthlyAmortisationData}
             downloadAmmortisation={downloadAmmortisation}
-            frequency={AmortisationTableFrequency.Yearly}
-          />
-          <LoanAmmortisation
-            ammortisationData={monthlyAmortisationData}
-            downloadAmmortisation={downloadAmmortisation}
-            frequency={AmortisationTableFrequency.Monthly}
           />
         </>
       )}
