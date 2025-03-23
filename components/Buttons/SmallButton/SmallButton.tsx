@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import classnames from "classnames";
 
-import styles from "./LargeButton.module.css";
+import styles from "./SmallButton.module.css";
 
 type Props = {
   children: React.ReactNode;
@@ -10,24 +10,22 @@ type Props = {
   href?: string;
   target?: string;
   centered?: boolean;
-  disabled?: boolean;
   onClick?: () => void;
 };
-const LargeButton = ({
+
+const SmallButton = ({
   children,
   className,
   href,
   onClick,
   target,
   centered,
-  disabled,
 }: Props) => {
   const linkProps = {
     onClick,
     target: target || "_self",
     rel: target === "_blank" ? "noopener noreferrer" : undefined,
     className: styles.link,
-    disabled,
   };
 
   return (
@@ -39,10 +37,7 @@ const LargeButton = ({
       ) : (
         <button
           onClick={onClick}
-          className={classnames(styles.button, className, {
-            [styles.disabled]: disabled,
-          })}
-          disabled={disabled}
+          className={classnames(styles.button, className)}
         >
           {children}
         </button>
@@ -51,4 +46,4 @@ const LargeButton = ({
   );
 };
 
-export default LargeButton;
+export default SmallButton;

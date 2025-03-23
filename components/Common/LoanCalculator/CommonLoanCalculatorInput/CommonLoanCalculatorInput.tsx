@@ -13,8 +13,16 @@ import {
 } from "./constants";
 import InputElement from "../../InputElement/InputElement";
 import TenureInputElement from "../../TenureInputElement/TenureInputElement";
+import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 type Props = {
+  loanCalculatorType: LoanCalculatorType;
+  loanAmount: number;
+  roi: string;
+  tenure: Tenure;
+  isValidForm: boolean;
+  calculate: () => void;
   handleLoanAmountChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     amount?: string
@@ -31,22 +39,23 @@ type Props = {
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     months?: string
   ) => void;
-  loanCalculatorType: LoanCalculatorType;
-  loanAmount: number;
-  roi: string;
-  tenure: Tenure;
 };
 
 const CommonLoanCalculatorInput = ({
   loanCalculatorType,
+  loanAmount,
+  roi,
+  tenure,
+  isValidForm,
+  calculate,
   handleLoanAmountChange,
   handleROIChange,
   handleTenureYearsChange,
   handleTenureMonthsChange,
-  loanAmount,
-  roi,
-  tenure,
 }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const {
     isActiveLoanAmountButton,
     isActiveYearButton,
@@ -105,6 +114,11 @@ const CommonLoanCalculatorInput = ({
         selectMonths={selectMonths}
         showMonths
       />
+      {isMobile && (
+        <LargeButton onClick={calculate} disabled={!isValidForm} centered>
+          CALCULATE
+        </LargeButton>
+      )}
     </Section>
   );
 };

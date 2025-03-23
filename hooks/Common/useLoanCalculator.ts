@@ -5,6 +5,7 @@ import {
 } from "@/helpers/price";
 import { Tenure, LoanCalculatorType } from "@/types/ConfigTypes";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -17,6 +18,9 @@ const initialTenure = {
 };
 
 export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [resultsReady, setResultsReady] = useState(false);
   const [isValidForm, setIsValidForm] = useState(false);
   const [loanAmount, setLoanAmount] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
@@ -47,22 +51,28 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     setTenure(tenure);
   }, [loanAmount, roi, tenure]);
 
-  const calculate = useCallback(() => {
-    switch (loanCalculatorType) {
-      case LoanCalculatorType.HOME: {
-        calculateHomeLoan();
-        break;
+  const calculate = useCallback(
+    (valid?: boolean) => {
+      if (!isValidForm && !valid) return;
+
+      switch (loanCalculatorType) {
+        case LoanCalculatorType.HOME: {
+          calculateHomeLoan();
+          break;
+        }
+        case LoanCalculatorType.CAR: {
+          calculateHomeLoan();
+          break;
+        }
+        case LoanCalculatorType.PERSONAL: {
+          calculateHomeLoan();
+          break;
+        }
       }
-      case LoanCalculatorType.CAR: {
-        calculateHomeLoan();
-        break;
-      }
-      case LoanCalculatorType.PERSONAL: {
-        calculateHomeLoan();
-        break;
-      }
-    }
-  }, [calculateHomeLoan, loanCalculatorType]);
+      setResultsReady(true);
+    },
+    [calculateHomeLoan, isValidForm, loanCalculatorType]
+  );
 
   const handleLoanAmountChange = useCallback(
     (
@@ -135,6 +145,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   );
 
   useEffect(() => {
+    setResultsReady(false);
     if (!loanAmount || !parseFloat(roi) || (!tenure.months && !tenure.years)) {
       setIsValidForm(false);
       setTotalPayment(0);
@@ -144,11 +155,14 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
       return;
     }
     setIsValidForm(true);
-    calculate();
+    if (!isMobile) {
+      calculate(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, roi, tenure]);
 
   return {
+    resultsReady,
     isValidForm,
     loanAmount,
     totalPaid: totalPayment,
@@ -157,6 +171,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     interest,
     timesPaid,
     emi,
+    calculate,
     handleLoanAmountChange,
     handleROIChange,
     handleTenureYearsChange,

@@ -9,6 +9,7 @@ import { getPrintableMonthYear } from "../Common/LoanCalculator/helpers/loan";
 import { AmortisationTableFrequency } from "@/types/Loan/LoanTypes";
 
 export type LoanCalculatorProps = {
+  resultsReady: boolean;
   isValidForm: boolean;
   loanAmount: number;
   roi: string;
@@ -21,6 +22,7 @@ export type LoanCalculatorProps = {
 };
 
 const LoanCalculatorSummary = ({
+  resultsReady,
   isValidForm,
   loanAmount,
   roi,
@@ -33,7 +35,7 @@ const LoanCalculatorSummary = ({
 }: LoanCalculatorProps) => {
   return (
     <Section title="Summary of Loan">
-      {isValidForm && (
+      {resultsReady && isValidForm && (
         <SummaryBlock title="Loan Details">
           <SummaryItem left="Rate of Interest" right={`${roi}%`} />
           <SummaryItem
@@ -57,7 +59,7 @@ const LoanCalculatorSummary = ({
       <SummaryBlock title="Repayment Details">
         <SummaryItem
           left="Principal Amount"
-          right={`₹${formatPrice(loanAmount)}`}
+          right={`₹${formatPrice(resultsReady ? loanAmount : 0)}`}
         />
         <SummaryItem
           left="Interest Payable"

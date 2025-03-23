@@ -20,7 +20,7 @@ import {
 } from "@/types/Loan/LoanTypes";
 import { desktopColumns, tabletColumns } from "../constants";
 import { getCellValue } from "../helpers/loan";
-import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
+import SmallButton from "@/components/Buttons/SmallButton/SmallButton";
 import styles from "./LoanAmortisation.module.css";
 
 type Props = {
@@ -184,20 +184,20 @@ const LoanAmortisation = ({
           </TableBody>
         </Table>
       </TableContainer>
-      <LargeButton
+      <SmallButton
         className={styles.downloadPdfBtn}
         onClick={handleAmortisationDownload(AmortisationTableFrequency.Yearly)}
         centered
       >
         Download Yearly Amortisation PDF
-      </LargeButton>
-      <LargeButton
+      </SmallButton>
+      <SmallButton
         className={styles.downloadPdfBtn}
         onClick={handleAmortisationDownload(AmortisationTableFrequency.Monthly)}
         centered
       >
         Download Monthly Amortisation PDF
-      </LargeButton>
+      </SmallButton>
     </Section>
   );
 };

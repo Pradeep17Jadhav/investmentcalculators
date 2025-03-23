@@ -18,6 +18,7 @@ type Props = {
 
 const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
   const {
+    resultsReady,
     isValidForm,
     loanAmount,
     totalPaid,
@@ -26,6 +27,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     interest,
     timesPaid,
     emi,
+    calculate,
     handleLoanAmountChange,
     handleROIChange,
     handleTenureYearsChange,
@@ -42,24 +44,28 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     () => (
       <CommonLoanCalculatorInput
         loanCalculatorType={loanCalculatorType}
+        loanAmount={loanAmount}
+        roi={roi}
+        tenure={tenure}
+        isValidForm={isValidForm}
+        calculate={calculate}
         handleLoanAmountChange={handleLoanAmountChange}
         handleROIChange={handleROIChange}
         handleTenureYearsChange={handleTenureYearsChange}
         handleTenureMonthsChange={handleTenureMonthsChange}
-        loanAmount={loanAmount}
-        roi={roi}
-        tenure={tenure}
       />
     ),
     [
+      loanCalculatorType,
+      loanAmount,
+      roi,
+      tenure,
+      isValidForm,
+      calculate,
       handleLoanAmountChange,
       handleROIChange,
       handleTenureYearsChange,
       handleTenureMonthsChange,
-      loanAmount,
-      loanCalculatorType,
-      roi,
-      tenure,
     ]
   );
 
@@ -69,6 +75,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         leftColumn={input}
         rightColumn={
           <Summary
+            resultsReady={resultsReady}
             isValidForm={isValidForm}
             loanAmount={loanAmount}
             roi={roi}
@@ -83,14 +90,12 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
           />
         }
       />
-      {isValidForm && (
-        <>
-          <LoanAmortisation
-            amortisationDataYearly={yearlyAmortisationData}
-            amortisationDataMonthly={monthlyAmortisationData}
-            downloadAmortisation={downloadAmortisation}
-          />
-        </>
+      {isValidForm && resultsReady && (
+        <LoanAmortisation
+          amortisationDataYearly={yearlyAmortisationData}
+          amortisationDataMonthly={monthlyAmortisationData}
+          downloadAmortisation={downloadAmortisation}
+        />
       )}
     </div>
   );

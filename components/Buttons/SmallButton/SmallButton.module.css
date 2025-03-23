@@ -4,7 +4,7 @@
     text-transform: uppercase;
     border: 1px solid var(--highlight-color-blue);
     color: var(--foreground);
-    padding: 16px 64px;
+    padding: 8px 32px;
     border-radius: 48px;
     transition: background-color 0.3s ease-in-out;
     background: none;
@@ -16,11 +16,11 @@
     text-transform: uppercase;
     border: 1px solid var(--highlight-color-blue);
     color: var(--foreground);
-    padding: 16px 64px;
+    padding: 8px 32px;
     border-radius: 48px;
     transition: background-color 0.3s ease-in-out;
     background: none;
-    font-size: 1em;
+    font-size: 0.9em;
     cursor: pointer;
 }
 
@@ -31,17 +31,6 @@
 
 .button:active, .link:active {
     background-color: var(--highlight-color-blue);
-}
-
-.disabled {
-    border: 1px solid var(--border-color);
-    cursor: not-allowed;
-    color: var(--foreground-secondary);
-}
-
-.disabled:hover {
-    background-color: transparent !important;
-    color: var(--foreground-secondary) !important;
 }
 
 .centered {
