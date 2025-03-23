@@ -1,4 +1,4 @@
-export type AmortizationRow = {
+export type AmortisationRow = {
   year: number;
   principalPaid: number;
   interestPaid: number;

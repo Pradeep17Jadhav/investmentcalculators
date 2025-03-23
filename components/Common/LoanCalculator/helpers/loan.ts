@@ -1,6 +1,6 @@
 import {
   AmortisationTableFrequency,
-  AmortizationRow,
+  AmortisationRow,
   TableColumn,
 } from "../../../../types/Loan/LoanTypes";
 import { formatPrice } from "@/helpers/price";
@@ -8,23 +8,23 @@ import { columnsWithPrice } from "../constants";
 
 export const getCellValue = (
   col: TableColumn,
-  row: AmortizationRow,
+  row: AmortisationRow,
   frequency: AmortisationTableFrequency
 ) => {
   if (columnsWithPrice.includes(col.key)) {
-    return `₹${formatPrice(row[col.key as keyof AmortizationRow])}`;
+    return `₹${formatPrice(row[col.key as keyof AmortisationRow])}`;
   }
   if (col.key === "loanPaidPercent") {
-    return `${row[col.key as keyof AmortizationRow].toFixed(2)}%`;
+    return `${row[col.key as keyof AmortisationRow].toFixed(2)}%`;
   }
   if (col.key === "year") {
     return getPrintableMonthYear(
       frequency,
-      row[col.key as keyof AmortizationRow]
+      row[col.key as keyof AmortisationRow]
     );
   }
 
-  return row[col.key as keyof AmortizationRow];
+  return row[col.key as keyof AmortisationRow];
 };
 
 /**

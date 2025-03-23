@@ -5,8 +5,8 @@ import TwoColumnContainer from "@/components/Common/TwoColumnContainer/TwoColumn
 import { useLoanCalculator } from "@/hooks/Common/useLoanCalculator";
 import { LoanCalculatorType } from "@/types/ConfigTypes";
 import { LoanCalculatorProps } from "@/components/Loan/LoanCalculatorSummary";
-import { useLoanAmortization } from "@/hooks/Loan/useLoanAmmortisation";
-import LoanAmortisation from "../LoanAmmortisation/LoanAmmortisation";
+import { useLoanAmortisation } from "@/hooks/Loan/useLoanAmortisation";
+import LoanAmortisation from "../LoanAmortisation/LoanAmortisation";
 import CommonLoanCalculatorInput from "../CommonLoanCalculatorInput/CommonLoanCalculatorInput";
 
 import styles from "./CommonLoanCalculator.module.css";
@@ -35,8 +35,8 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
   const {
     yearlyRowData: yearlyAmortisationData,
     monthlyRowData: monthlyAmortisationData,
-    downloadAmmortisation,
-  } = useLoanAmortization(loanAmount, roi, tenure);
+    downloadAmortisation,
+  } = useLoanAmortisation(loanAmount, roi, tenure);
 
   const input = useMemo(
     () => (
@@ -86,9 +86,9 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
       {isValidForm && (
         <>
           <LoanAmortisation
-            ammortisationDataYearly={yearlyAmortisationData}
-            ammortisationDataMonthly={monthlyAmortisationData}
-            downloadAmmortisation={downloadAmmortisation}
+            amortisationDataYearly={yearlyAmortisationData}
+            amortisationDataMonthly={monthlyAmortisationData}
+            downloadAmortisation={downloadAmortisation}
           />
         </>
       )}

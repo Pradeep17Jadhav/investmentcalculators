@@ -3,21 +3,21 @@ import dayjs from "dayjs";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
 import {
   AmortisationTableFrequency,
-  AmortizationRow,
+  AmortisationRow,
   LoanData,
 } from "@/types/Loan/LoanTypes";
 import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGenerator";
 import { Tenure } from "@/types/ConfigTypes";
 
-export const useLoanAmortization = (
+export const useLoanAmortisation = (
   loanAmount: number,
   roi: string,
   tenure: Tenure,
   startDate?: string
 ) => {
   const tenureMonths = tenure.years * 12 + tenure.months;
-  const [yearlyRowData, setYearlyRowData] = useState<AmortizationRow[]>([]);
-  const [monthlyRowData, setMonthlyRowData] = useState<AmortizationRow[]>([]);
+  const [yearlyRowData, setYearlyRowData] = useState<AmortisationRow[]>([]);
+  const [monthlyRowData, setMonthlyRowData] = useState<AmortisationRow[]>([]);
   const [emi, setEmi] = useState(0);
   const sanitizedROI = sanitizeROI(roi);
   const isIncompleteROT = sanitizedROI[sanitizedROI.length - 1] === ".";
@@ -26,18 +26,18 @@ export const useLoanAmortization = (
     : parseFloat(sanitizedROI);
   const baseDate = startDate ? dayjs(startDate) : dayjs();
 
-  const calculateAmortization = useCallback(() => {
+  const calculateAmortisation = useCallback(() => {
     const monthlyRate = rateOfInterest / 12 / 100;
     const emi =
       (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /
       (Math.pow(1 + monthlyRate, tenureMonths) - 1);
     let balance = loanAmount;
-    const monthlyData: AmortizationRow[] = [];
+    const monthlyData: AmortisationRow[] = [];
     setEmi(emi);
 
     const yearData: Record<
       number,
-      Omit<AmortizationRow, "loanPaidPercent">
+      Omit<AmortisationRow, "loanPaidPercent">
     > = {};
 
     for (let i = 0; i < tenureMonths; i++) {
@@ -73,7 +73,7 @@ export const useLoanAmortization = (
       });
     }
 
-    const formattedYearlyData: AmortizationRow[] = Object.values(yearData).map(
+    const formattedYearlyData: AmortisationRow[] = Object.values(yearData).map(
       (yearEntry) => ({
         ...yearEntry,
         principalPaid: Math.round(yearEntry.principalPaid),
@@ -90,7 +90,7 @@ export const useLoanAmortization = (
     setMonthlyRowData(monthlyData);
   }, [loanAmount, rateOfInterest, tenureMonths, baseDate]);
 
-  const downloadAmmortisation = useCallback(
+  const downloadAmortisation = useCallback(
     (
       tableFrequency: AmortisationTableFrequency = AmortisationTableFrequency.Monthly
     ) => {
@@ -120,9 +120,9 @@ export const useLoanAmortization = (
   );
 
   useEffect(() => {
-    calculateAmortization();
+    calculateAmortisation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, roi, tenureMonths, startDate]);
 
-  return { yearlyRowData, monthlyRowData, downloadAmmortisation };
+  return { yearlyRowData, monthlyRowData, downloadAmortisation };
 };

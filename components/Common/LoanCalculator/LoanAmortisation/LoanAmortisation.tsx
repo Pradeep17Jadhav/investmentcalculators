@@ -16,23 +16,23 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Section from "@/components/Section/Section";
 import {
   AmortisationTableFrequency,
-  AmortizationRow,
+  AmortisationRow,
 } from "@/types/Loan/LoanTypes";
 import { desktopColumns, tabletColumns } from "../constants";
 import { getCellValue } from "../helpers/loan";
 import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
-import styles from "./LoanAmmortisation.module.css";
+import styles from "./LoanAmortisation.module.css";
 
 type Props = {
-  ammortisationDataYearly: AmortizationRow[];
-  ammortisationDataMonthly: AmortizationRow[];
-  downloadAmmortisation: (tableFrequency?: AmortisationTableFrequency) => void;
+  amortisationDataYearly: AmortisationRow[];
+  amortisationDataMonthly: AmortisationRow[];
+  downloadAmortisation: (tableFrequency?: AmortisationTableFrequency) => void;
   frequency?: AmortisationTableFrequency;
 };
 const LoanAmortisation = ({
-  ammortisationDataYearly,
-  ammortisationDataMonthly,
-  downloadAmmortisation,
+  amortisationDataYearly,
+  amortisationDataMonthly,
+  downloadAmortisation,
 }: Props) => {
   const theme = useTheme();
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
@@ -52,15 +52,15 @@ const LoanAmortisation = ({
   };
 
   const getMonthlyDataForYear = (year: number) => {
-    return ammortisationDataMonthly.filter(
+    return amortisationDataMonthly.filter(
       (row) => Math.floor(row.year / 100) === year
     );
   };
 
   const handleAmortisationDownload = useCallback(
     (frequency: AmortisationTableFrequency) => () =>
-      downloadAmmortisation(frequency),
-    [downloadAmmortisation]
+      downloadAmortisation(frequency),
+    [downloadAmortisation]
   );
 
   return (
@@ -90,7 +90,7 @@ const LoanAmortisation = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {ammortisationDataYearly.map((yearlyRow) => {
+            {amortisationDataYearly.map((yearlyRow) => {
               const monthlyData = getMonthlyDataForYear(yearlyRow.year);
               const isExpanded = expandedRows.has(yearlyRow.year);
               return (
@@ -137,7 +137,7 @@ const LoanAmortisation = ({
                     >
                       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                         <Table
-                          className={styles.table}
+                          className={styles.collapsibleTable}
                           size="small"
                           sx={{ tableLayout: "fixed" }}
                         >

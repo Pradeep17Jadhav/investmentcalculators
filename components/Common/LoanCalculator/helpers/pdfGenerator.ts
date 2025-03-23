@@ -6,12 +6,12 @@ import { columnsWithPrice, desktopColumns } from "../constants";
 import { getPrintableMonthYear } from "./loan";
 import {
   AmortisationTableFrequency,
-  AmortizationRow,
+  AmortisationRow,
   LoanData,
 } from "../../../../types/Loan/LoanTypes";
 
 export const generatePDF = async (
-  amortisationData: AmortizationRow[],
+  amortisationData: AmortisationRow[],
   loanData: LoanData,
   tableFrequency: AmortisationTableFrequency
 ) => {
@@ -81,16 +81,16 @@ export const generatePDF = async (
   const rows = amortisationData.map((row) =>
     desktopColumns.map((col) => {
       if (columnsWithPrice.includes(col.key))
-        return `₹${formatPrice(row[col.key as keyof AmortizationRow])}`;
+        return `₹${formatPrice(row[col.key as keyof AmortisationRow])}`;
       if (col.key === "loanPaidPercent")
-        return `${row[col.key as keyof AmortizationRow].toFixed(2)}%`;
+        return `${row[col.key as keyof AmortisationRow].toFixed(2)}%`;
       if (col.key === "year") {
         return getPrintableMonthYear(
           tableFrequency,
-          row[col.key as keyof AmortizationRow]
+          row[col.key as keyof AmortisationRow]
         );
       }
-      return row[col.key as keyof AmortizationRow];
+      return row[col.key as keyof AmortisationRow];
     })
   );
 
