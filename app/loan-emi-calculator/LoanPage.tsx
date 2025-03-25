@@ -5,10 +5,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import CommonLoanCalculator from "@/components/Common/LoanCalculator/CommonLoanCalculator/CommonLoanCalculator";
+import LoanCalculatorSummary from "@/components/Loan/LoanCalculatorSummary";
 
 import styles from "./LoanPage.module.css";
-import LoanCalculatorSummary from "@/components/Loan/LoanCalculatorSummary";
-import CommonLoanCalculator from "@/components/Common/LoanCalculator/CommonLoanCalculator/CommonLoanCalculator";
 
 const LoanPage = async () => {
   const config: Config = await getConfig();

@@ -3,3 +3,39 @@
     flex-direction: column;
     gap: 32px;
 }
+
+.calculatorInformation {
+    font-family: "Inter", Helvetica, sans-serif !important;
+    line-height: 28px;
+    margin-top: 64px;
+}
+
+.calculatorInformation h1 {
+    font-size: 1.8em;
+    margin-bottom: 32px;
+}
+
+.calculatorInformation h2 {
+    font-size: 1.6em;
+}
+
+.calculatorInformation h1, .calculatorInformation h2, .calculatorInformation h3, .calculatorInformation h4 {
+    font-family: "Inter", Helvetica, sans-serif;
+    font-weight: 500;
+    letter-spacing: normal;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+}
+
+.calculatorInformation p {
+    font-family: "Inter", Helvetica, sans-serif !important;
+    margin: 16px 0 32px;
+    font-weight: 300;
+    font-size: 0.95em;
+}
+
+.calculatorInformation ul, .calculatorInformation ol {
+    margin: -16px 0 32px 16px;
+    font-weight: 300;
+}
