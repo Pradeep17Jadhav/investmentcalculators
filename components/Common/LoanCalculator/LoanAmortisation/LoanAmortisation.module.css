@@ -8,7 +8,7 @@
 
 .hiddenHeader {
     visibility: collapse;
-    display: none;
+    display: none !important;
 }
 
 @media (max-width: 600px) {
