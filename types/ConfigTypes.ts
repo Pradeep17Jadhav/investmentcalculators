@@ -43,7 +43,7 @@ export type Budget = {
   slabs: TaxSlab[];
 };
 
-type FAQ = {
+export type FAQ = {
   question: string;
   answer: string;
 };

@@ -1,12 +1,9 @@
 import { getConfig } from "@/helpers/config";
 import { Config, LoanCalculatorType } from "@/types/ConfigTypes";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import CommonLoanCalculator from "@/components/Common/LoanCalculator/CommonLoanCalculator/CommonLoanCalculator";
 import LoanCalculatorSummary from "@/components/Loan/LoanCalculatorSummary";
+import LoanPageInformation from "@/components/Loan/LoanPageInformation";
+import FAQs from "@/components/Common/FAQs/FAQs";
 
 import styles from "./LoanPage.module.css";
 
@@ -25,18 +22,8 @@ const LoanPage = async () => {
         loanCalculatorType={LoanCalculatorType.HOME}
         Summary={LoanCalculatorSummary}
       />
-      <div className={styles.faqs}>
-        {faqs.map((faq, index) => (
-          <Accordion key={index}>
-            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
-              <Typography component="span">{faq.question}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{faq.answer}</Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </div>
+      <LoanPageInformation />
+      <FAQs faqs={faqs} />
     </div>
   );
 };

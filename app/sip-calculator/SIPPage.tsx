@@ -1,12 +1,9 @@
 import { getConfig } from "@/helpers/config";
 import { CalculatorType, Config } from "@/types/ConfigTypes";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalculator";
 import SIPCalculatorSummary from "@/components/SIP/SIPCalculatorSummary";
+import FAQs from "@/components/Common/FAQs/FAQs";
+import SIPPageInformation from "@/components/SIP/SIPPageInformation";
 
 import styles from "./SIPPage.module.css";
 
@@ -25,18 +22,8 @@ const SIPPage = async () => {
         calculatorType={CalculatorType.SIP}
         Summary={SIPCalculatorSummary}
       />
-      <div className={styles.faqs}>
-        {faqs.map((faq, index) => (
-          <Accordion key={index}>
-            <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
-              <Typography component="span">{faq.question}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{faq.answer}</Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </div>
+      <SIPPageInformation />
+      <FAQs faqs={faqs} />
     </div>
   );
 };

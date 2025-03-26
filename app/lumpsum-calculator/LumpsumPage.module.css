@@ -5,10 +5,7 @@
 
 .pageTitle, .pageSubtitle {
     text-align: center;
-}
-
-.faqs {
-    margin-top: 64px;
+    font-weight: 300;
 }
 
 @media (max-width: 600px) {
