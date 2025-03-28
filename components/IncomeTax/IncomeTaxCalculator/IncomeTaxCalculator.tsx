@@ -3,7 +3,7 @@
 import { useIncomeTax } from "@/hooks/IncomeTax/useIncomeTax";
 import { IncomeTaxConfig } from "@/types/ConfigTypes";
 import { SelectChangeEvent } from "@mui/material";
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 import IncomeTaxSummary from "../IncomeTaxSummary/IncomeTaxSummary";
 import IncomeTaxInput from "../IncomeTaxInput/IncomeTaxInput";
 import TwoColumnContainer from "../../Common/TwoColumnContainer/TwoColumnContainer";
@@ -15,11 +15,15 @@ type Props = {
 const IncomeTaxCalculator = ({ incomeTaxConfig }: Props) => {
   const { budgets } = incomeTaxConfig;
   const [budgetIndex, setBudgetIndex] = useState(0);
+  const taxLiabilityRef = useRef<HTMLDivElement>(null);
 
   const {
     income,
+    isValidForm,
+    resultsReady,
     toggleStdDeduction,
     getTaxCalculationSummary,
+    onCalculate,
     onIncomeChange,
   } = useIncomeTax(budgets[budgetIndex]);
   const { standardDeduction } = getTaxCalculationSummary();
@@ -39,26 +43,37 @@ const IncomeTaxCalculator = ({ incomeTaxConfig }: Props) => {
     [onIncomeChange]
   );
 
+  const handleCalculateBtnClick = useCallback(() => {
+    onCalculate();
+    taxLiabilityRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [onCalculate]);
+
   const incomeTaxInput = useMemo(
     () => (
       <IncomeTaxInput
         handleIncomeChange={handleIncomeChange}
         onBudgetSelectionChange={onBudgetSelectionChange}
         toggleStdDeduction={toggleStdDeduction}
+        onCalculate={handleCalculateBtnClick}
         budgets={budgets}
         standardDeduction={standardDeduction}
         income={income}
         budgetIndex={budgetIndex}
+        isValidForm={isValidForm}
       />
     ),
     [
+      isValidForm,
       budgetIndex,
       budgets,
-      handleIncomeChange,
       income,
-      onBudgetSelectionChange,
       standardDeduction,
+      handleIncomeChange,
+      onBudgetSelectionChange,
       toggleStdDeduction,
+      handleCalculateBtnClick,
     ]
   );
 
@@ -66,11 +81,13 @@ const IncomeTaxCalculator = ({ incomeTaxConfig }: Props) => {
     () => (
       <IncomeTaxSummary
         income={income}
+        resultsReady={resultsReady}
         budget={budgets[budgetIndex]}
         getTaxCalculationSummary={getTaxCalculationSummary}
+        taxLiabilityRef={taxLiabilityRef}
       />
     ),
-    [budgetIndex, budgets, getTaxCalculationSummary, income]
+    [budgetIndex, budgets, getTaxCalculationSummary, income, resultsReady]
   );
 
   return (

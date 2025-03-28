@@ -1,33 +1,43 @@
 "use client";
 
+import { Ref } from "react";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 
-export type LumpsumCalculatorProps = {
+import styles from "./RDCalculatorSummary.module.css";
+
+export type RDCalculatorSummaryProps = {
   isValidForm: boolean;
+  resultsReady: boolean;
   investment: number;
   yearlyInvestment: number;
   totalInvestment: number;
   profit: number;
   maturityValue: number;
   timesMultiplied: number;
+  ref?: Ref<HTMLDivElement>;
 };
 
 const RDCalculatorSummary = ({
   isValidForm,
+  resultsReady,
   investment: monthlyInvestment,
   yearlyInvestment,
   totalInvestment,
   profit,
   maturityValue,
   timesMultiplied,
-}: LumpsumCalculatorProps) => {
+  ref,
+}: RDCalculatorSummaryProps) => {
   return (
-    <Section title="Summary of Returns">
-      {isValidForm && (
+    <div className={styles.container}>
+      <Section title="Maturity Amount" ref={ref} autoHeight>
+        <AmountBanner amount={maturityValue} />
+      </Section>
+      <Section title="Summary of Returns">
         <SummaryBlock title="Investment Details">
           <SummaryItem
             left="Monthly Investment"
@@ -42,18 +52,20 @@ const RDCalculatorSummary = ({
             right={`₹${formatPrice(totalInvestment)}`}
           />
         </SummaryBlock>
-      )}
-      <SummaryBlock title="Profit Details">
-        <SummaryItem left="Total Interest" right={`₹${formatPrice(profit)}`} />
-        <SummaryItem
-          left="Investment Multiplied"
-          right={`${timesMultiplied} times`}
-        />
-      </SummaryBlock>
-      <SummaryBlock title="Maturity Amount">
-        <AmountBanner amount={maturityValue} />
-      </SummaryBlock>
-    </Section>
+        {resultsReady && isValidForm && (
+          <SummaryBlock title="Profit Details">
+            <SummaryItem
+              left="Total Interest"
+              right={`₹${formatPrice(profit)}`}
+            />
+            <SummaryItem
+              left="Investment Multiplied"
+              right={`${timesMultiplied} times`}
+            />
+          </SummaryBlock>
+        )}
+      </Section>
+    </div>
   );
 };
 

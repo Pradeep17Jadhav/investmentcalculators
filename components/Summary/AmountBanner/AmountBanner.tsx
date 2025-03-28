@@ -1,8 +1,8 @@
-import { formatPrice } from "@/helpers/price";
+import { Ref } from "react";
 import { ToWords } from "to-words";
+import { formatPrice } from "@/helpers/price";
 
 import styles from "./AmountBanner.module.css";
-import { Ref } from "react";
 
 type Props = {
   amount: number;

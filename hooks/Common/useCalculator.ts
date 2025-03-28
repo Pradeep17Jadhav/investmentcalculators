@@ -2,6 +2,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { toDecimal } from "@/helpers/numbers";
 import { getUpdatedNumberWithValidation } from "@/helpers/price";
 import { CalculatorType, Tenure } from "@/types/ConfigTypes";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -14,7 +15,10 @@ const initialInvestmentPeriod = {
 };
 
 export const useCalculator = ({ calculatorType }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [isValidForm, setIsValidForm] = useState(false);
+  const [resultsReady, setResultsReady] = useState(false);
   const [investment, setInvestment] = useState(0);
   const [totalInvestment, setTotalInvestment] = useState(0);
   const [expectedReturns, setExpectedReturns] = useState(0);
@@ -22,6 +26,15 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const [profit, setProfit] = useState(0);
   const [maturityValue, setMaturityValue] = useState(0);
   const [timesMultiplied, setTimesMultiplied] = useState(0);
+
+  const calculateTotalInvestment = useCallback(() => {
+    if (!investment) {
+      return;
+    }
+    const totalMonths = tenure.years * 12 + tenure.months;
+    const totalInvested = investment * totalMonths;
+    setTotalInvestment(totalInvested);
+  }, [investment, tenure.months, tenure.years]);
 
   const calculateSIP = useCallback(() => {
     const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
@@ -34,11 +47,17 @@ export const useCalculator = ({ calculatorType }: Props) => {
     );
     const totalInvested = investment * totalMonths;
     const profit = maturityValue - totalInvested;
-    setTotalInvestment(totalInvested);
+    calculateTotalInvestment();
     setMaturityValue(maturityValue);
     setProfit(profit);
     setTimesMultiplied(toDecimal(maturityValue / totalInvested));
-  }, [expectedReturns, tenure, investment]);
+  }, [
+    expectedReturns,
+    tenure.years,
+    tenure.months,
+    investment,
+    calculateTotalInvestment,
+  ]);
 
   const calculateFD = useCallback(() => {
     const totalMonths =
@@ -109,6 +128,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
         break;
       }
     }
+    setResultsReady(true);
   }, [
     calculateSIP,
     calculateLumpsum,
@@ -193,21 +213,25 @@ export const useCalculator = ({ calculatorType }: Props) => {
   );
 
   useEffect(() => {
+    setResultsReady(false);
+    calculateTotalInvestment();
     if (!investment || !expectedReturns || (!tenure.months && !tenure.years)) {
       setIsValidForm(false);
-      setTotalInvestment(0);
       setMaturityValue(0);
       setProfit(0);
       setTimesMultiplied(0);
       return;
     }
     setIsValidForm(true);
-    calculate();
+    if (!isMobile) {
+      calculate();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [investment, expectedReturns, tenure]);
 
   return {
     isValidForm,
+    resultsReady,
     investment,
     yearlyInvestment: investment * 12,
     totalInvestment,
@@ -216,6 +240,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
     profit,
     maturityValue,
     timesMultiplied,
+    calculate,
     handleInvestmentChange,
     handleROIChange,
     handleTenureYearsChange,

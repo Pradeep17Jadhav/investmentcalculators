@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -60,6 +60,14 @@ const LoanAmortisation = ({
       downloadAmortisation(frequency),
     [downloadAmortisation]
   );
+
+  useEffect(() => {
+    const newSet = new Set<number>();
+    if (amortisationDataYearly.length === 1) {
+      newSet.add(amortisationDataYearly[0].year);
+    }
+    setExpandedRows(newSet);
+  }, [amortisationDataYearly]);
 
   return (
     <Section title="Loan Amortisation Schedule">

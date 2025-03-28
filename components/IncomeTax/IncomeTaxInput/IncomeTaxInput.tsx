@@ -11,9 +11,12 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import InputElement from "@/components/Common/InputElement/InputElement";
 import { defaultIncome } from "./constants";
+import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
 
 type Props = {
   handleIncomeChange: (
@@ -22,7 +25,9 @@ type Props = {
   ) => void;
   onBudgetSelectionChange: (event: SelectChangeEvent) => void;
   toggleStdDeduction: () => void;
+  onCalculate: () => void;
   budgets: Budget[];
+  isValidForm: boolean;
   standardDeduction: number;
   income: number;
   budgetIndex: number;
@@ -32,11 +37,16 @@ const IncomeTaxInput = ({
   handleIncomeChange,
   onBudgetSelectionChange,
   toggleStdDeduction,
+  onCalculate,
+  isValidForm,
   budgets,
   standardDeduction,
   income,
   budgetIndex,
 }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const isActiveIncomeButton = useCallback(
     (selectedIncome: number) => selectedIncome === income,
     [income]
@@ -96,6 +106,11 @@ const IncomeTaxInput = ({
         }
         label="Use standard deduction (salaried employees)"
       />
+      {isMobile && (
+        <LargeButton onClick={onCalculate} disabled={!isValidForm} centered>
+          CALCULATE
+        </LargeButton>
+      )}
     </Section>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import TwoColumnContainer from "@/components/Common/TwoColumnContainer/TwoColumnContainer";
 import { useLoanCalculator } from "@/hooks/Common/useLoanCalculator";
 import { LoanCalculatorType } from "@/types/ConfigTypes";
@@ -17,6 +17,7 @@ type Props = {
 };
 
 const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
+  const resultRef = useRef<HTMLDivElement>(null);
   const {
     resultsReady,
     isValidForm,
@@ -40,6 +41,16 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     downloadAmortisation,
   } = useLoanAmortisation(loanAmount, roi, tenure);
 
+  const handleCalculateBtnClick = useCallback(
+    (valid?: boolean) => {
+      calculate(valid);
+      resultRef.current?.scrollIntoView({
+        behavior: "smooth",
+      });
+    },
+    [calculate]
+  );
+
   const input = useMemo(
     () => (
       <CommonLoanCalculatorInput
@@ -48,7 +59,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         roi={roi}
         tenure={tenure}
         isValidForm={isValidForm}
-        calculate={calculate}
+        calculate={handleCalculateBtnClick}
         handleLoanAmountChange={handleLoanAmountChange}
         handleROIChange={handleROIChange}
         handleTenureYearsChange={handleTenureYearsChange}
@@ -61,11 +72,11 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
       roi,
       tenure,
       isValidForm,
-      calculate,
       handleLoanAmountChange,
       handleROIChange,
       handleTenureYearsChange,
       handleTenureMonthsChange,
+      handleCalculateBtnClick,
     ]
   );
 
@@ -75,6 +86,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         leftColumn={input}
         rightColumn={
           <Summary
+            ref={resultRef}
             resultsReady={resultsReady}
             isValidForm={isValidForm}
             loanAmount={loanAmount}

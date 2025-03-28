@@ -14,6 +14,8 @@ import {
 } from "./constants";
 import { useLoanSelection } from "@/hooks/Loan/useLoanSelection";
 import TenureInputElement from "../TenureInputElement/TenureInputElement";
+import { useMediaQuery, useTheme } from "@mui/material";
+import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
 
 type Props = {
   handleInvestmentChange: (
@@ -32,7 +34,9 @@ type Props = {
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     months?: string
   ) => void;
+  onCalculate: () => void;
   calculatorType: CalculatorType;
+  isValidForm: boolean;
   investment: number;
   expectedReturns: number;
   tenure: Tenure;
@@ -43,11 +47,16 @@ const CommonCalculatorInput = ({
   handleROIChange,
   handleTenureYearsChange,
   handleTenureMonthsChange,
+  onCalculate,
+  isValidForm,
   calculatorType,
   investment,
   expectedReturns,
   tenure: tenure,
 }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const {
     isActiveInvestmentButton,
     isActiveYearButton,
@@ -98,7 +107,6 @@ const CommonCalculatorInput = ({
         isActiveShortcutButton={isActiveInvestmentButton}
         selectShortcutButton={selectInvestment}
       />
-
       <InputElement
         value={expectedReturns}
         buttonsData={FDInvestmentReturnsRate}
@@ -109,7 +117,6 @@ const CommonCalculatorInput = ({
         selectShortcutButton={selectROI}
         isROI={true}
       />
-
       <TenureInputElement
         tenure={tenure}
         label={commonCalculatorLabels[calculatorType].tenure}
@@ -129,6 +136,12 @@ const CommonCalculatorInput = ({
         selectMonths={selectMonths}
         showMonths={shouldShowMonths}
       />
+
+      {isMobile && (
+        <LargeButton onClick={onCalculate} disabled={!isValidForm} centered>
+          CALCULATE
+        </LargeButton>
+      )}
     </Section>
   );
 };

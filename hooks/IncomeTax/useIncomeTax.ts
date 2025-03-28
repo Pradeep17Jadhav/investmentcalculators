@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import {
   calculateOtherTaxes,
   getApplicableTaxSlabs,
@@ -6,11 +7,15 @@ import {
 } from "@/components/IncomeTax/helpers";
 import { convertPriceToInt, isInputStringAValidNumber } from "@/helpers/price";
 import { Budget, CalculatedTaxSlab, ITOtherTax } from "@/types/ConfigTypes";
-import { useCallback, useState } from "react";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 export const useIncomeTax = (budget: Budget) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [resultsReady, setResultsReady] = useState(false);
   const { standardDeduction, slabs, rebate, taxes } = budget;
   const { applyMarginalRelief } = budget;
+  const [isValidForm, setIsValidForm] = useState(false);
   const [income, setIncome] = useState(0);
   const [marginalRelief, setMarginalRelief] = useState(0);
   const [useStandardDeduction, setUseStandardDeduction] = useState(true);
@@ -26,7 +31,7 @@ export const useIncomeTax = (budget: Budget) => {
     setUseStandardDeduction((apply) => !apply);
   }, []);
 
-  const onCalculate = useCallback(
+  const calculateIncomeTax = useCallback(
     (income: number) => {
       resetBeforeCalculate();
       const stdDeducation = useStandardDeduction ? standardDeduction.amount : 0;
@@ -60,6 +65,7 @@ export const useIncomeTax = (budget: Budget) => {
       const otherTaxesSum = getTotalTaxFromOtherTaxes(otherTaxes);
       setOtherTaxes(otherTaxes);
       setTotalIncomeTax(taxBeforeOtherTaxes + otherTaxesSum);
+      setResultsReady(true);
     },
     [
       applyMarginalRelief,
@@ -73,20 +79,30 @@ export const useIncomeTax = (budget: Budget) => {
 
   const onIncomeChange = useCallback(
     (newIncome: string) => {
+      setResultsReady(false);
       const isValid = isInputStringAValidNumber(newIncome);
+      setIsValidForm(isValid);
       if (!isValid) {
         return;
       }
       setIncome(convertPriceToInt(newIncome));
-      onCalculate(convertPriceToInt(newIncome));
+      if (!isMobile) {
+        calculateIncomeTax(convertPriceToInt(newIncome));
+      }
     },
-    [onCalculate]
+    [calculateIncomeTax, isMobile]
   );
 
   const resetBeforeCalculate = () => {
     setMarginalRelief(0);
     setApplicableTaxSlabs([]);
     setApplicableRebate(0);
+  };
+
+  const onCalculate = () => {
+    if (isValidForm) {
+      calculateIncomeTax(income);
+    }
   };
 
   const getTaxCalculationSummary = () => ({
@@ -100,7 +116,9 @@ export const useIncomeTax = (budget: Budget) => {
   });
 
   return {
+    resultsReady,
     income,
+    isValidForm,
     toggleStdDeduction,
     onCalculate,
     onIncomeChange,
