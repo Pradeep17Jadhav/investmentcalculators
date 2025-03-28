@@ -13,10 +13,10 @@
 
 @media (max-width: 600px) {
     .table>tbody>tr>td, .table>tbody>tr>th {
-        font-size: 0.75em !important;
+        font-size: 0.70em !important;
     }
 
     .collapsibleTable>tbody>tr>td, .collapsibleTable>tbody>tr>th {
-        font-size: 1em !important;
+        font-size: 0.95em !important;
     }
 }

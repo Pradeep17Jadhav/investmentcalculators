@@ -2,4 +2,14 @@
     display: flex;
     justify-content: space-between;
     line-height: 1.8em;
+    font-size: 0.95em;
+    font-weight: 400;
+}
+
+
+@media (max-width: 600px) {
+    .summaryItem {
+        font-size: 0.9em;
+        font-weight: 300;
+    }
 }

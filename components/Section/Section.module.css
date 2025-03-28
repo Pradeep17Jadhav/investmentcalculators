@@ -14,12 +14,22 @@
     box-shadow: var(--shadow);
 }
 
+.title {
+    margin-bottom: 24px;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-size: 1.7em;
+    font-weight: 500;
+    letter-spacing: normal;
+}
+
 @media (max-width: 900px) {
     .section {
         border-radius: 0;
     }
 }
 
-.title {
-    margin-bottom: 24px;
+@media (max-width: 600px) {
+    .title {
+        margin-bottom: 24px;
+    }
 }

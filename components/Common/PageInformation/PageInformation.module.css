@@ -33,8 +33,21 @@
 .pageInformation ul, .pageInformation ol {
     margin: -16px 0 32px 16px;
     font-weight: 300;
+    font-size: 0.95em;
 }
 
 .pageInformation table {
     margin-bottom: 48px;
+}
+
+@media (max-width: 600px) {
+    .pageInformation p {
+        font-weight: 200;
+        font-size: 0.9em;
+    }
+
+    .pageInformation ul, .pageInformation ol {
+        font-weight: 200;
+        font-size: 0.9em;
+    }
 }

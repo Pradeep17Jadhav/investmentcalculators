@@ -7,12 +7,9 @@ import {
   TableHead,
   TableRow,
   Collapse,
-  IconButton,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Section from "@/components/Section/Section";
 import {
   AmortisationTableFrequency,
@@ -22,6 +19,7 @@ import { desktopColumns, tabletColumns } from "../constants";
 import { getCellValue } from "../helpers/loan";
 import SmallButton from "@/components/Buttons/SmallButton/SmallButton";
 import styles from "./LoanAmortisation.module.css";
+import CellWithExpand from "../CellRenderers/CellWithExpand/CellWithExpand";
 
 type Props = {
   amortisationDataYearly: AmortisationRow[];
@@ -76,12 +74,6 @@ const LoanAmortisation = ({
         >
           <TableHead>
             <TableRow>
-              <TableCell
-                sx={{
-                  width: "32px",
-                  padding: 0,
-                }}
-              />
               {columns.map(({ key, label }) => (
                 <TableCell key={key} align="right">
                   {label}
@@ -96,45 +88,40 @@ const LoanAmortisation = ({
               return (
                 <>
                   <TableRow key={yearlyRow.year}>
-                    <TableCell
-                      sx={{
-                        backgroundColor: "transparent",
-                        width: "32px",
-                        padding: 0,
-                      }}
-                    >
-                      <IconButton
-                        size="small"
-                        onClick={() => toggleRow(yearlyRow.year)}
-                      >
-                        {isExpanded ? (
-                          <KeyboardArrowUpIcon />
-                        ) : (
-                          <KeyboardArrowDownIcon />
-                        )}
-                      </IconButton>
-                    </TableCell>
-                    {columns.map((col) => (
-                      <TableCell
-                        key={col.key}
-                        sx={{
-                          backgroundColor: "transparent",
-                        }}
-                        align="right"
-                      >
-                        {getCellValue(
-                          col,
-                          yearlyRow,
-                          AmortisationTableFrequency.Yearly
-                        )}
-                      </TableCell>
-                    ))}
+                    {columns.map((col) => {
+                      const value = getCellValue(
+                        col,
+                        yearlyRow,
+                        AmortisationTableFrequency.Yearly
+                      );
+                      if (col.key === "year") {
+                        return (
+                          <CellWithExpand
+                            key={col.key}
+                            value={value}
+                            toggleValue={yearlyRow.year}
+                            onToggle={toggleRow}
+                            isExpanded={isExpanded}
+                            align="right"
+                          ></CellWithExpand>
+                        );
+                      } else {
+                        return (
+                          <TableCell
+                            key={col.key}
+                            sx={{
+                              backgroundColor: "transparent",
+                            }}
+                            align="right"
+                          >
+                            {value}
+                          </TableCell>
+                        );
+                      }
+                    })}
                   </TableRow>
                   <TableRow>
-                    <TableCell
-                      colSpan={columns.length + 1}
-                      style={{ padding: 0 }}
-                    >
+                    <TableCell colSpan={columns.length} style={{ padding: 0 }}>
                       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                         <Table
                           className={styles.collapsibleTable}
@@ -143,25 +130,16 @@ const LoanAmortisation = ({
                         >
                           <TableHead className={styles.hiddenHeader}>
                             <TableRow>
-                              <TableCell
-                                sx={{
-                                  width: "32px",
-                                  padding: 0,
-                                }}
-                              />
                               {columns.map(({ key, label }) => (
-                                <TableCell key={key}>{label}</TableCell>
+                                <TableCell key={key} align="right">
+                                  {label}
+                                </TableCell>
                               ))}
                             </TableRow>
                           </TableHead>
                           <TableBody>
                             {monthlyData.map((monthlyRow) => (
                               <TableRow key={monthlyRow.year}>
-                                <TableCell
-                                  style={{
-                                    width: "32px",
-                                  }}
-                                />
                                 {columns.map((col) => (
                                   <TableCell key={col.key} align="right">
                                     {getCellValue(

@@ -50,6 +50,7 @@
 .blogPost .content ul, .blogPost .content ol {
     margin: 16px 0 16px 16px;
     font-weight: 300;
+    font-size: 0.95em;
 }
 
 .blogPost li {
@@ -104,4 +105,16 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+}
+
+@media (max-width: 600px) {
+    .blogPost .content p {
+        font-weight: 200;
+        font-size: 0.9em;
+    }
+
+    .blogPost .content ul, .blogPost .content ol {
+        font-weight: 200;
+        font-size: 0.9em;
+    }
 }

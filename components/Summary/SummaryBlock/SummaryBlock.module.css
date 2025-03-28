@@ -1,4 +1,15 @@
 .summaryTitle {
     margin-top: 32px;
     margin-bottom: 8px;
+    font-size: 1.3em;
+    font-family: "Inter";
+    font-weight: 600;
+    letter-spacing: normal;
+}
+
+@media (max-width: 600px) {
+    .summaryTitle {
+        font-size: 1.1em;
+        font-weight: 500;
+    }
 }
