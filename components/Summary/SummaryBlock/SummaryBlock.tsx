@@ -7,10 +7,10 @@ type Props = {
 
 const SummaryBlock = ({ title, children }: Props) => {
   return (
-    <>
+    <div className={styles.summaryBlock}>
       <h6 className={styles.summaryTitle}>{title}</h6>
       {children}
-    </>
+    </div>
   );
 };
 

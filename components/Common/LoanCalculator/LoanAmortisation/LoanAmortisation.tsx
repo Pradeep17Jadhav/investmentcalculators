@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import {
   Table,
   TableBody,
@@ -75,7 +75,13 @@ const LoanAmortisation = ({
           <TableHead>
             <TableRow>
               {columns.map(({ key, label }) => (
-                <TableCell key={key} align="right">
+                <TableCell
+                  key={key}
+                  align="right"
+                  sx={
+                    key === "year" ? { width: "72px", padding: 0 } : undefined
+                  }
+                >
                   {label}
                 </TableCell>
               ))}
@@ -86,7 +92,7 @@ const LoanAmortisation = ({
               const monthlyData = getMonthlyDataForYear(yearlyRow.year);
               const isExpanded = expandedRows.has(yearlyRow.year);
               return (
-                <>
+                <Fragment key={yearlyRow.year}>
                   <TableRow key={yearlyRow.year}>
                     {columns.map((col) => {
                       const value = getCellValue(
@@ -131,7 +137,15 @@ const LoanAmortisation = ({
                           <TableHead className={styles.hiddenHeader}>
                             <TableRow>
                               {columns.map(({ key, label }) => (
-                                <TableCell key={key} align="right">
+                                <TableCell
+                                  key={key}
+                                  align="right"
+                                  sx={
+                                    key === "year"
+                                      ? { width: "72px", padding: 0 }
+                                      : undefined
+                                  }
+                                >
                                   {label}
                                 </TableCell>
                               ))}
@@ -141,7 +155,15 @@ const LoanAmortisation = ({
                             {monthlyData.map((monthlyRow) => (
                               <TableRow key={monthlyRow.year}>
                                 {columns.map((col) => (
-                                  <TableCell key={col.key} align="right">
+                                  <TableCell
+                                    key={col.key}
+                                    align="right"
+                                    sx={
+                                      col.key === "year"
+                                        ? { width: "72px", padding: 0 }
+                                        : undefined
+                                    }
+                                  >
                                     {getCellValue(
                                       col,
                                       monthlyRow,
@@ -156,7 +178,7 @@ const LoanAmortisation = ({
                       </Collapse>
                     </TableCell>
                   </TableRow>
-                </>
+                </Fragment>
               );
             })}
           </TableBody>

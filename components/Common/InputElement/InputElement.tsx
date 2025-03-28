@@ -53,6 +53,7 @@ const InputElement = ({
         onChange={handleChange}
         fullWidth
         margin="normal"
+        size="small"
         sx={{ mt: 1 }}
         {...(isROI && {
           slotProps: {

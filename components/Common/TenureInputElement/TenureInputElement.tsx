@@ -54,6 +54,7 @@ const TenureInputElement = ({
           onChange={handleYearChange}
           fullWidth
           margin="normal"
+          size="small"
           sx={{ mt: 1 }}
           slotProps={{
             input: {
@@ -90,6 +91,7 @@ const TenureInputElement = ({
           onChange={handleMonthChange}
           fullWidth
           margin="normal"
+          size="small"
           sx={{ mt: 1 }}
           slotProps={{
             input: {

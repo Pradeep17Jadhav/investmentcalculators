@@ -20,15 +20,15 @@ const CellWithExpand = ({
   onToggle,
   toggleValue,
   align,
-  key,
 }: Props) => {
   return (
     <TableCell
       sx={{
         backgroundColor: "transparent",
+        width: "72px",
+        padding: "0",
       }}
       align={align}
-      key={key}
     >
       <div className={styles.renderer}>
         <IconButton size="small" onClick={() => onToggle(toggleValue)}>

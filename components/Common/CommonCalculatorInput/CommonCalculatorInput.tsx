@@ -7,10 +7,10 @@ import InputElement from "../InputElement/InputElement";
 import {
   commonCalculatorLabels,
   defaultInvestmentAmount,
-  defaultInvestmentReturnsRate,
   defaultInvestmentTenureMonths,
   defaultInvestmentTenureYears,
   defaultOneTimeAmount,
+  FDInvestmentReturnsRate,
 } from "./constants";
 import { useLoanSelection } from "@/hooks/Loan/useLoanSelection";
 import TenureInputElement from "../TenureInputElement/TenureInputElement";
@@ -101,7 +101,7 @@ const CommonCalculatorInput = ({
 
       <InputElement
         value={expectedReturns}
-        buttonsData={defaultInvestmentReturnsRate}
+        buttonsData={FDInvestmentReturnsRate}
         label={commonCalculatorLabels[calculatorType].returns}
         placeholder={commonCalculatorLabels[calculatorType].roiPlaceholder}
         handleChange={handleROIChange}

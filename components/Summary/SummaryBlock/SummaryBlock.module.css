@@ -1,5 +1,8 @@
+.summaryBlock {
+    margin-bottom: 32px;
+}
+
 .summaryTitle {
-    margin-top: 32px;
     margin-bottom: 8px;
     font-size: 1.3em;
     font-family: "Inter";

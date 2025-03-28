@@ -73,3 +73,4 @@ export const defaultInvestmentReturnsRate: number[] = [
 ];
 export const defaultInvestmentTenureYears: number[] = [0, 5, 10, 20, 30];
 export const defaultInvestmentTenureMonths: number[] = [0, 3, 6, 9];
+export const FDInvestmentReturnsRate: number[] = [3, 4, 5, 6, 7, 8];

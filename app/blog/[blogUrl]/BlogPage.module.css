@@ -109,12 +109,10 @@
 
 @media (max-width: 600px) {
     .blogPost .content p {
-        font-weight: 200;
         font-size: 0.9em;
     }
 
     .blogPost .content ul, .blogPost .content ol {
-        font-weight: 200;
         font-size: 0.9em;
     }
 }
