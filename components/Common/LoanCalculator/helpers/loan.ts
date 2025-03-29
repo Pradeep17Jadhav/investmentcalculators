@@ -4,7 +4,7 @@ import {
   TableColumn,
 } from "../../../../types/Loan/LoanTypes";
 import { formatPrice } from "@/helpers/price";
-import { columnsWithPrice } from "../constants";
+import { columnsWithPrice, TableColumnKeys } from "../constants";
 
 export const getCellValue = (
   col: TableColumn,
@@ -14,7 +14,7 @@ export const getCellValue = (
   if (columnsWithPrice.includes(col.key)) {
     return `₹${formatPrice(row[col.key as keyof AmortisationRow])}`;
   }
-  if (col.key === "loanPaidPercent") {
+  if (col.key === TableColumnKeys.LOAN_PAID_PERCENT) {
     return `${row[col.key as keyof AmortisationRow].toFixed(2)}%`;
   }
   if (col.key === "year") {

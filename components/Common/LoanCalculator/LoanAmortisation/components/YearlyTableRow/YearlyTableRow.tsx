@@ -7,6 +7,7 @@ import {
 import { TableRow, TableCell } from "@mui/material";
 import { getCellValue } from "../../../helpers/loan";
 import CellWithExpand from "../../../CellRenderers/CellWithExpand/CellWithExpand";
+import { PREPAYMENTS_COLUMN_WIDTH, TableColumnKeys } from "../../../constants";
 
 type Props = {
   yearlyRow: AmortisationRow;
@@ -31,25 +32,47 @@ const YearlyTableRow = ({
   );
 
   const renderCell = useCallback(
-    ({ key, value }: { key: string; value: string | number }) =>
-      key === "year" ? (
-        <CellWithExpand
-          key={key}
-          value={value}
-          toggleValue={yearlyRow.year}
-          onToggle={toggleRow}
-          isExpanded={isExpanded}
-          align="right"
-        />
-      ) : (
-        <TableCell
-          key={key}
-          sx={{ backgroundColor: "transparent" }}
-          align="right"
-        >
-          {value}
-        </TableCell>
-      ),
+    ({ key, value }: { key: string; value: string | number }) => {
+      switch (key) {
+        case TableColumnKeys.YEAR: {
+          return (
+            <CellWithExpand
+              key={key}
+              value={value}
+              toggleValue={yearlyRow.year}
+              onToggle={toggleRow}
+              isExpanded={isExpanded}
+              align="right"
+            />
+          );
+        }
+        case TableColumnKeys.PREPAYMENTS: {
+          return (
+            <TableCell
+              key={key}
+              sx={{
+                backgroundColor: "transparent",
+                width: `${PREPAYMENTS_COLUMN_WIDTH}px`,
+              }}
+              align="right"
+            >
+              {value}
+            </TableCell>
+          );
+        }
+        default: {
+          return (
+            <TableCell
+              key={key}
+              sx={{ backgroundColor: "transparent" }}
+              align="right"
+            >
+              {value}
+            </TableCell>
+          );
+        }
+      }
+    },
     [yearlyRow.year, toggleRow, isExpanded]
   );
 

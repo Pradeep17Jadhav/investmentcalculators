@@ -2,7 +2,11 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { getMonthsToYearMonths } from "@/helpers/helpers";
 import { formatPrice } from "@/helpers/price";
-import { columnsWithPrice, desktopColumns } from "../constants";
+import {
+  columnsWithPrice,
+  getDesktopColumns,
+  TableColumnKeys,
+} from "../constants";
 import { getPrintableMonthYear } from "./loan";
 import {
   AmortisationTableFrequency,
@@ -13,7 +17,8 @@ import {
 export const generatePDF = async (
   amortisationData: AmortisationRow[],
   loanData: LoanData,
-  tableFrequency: AmortisationTableFrequency
+  tableFrequency: AmortisationTableFrequency,
+  hasPrepayments: boolean
 ) => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -70,6 +75,7 @@ export const generatePDF = async (
     92
   );
 
+  const desktopColumns = getDesktopColumns(hasPrepayments);
   const headers = desktopColumns.map((col) => {
     if (col.key === "year") {
       return tableFrequency === AmortisationTableFrequency.Monthly
@@ -82,9 +88,9 @@ export const generatePDF = async (
     desktopColumns.map((col) => {
       if (columnsWithPrice.includes(col.key))
         return `₹${formatPrice(row[col.key as keyof AmortisationRow])}`;
-      if (col.key === "loanPaidPercent")
+      if (col.key === TableColumnKeys.LOAN_PAID_PERCENT)
         return `${row[col.key as keyof AmortisationRow].toFixed(2)}%`;
-      if (col.key === "year") {
+      if (col.key === TableColumnKeys.YEAR) {
         return getPrintableMonthYear(
           tableFrequency,
           row[col.key as keyof AmortisationRow]

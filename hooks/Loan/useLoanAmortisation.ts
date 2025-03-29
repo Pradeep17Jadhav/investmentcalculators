@@ -27,7 +27,7 @@ export const useLoanAmortisation = (
     : parseFloat(sanitizedROI);
   const baseDate = startDate ? dayjs(startDate) : dayjs();
 
-  const { prepayments } = usePrepayment({
+  const { prepayments, hasPrepayments } = usePrepayment({
     // monthlyPrepaymentStartDate: "2025-01-01",
     // monthlyPrepaymentAmount: 5000,
     // quarterlyPrepaymentStartDate: "2025-03-01",
@@ -38,7 +38,7 @@ export const useLoanAmortisation = (
     // annuallyPrepaymentAmount: 20000,
     oneTimePrepayments: [
       {
-        startDate: 202508,
+        startDate: 202608,
         amount: 0,
       },
     ],
@@ -60,11 +60,15 @@ export const useLoanAmortisation = (
 
     for (let i = 0; i < tenureMonths; i++) {
       const interest = balance * monthlyRate;
-      const principal = emi - interest;
+      const isBalanceFullyPaid = emi - interest >= balance;
+      const principal = isBalanceFullyPaid ? balance : emi - interest;
       const emiDate = baseDate.add(i, "month");
       const monthYear = Number(emiDate.format("YYYYMM"));
-
       const prepayment = prepayments[monthYear] || 0;
+      const totalPaid = isBalanceFullyPaid
+        ? principal + interest + prepayment
+        : emi + prepayment;
+
       balance -= principal + prepayment;
       if (balance < 0) {
         balance = 0;
@@ -85,7 +89,7 @@ export const useLoanAmortisation = (
       yearData[year].principalPaid += principal;
       yearData[year].prepayments += prepayment;
       yearData[year].interestPaid += interest;
-      yearData[year].totalPaid += emi + prepayment;
+      yearData[year].totalPaid += totalPaid;
       yearData[year].balance = Math.max(0, balance);
 
       monthlyData.push({
@@ -93,7 +97,7 @@ export const useLoanAmortisation = (
         principalPaid: Math.round(principal),
         prepayments: Math.round(prepayment),
         interestPaid: Math.round(interest),
-        totalPaid: Math.round(emi + prepayment),
+        totalPaid: Math.round(totalPaid),
         balance: Math.round(Math.max(0, balance)),
         loanPaidPercent: toDecimal(((loanAmount - balance) / loanAmount) * 100),
       });
@@ -135,7 +139,7 @@ export const useLoanAmortisation = (
         emi,
         monthYear,
       };
-      generatePDF(tableData, loanData, tableFrequency);
+      generatePDF(tableData, loanData, tableFrequency, hasPrepayments);
     },
     [
       baseDate,
@@ -145,6 +149,7 @@ export const useLoanAmortisation = (
       rateOfInterest,
       tenureMonths,
       yearlyRowData,
+      hasPrepayments,
     ]
   );
 
@@ -153,5 +158,10 @@ export const useLoanAmortisation = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, roi, tenureMonths, startDate]);
 
-  return { yearlyRowData, monthlyRowData, downloadAmortisation };
+  return {
+    hasPrepayments,
+    yearlyRowData,
+    monthlyRowData,
+    downloadAmortisation,
+  };
 };

@@ -44,6 +44,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
   } = useLoanCalculator({ loanCalculatorType });
 
   const {
+    hasPrepayments,
     yearlyRowData: yearlyAmortisationData,
     monthlyRowData: monthlyAmortisationData,
     downloadAmortisation,
@@ -118,6 +119,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
       />
       {isValidForm && resultsReady && (
         <LoanAmortisation
+          hasPrepayments={hasPrepayments}
           amortisationDataYearly={yearlyAmortisationData}
           amortisationDataMonthly={monthlyAmortisationData}
           downloadAmortisation={downloadAmortisation}

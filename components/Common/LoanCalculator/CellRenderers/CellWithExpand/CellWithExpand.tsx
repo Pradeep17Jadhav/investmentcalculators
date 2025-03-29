@@ -1,6 +1,7 @@
 import { IconButton, SxProps, TableCell, Theme } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { YEAR_COLUMN_WIDTH } from "../../constants";
 
 import styles from "./CellWithExpand.module.css";
 
@@ -25,7 +26,7 @@ const CellWithExpand = ({
     <TableCell
       sx={{
         backgroundColor: "transparent",
-        width: "72px",
+        width: `${YEAR_COLUMN_WIDTH}px`,
         padding: "0",
       }}
       align={align}

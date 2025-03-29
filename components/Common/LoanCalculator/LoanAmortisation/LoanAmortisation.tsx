@@ -5,19 +5,21 @@ import {
   AmortisationTableFrequency,
   AmortisationRow,
 } from "@/types/Loan/LoanTypes";
-import { desktopColumns, tabletColumns } from "../constants";
+import { getDesktopColumns, getTabletColumns } from "../constants";
 import SmallButton from "@/components/Buttons/SmallButton/SmallButton";
 import YearlyTable from "./components/YearlyTable/YearlyTable";
 
 import styles from "./LoanAmortisation.module.css";
 
 type Props = {
+  hasPrepayments: boolean;
   amortisationDataYearly: AmortisationRow[];
   amortisationDataMonthly: AmortisationRow[];
   downloadAmortisation: (tableFrequency?: AmortisationTableFrequency) => void;
   frequency?: AmortisationTableFrequency;
 };
 const LoanAmortisation = ({
+  hasPrepayments,
   amortisationDataYearly,
   amortisationDataMonthly,
   downloadAmortisation,
@@ -25,7 +27,9 @@ const LoanAmortisation = ({
   const theme = useTheme();
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const isDesktop = useMediaQuery(theme.breakpoints.up("md")); // >900px
-  const columns = isDesktop ? desktopColumns : tabletColumns;
+  const columns = isDesktop
+    ? getDesktopColumns(hasPrepayments)
+    : getTabletColumns(hasPrepayments);
 
   const toggleRow = (year: number) => {
     setExpandedRows((prev) => {
