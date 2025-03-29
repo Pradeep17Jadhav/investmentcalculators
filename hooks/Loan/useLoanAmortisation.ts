@@ -8,6 +8,7 @@ import {
 } from "@/types/Loan/LoanTypes";
 import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGenerator";
 import { Tenure } from "@/types/ConfigTypes";
+import { usePrepayment } from "./usePrepayments";
 
 export const useLoanAmortisation = (
   loanAmount: number,
@@ -26,6 +27,23 @@ export const useLoanAmortisation = (
     : parseFloat(sanitizedROI);
   const baseDate = startDate ? dayjs(startDate) : dayjs();
 
+  const { prepayments } = usePrepayment({
+    // monthlyPrepaymentStartDate: "2025-01-01",
+    // monthlyPrepaymentAmount: 5000,
+    // quarterlyPrepaymentStartDate: "2025-03-01",
+    // quarterlyPrepaymentAmount: 10000,
+    // halfAnnualyPrepaymentStartDate: "2025-06-01",
+    // halfAnnualyPrepaymentAmount: 15000,
+    // annuallyPrepaymentStartDate: "2025-12-01",
+    // annuallyPrepaymentAmount: 20000,
+    oneTimePrepayments: [
+      {
+        startDate: 202508,
+        amount: 0,
+      },
+    ],
+  });
+
   const calculateAmortisation = useCallback(() => {
     const monthlyRate = rateOfInterest / 12 / 100;
     const emi =
@@ -43,15 +61,21 @@ export const useLoanAmortisation = (
     for (let i = 0; i < tenureMonths; i++) {
       const interest = balance * monthlyRate;
       const principal = emi - interest;
-      balance -= principal;
       const emiDate = baseDate.add(i, "month");
       const monthYear = Number(emiDate.format("YYYYMM"));
+
+      const prepayment = prepayments[monthYear] || 0;
+      balance -= principal + prepayment;
+      if (balance < 0) {
+        balance = 0;
+      }
 
       const year = emiDate.year();
       if (!yearData[year]) {
         yearData[year] = {
           year,
           principalPaid: 0,
+          prepayments: 0,
           interestPaid: 0,
           totalPaid: 0,
           balance: 0,
@@ -59,24 +83,29 @@ export const useLoanAmortisation = (
       }
 
       yearData[year].principalPaid += principal;
+      yearData[year].prepayments += prepayment;
       yearData[year].interestPaid += interest;
-      yearData[year].totalPaid += emi;
+      yearData[year].totalPaid += emi + prepayment;
       yearData[year].balance = Math.max(0, balance);
 
       monthlyData.push({
         year: monthYear,
         principalPaid: Math.round(principal),
+        prepayments: Math.round(prepayment),
         interestPaid: Math.round(interest),
-        totalPaid: Math.round(emi),
+        totalPaid: Math.round(emi + prepayment),
         balance: Math.round(Math.max(0, balance)),
         loanPaidPercent: toDecimal(((loanAmount - balance) / loanAmount) * 100),
       });
+
+      if (balance === 0) break;
     }
 
     const formattedYearlyData: AmortisationRow[] = Object.values(yearData).map(
       (yearEntry) => ({
         ...yearEntry,
         principalPaid: Math.round(yearEntry.principalPaid),
+        prepayments: Math.round(yearEntry.prepayments),
         interestPaid: Math.round(yearEntry.interestPaid),
         totalPaid: Math.round(yearEntry.totalPaid),
         balance: Math.round(yearEntry.balance),
@@ -88,7 +117,7 @@ export const useLoanAmortisation = (
 
     setYearlyRowData(formattedYearlyData);
     setMonthlyRowData(monthlyData);
-  }, [loanAmount, rateOfInterest, tenureMonths, baseDate]);
+  }, [loanAmount, rateOfInterest, tenureMonths, baseDate, prepayments]);
 
   const downloadAmortisation = useCallback(
     (

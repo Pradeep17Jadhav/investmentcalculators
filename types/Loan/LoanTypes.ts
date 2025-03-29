@@ -1,6 +1,7 @@
 export type AmortisationRow = {
   year: number;
   principalPaid: number;
+  prepayments: number;
   interestPaid: number;
   totalPaid: number;
   balance: number;

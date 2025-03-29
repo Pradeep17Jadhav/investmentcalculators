@@ -1,22 +1,3 @@
-.table, .collapsibleTable {
-    font-variant-numeric: tabular-nums;
-}
-
 .downloadPdfBtn {
     margin-top: 12px;
-}
-
-.hiddenHeader {
-    visibility: collapse;
-    display: none !important;
-}
-
-@media (max-width: 600px) {
-    .table>tbody>tr>td, .table>tbody>tr>th {
-        font-size: 0.70em !important;
-    }
-
-    .collapsibleTable>tbody>tr>td, .collapsibleTable>tbody>tr>th {
-        font-size: 0.95em !important;
-    }
 }

@@ -1,25 +1,15 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Collapse,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
+import { TableContainer, useMediaQuery, useTheme } from "@mui/material";
 import Section from "@/components/Section/Section";
 import {
   AmortisationTableFrequency,
   AmortisationRow,
 } from "@/types/Loan/LoanTypes";
 import { desktopColumns, tabletColumns } from "../constants";
-import { getCellValue } from "../helpers/loan";
 import SmallButton from "@/components/Buttons/SmallButton/SmallButton";
+import YearlyTable from "./components/YearlyTable/YearlyTable";
+
 import styles from "./LoanAmortisation.module.css";
-import CellWithExpand from "../CellRenderers/CellWithExpand/CellWithExpand";
 
 type Props = {
   amortisationDataYearly: AmortisationRow[];
@@ -49,12 +39,6 @@ const LoanAmortisation = ({
     });
   };
 
-  const getMonthlyDataForYear = (year: number) => {
-    return amortisationDataMonthly.filter(
-      (row) => Math.floor(row.year / 100) === year
-    );
-  };
-
   const handleAmortisationDownload = useCallback(
     (frequency: AmortisationTableFrequency) => () =>
       downloadAmortisation(frequency),
@@ -72,125 +56,13 @@ const LoanAmortisation = ({
   return (
     <Section title="Loan Amortisation Schedule">
       <TableContainer>
-        <Table
-          className={styles.table}
-          size="small"
-          sx={{
-            backgroundColor: "transparent",
-            tableLayout: "fixed",
-          }}
-        >
-          <TableHead>
-            <TableRow>
-              {columns.map(({ key, label }) => (
-                <TableCell
-                  key={key}
-                  align="right"
-                  sx={
-                    key === "year" ? { width: "72px", padding: 0 } : undefined
-                  }
-                >
-                  {label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {amortisationDataYearly.map((yearlyRow) => {
-              const monthlyData = getMonthlyDataForYear(yearlyRow.year);
-              const isExpanded = expandedRows.has(yearlyRow.year);
-              return (
-                <Fragment key={yearlyRow.year}>
-                  <TableRow key={yearlyRow.year}>
-                    {columns.map((col) => {
-                      const value = getCellValue(
-                        col,
-                        yearlyRow,
-                        AmortisationTableFrequency.Yearly
-                      );
-                      if (col.key === "year") {
-                        return (
-                          <CellWithExpand
-                            key={col.key}
-                            value={value}
-                            toggleValue={yearlyRow.year}
-                            onToggle={toggleRow}
-                            isExpanded={isExpanded}
-                            align="right"
-                          ></CellWithExpand>
-                        );
-                      } else {
-                        return (
-                          <TableCell
-                            key={col.key}
-                            sx={{
-                              backgroundColor: "transparent",
-                            }}
-                            align="right"
-                          >
-                            {value}
-                          </TableCell>
-                        );
-                      }
-                    })}
-                  </TableRow>
-                  <TableRow>
-                    <TableCell colSpan={columns.length} style={{ padding: 0 }}>
-                      <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                        <Table
-                          className={styles.collapsibleTable}
-                          size="small"
-                          sx={{ tableLayout: "fixed" }}
-                        >
-                          <TableHead className={styles.hiddenHeader}>
-                            <TableRow>
-                              {columns.map(({ key, label }) => (
-                                <TableCell
-                                  key={key}
-                                  align="right"
-                                  sx={
-                                    key === "year"
-                                      ? { width: "72px", padding: 0 }
-                                      : undefined
-                                  }
-                                >
-                                  {label}
-                                </TableCell>
-                              ))}
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {monthlyData.map((monthlyRow) => (
-                              <TableRow key={monthlyRow.year}>
-                                {columns.map((col) => (
-                                  <TableCell
-                                    key={col.key}
-                                    align="right"
-                                    sx={
-                                      col.key === "year"
-                                        ? { width: "72px", padding: 0 }
-                                        : undefined
-                                    }
-                                  >
-                                    {getCellValue(
-                                      col,
-                                      monthlyRow,
-                                      AmortisationTableFrequency.Monthly
-                                    )}
-                                  </TableCell>
-                                ))}
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </Collapse>
-                    </TableCell>
-                  </TableRow>
-                </Fragment>
-              );
-            })}
-          </TableBody>
-        </Table>
+        <YearlyTable
+          expandedRows={expandedRows}
+          amortisationDataYearly={amortisationDataYearly}
+          amortisationDataMonthly={amortisationDataMonthly}
+          columns={columns}
+          toggleRow={toggleRow}
+        />
       </TableContainer>
       <SmallButton
         className={styles.downloadPdfBtn}

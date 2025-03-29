@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useRef } from "react";
 import TwoColumnContainer from "@/components/Common/TwoColumnContainer/TwoColumnContainer";
-import { useLoanCalculator } from "@/hooks/Common/useLoanCalculator";
+import { useLoanCalculator } from "@/hooks/Loan/useLoanCalculator";
 import { LoanCalculatorType } from "@/types/ConfigTypes";
 import { LoanCalculatorProps } from "@/components/Loan/LoanCalculatorSummary";
 import { useLoanAmortisation } from "@/hooks/Loan/useLoanAmortisation";

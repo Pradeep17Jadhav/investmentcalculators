@@ -1,0 +1,9 @@
+.table {
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+    .table>tbody>tr>td, .table>tbody>tr>th {
+        font-size: 0.70em !important;
+    }
+}

@@ -1,0 +1,14 @@
+.collapsibleTable {
+    font-variant-numeric: tabular-nums;
+}
+
+.hiddenHeader {
+    visibility: collapse;
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .collapsibleTable>tbody>tr>td, .collapsibleTable>tbody>tr>th {
+        font-size: 0.95em !important;
+    }
+}
