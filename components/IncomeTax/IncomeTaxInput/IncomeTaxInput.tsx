@@ -17,6 +17,7 @@ import {
 import InputElement from "@/components/Common/InputElement/InputElement";
 import { defaultIncome } from "./constants";
 import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
+import { INCOME_STEP, MAX_INCOME, MIN_INCOME } from "@/constants/calculator";
 
 type Props = {
   handleIncomeChange: (
@@ -94,6 +95,9 @@ const IncomeTaxInput = ({
         handleChange={handleIncomeChange}
         isActiveShortcutButton={isActiveIncomeButton}
         selectShortcutButton={selectIncome}
+        min={MIN_INCOME}
+        max={MAX_INCOME / 10}
+        step={INCOME_STEP}
       />
 
       <FormControlLabel

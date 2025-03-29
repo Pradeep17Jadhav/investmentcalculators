@@ -8,6 +8,7 @@ import {
 import { convertPriceToInt, isInputStringAValidNumber } from "@/helpers/price";
 import { Budget, CalculatedTaxSlab, ITOtherTax } from "@/types/ConfigTypes";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { MAX_INCOME } from "@/constants/calculator";
 
 export const useIncomeTax = (budget: Budget) => {
   const theme = useTheme();
@@ -85,9 +86,13 @@ export const useIncomeTax = (budget: Budget) => {
       if (!isValid) {
         return;
       }
-      setIncome(convertPriceToInt(newIncome));
+      const applicableIncome = Math.min(
+        convertPriceToInt(newIncome),
+        MAX_INCOME
+      );
+      setIncome(applicableIncome);
       if (!isMobile) {
-        calculateIncomeTax(convertPriceToInt(newIncome));
+        calculateIncomeTax(applicableIncome);
       }
     },
     [calculateIncomeTax, isMobile]
