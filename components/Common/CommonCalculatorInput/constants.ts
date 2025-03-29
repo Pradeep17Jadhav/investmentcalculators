@@ -68,9 +68,10 @@ export const defaultOneTimeAmount = [
   { label: "20L", value: 2000000 },
 ];
 
+export const FDInvestmentReturnsRate: number[] = [3, 4, 5, 6, 7, 8];
+export const RDInvestmentReturnsRate: number[] = [3, 4, 5, 6, 7, 8];
 export const defaultInvestmentReturnsRate: number[] = [
   8, 10, 12, 15, 18, 20, 25,
 ];
 export const defaultInvestmentTenureYears: number[] = [0, 5, 10, 20, 30];
 export const defaultInvestmentTenureMonths: number[] = [0, 3, 6, 9];
-export const FDInvestmentReturnsRate: number[] = [3, 4, 5, 6, 7, 8];

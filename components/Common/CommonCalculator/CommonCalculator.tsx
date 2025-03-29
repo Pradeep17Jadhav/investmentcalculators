@@ -9,6 +9,17 @@ import { LumpsumCalculatorSummaryProps } from "@/components/Lumpsum/LumpsumCalcu
 import { SIPCalculatorSummaryProps } from "@/components/SIP/SIPCalculatorSummary";
 import { FDCalculatorSummaryProps } from "@/components/FD/FDCalculatorSummary";
 import { RDCalculatorSummaryProps } from "@/components/RD/RDCalculatorSummary";
+import {
+  INVESTMENT_STEP,
+  MAX_INVESTMENT,
+  MAX_MONTHLY_INVESTMENT,
+  MAX_ROI,
+  MIN_INVESTMENT,
+  MIN_MONTHLY_INVESTMENT,
+  MIN_ROI,
+  MONTHLY_INVESTMENT_STEP,
+  ROI_STEP,
+} from "@/constants/calculator";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -28,7 +39,7 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
     investment,
     yearlyInvestment,
     totalInvestment,
-    expectedReturns,
+    roi,
     tenure,
     profit,
     maturityValue,
@@ -47,32 +58,57 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
     });
   }, [calculate]);
 
+  const minAmount =
+    calculatorType === CalculatorType.SIP ||
+    calculatorType === CalculatorType.RD
+      ? MIN_MONTHLY_INVESTMENT
+      : MIN_INVESTMENT;
+  const maxAmount =
+    calculatorType === CalculatorType.SIP ||
+    calculatorType === CalculatorType.RD
+      ? MAX_MONTHLY_INVESTMENT
+      : MAX_INVESTMENT;
+  const stepAmount =
+    calculatorType === CalculatorType.SIP ||
+    calculatorType === CalculatorType.RD
+      ? MONTHLY_INVESTMENT_STEP
+      : INVESTMENT_STEP;
+
   const input = useMemo(
     () => (
       <CommonCalculatorInput
         isValidForm={isValidForm}
         calculatorType={calculatorType}
+        investment={investment}
+        roi={roi}
+        tenure={tenure}
+        minAmount={minAmount}
+        maxAmount={maxAmount}
+        minRoi={MIN_ROI}
+        maxRoi={MAX_ROI}
+        stepAmount={stepAmount}
+        stepRoi={ROI_STEP}
         handleInvestmentChange={handleInvestmentChange}
         handleROIChange={handleROIChange}
         handleTenureYearsChange={handleTenureYearsChange}
         handleTenureMonthsChange={handleTenureMonthsChange}
-        investment={investment}
-        expectedReturns={expectedReturns}
-        tenure={tenure}
         onCalculate={handleCalculateBtnClick}
       />
     ),
     [
-      calculatorType,
       isValidForm,
+      calculatorType,
       investment,
-      expectedReturns,
+      roi,
       tenure,
+      minAmount,
+      maxAmount,
+      stepAmount,
       handleInvestmentChange,
       handleROIChange,
-      handleCalculateBtnClick,
       handleTenureYearsChange,
       handleTenureMonthsChange,
+      handleCalculateBtnClick,
     ]
   );
 

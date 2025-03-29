@@ -6,6 +6,12 @@ import {
 import { Tenure, LoanCalculatorType } from "@/types/ConfigTypes";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
 import { useMediaQuery, useTheme } from "@mui/material";
+import {
+  MAX_LOAN_AMOUNT,
+  MAX_ROI,
+  MIN_LOAN_AMOUNT,
+  MIN_ROI,
+} from "@/constants/calculator";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -85,8 +91,8 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
           newInvestment,
           currInvestment,
           true,
-          0,
-          1000000000
+          MIN_LOAN_AMOUNT,
+          MAX_LOAN_AMOUNT
         )
       );
     },
@@ -98,7 +104,12 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
       const newROIInput = e?.target.value || roi || "0";
       const sanitizedROI = sanitizeROI(newROIInput);
       setRoi((currROI) =>
-        getUpdatedInterestRateWithValidation(sanitizedROI, currROI)
+        getUpdatedInterestRateWithValidation(
+          sanitizedROI,
+          currROI,
+          MIN_ROI,
+          MAX_ROI
+        )
       );
     },
     []

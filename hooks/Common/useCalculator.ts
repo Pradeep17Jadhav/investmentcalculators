@@ -1,15 +1,24 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { toDecimal } from "@/helpers/numbers";
-import { getUpdatedNumberWithValidation } from "@/helpers/price";
+import { sanitizeROI, toDecimal } from "@/helpers/numbers";
+import {
+  getUpdatedInterestRateWithValidation,
+  getUpdatedNumberWithValidation,
+} from "@/helpers/price";
 import { CalculatorType, Tenure } from "@/types/ConfigTypes";
 import { useMediaQuery, useTheme } from "@mui/material";
+import {
+  MAX_INVESTMENT,
+  MAX_ROI,
+  MIN_INVESTMENT,
+  MIN_ROI,
+} from "@/constants/calculator";
 
 type Props = {
   calculatorType: CalculatorType;
 };
 
 const initialInvestmentPeriod = {
-  years: 0,
+  years: 10,
   months: 0,
   days: 0,
 };
@@ -19,9 +28,9 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [isValidForm, setIsValidForm] = useState(false);
   const [resultsReady, setResultsReady] = useState(false);
-  const [investment, setInvestment] = useState(0);
+  const [investment, setInvestment] = useState(15000);
   const [totalInvestment, setTotalInvestment] = useState(0);
-  const [expectedReturns, setExpectedReturns] = useState(0);
+  const [roi, setRoi] = useState("12.25");
   const [tenure, setTenure] = useState<Tenure>(initialInvestmentPeriod);
   const [profit, setProfit] = useState(0);
   const [maturityValue, setMaturityValue] = useState(0);
@@ -37,7 +46,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
   }, [investment, tenure.months, tenure.years]);
 
   const calculateSIP = useCallback(() => {
-    const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
+    const monthlyRateOfReturn = Math.pow(1 + parseFloat(roi) / 100, 1 / 12) - 1;
     const totalMonths = tenure.years * 12 + tenure.months;
     const maturityValue = Math.round(
       investment *
@@ -51,18 +60,12 @@ export const useCalculator = ({ calculatorType }: Props) => {
     setMaturityValue(maturityValue);
     setProfit(profit);
     setTimesMultiplied(toDecimal(maturityValue / totalInvested));
-  }, [
-    expectedReturns,
-    tenure.years,
-    tenure.months,
-    investment,
-    calculateTotalInvestment,
-  ]);
+  }, [roi, tenure.years, tenure.months, investment, calculateTotalInvestment]);
 
   const calculateFD = useCallback(() => {
     const totalMonths =
       tenure.years * 12 + tenure.months + tenure.days / 30.4375;
-    const quarterlyRateOfReturn = expectedReturns / 400;
+    const quarterlyRateOfReturn = parseFloat(roi) / 400;
     const totalQuarters = totalMonths / 3;
     const maturityValue = Math.round(
       investment * Math.pow(1 + quarterlyRateOfReturn, totalQuarters)
@@ -72,13 +75,13 @@ export const useCalculator = ({ calculatorType }: Props) => {
     setMaturityValue(maturityValue);
     setProfit(profit);
     setTimesMultiplied(toDecimal(maturityValue / investment));
-  }, [tenure.years, tenure.months, tenure.days, expectedReturns, investment]);
+  }, [tenure.years, tenure.months, tenure.days, roi, investment]);
 
   const calculateRD = useCallback(() => {
     const compoundFrequency = 4; //4 times per year
     const totalMonths =
       tenure.years * 12 + tenure.months + tenure.days / 30.4375;
-    const monthlyRateOfReturn = expectedReturns / 100 / compoundFrequency;
+    const monthlyRateOfReturn = parseFloat(roi) / 100 / compoundFrequency;
     let totalMaturityValue = 0;
     const totalInvestment = investment * totalMonths;
     for (let i = 1; i <= totalMonths; i++) {
@@ -94,10 +97,10 @@ export const useCalculator = ({ calculatorType }: Props) => {
     setProfit(Math.round(profit));
     setTotalInvestment(totalInvestment);
     setTimesMultiplied(toDecimal(totalMaturityValue / totalInvestment));
-  }, [tenure.years, tenure.months, tenure.days, expectedReturns, investment]);
+  }, [tenure.years, tenure.months, tenure.days, roi, investment]);
 
   const calculateLumpsum = useCallback(() => {
-    const monthlyRateOfReturn = Math.pow(1 + expectedReturns / 100, 1 / 12) - 1;
+    const monthlyRateOfReturn = Math.pow(1 + parseFloat(roi) / 100, 1 / 12) - 1;
     const totalMonths = tenure.years * 12 + tenure.months;
     const maturityValue = Math.round(
       investment * Math.pow(1 + monthlyRateOfReturn, totalMonths)
@@ -107,7 +110,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
     setMaturityValue(maturityValue);
     setProfit(profit);
     setTimesMultiplied(toDecimal(maturityValue / investment));
-  }, [expectedReturns, tenure, investment]);
+  }, [roi, tenure, investment]);
 
   const calculate = useCallback(() => {
     switch (calculatorType) {
@@ -148,8 +151,8 @@ export const useCalculator = ({ calculatorType }: Props) => {
           newInvestment,
           currInvestment,
           true,
-          0,
-          10000000
+          MIN_INVESTMENT,
+          MAX_INVESTMENT
         )
       );
     },
@@ -158,14 +161,14 @@ export const useCalculator = ({ calculatorType }: Props) => {
 
   const handleROIChange = useCallback(
     (e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, roi?: string) => {
-      const newExpectedReturns = e?.target.value || roi || "0";
-      setExpectedReturns((currExpectedReturns) =>
-        getUpdatedNumberWithValidation(
-          newExpectedReturns,
-          currExpectedReturns,
-          false,
-          0,
-          100
+      const newROI = e?.target.value || roi || "0";
+      const sanitizedROI = sanitizeROI(newROI);
+      setRoi((currROI) =>
+        getUpdatedInterestRateWithValidation(
+          sanitizedROI,
+          currROI,
+          MIN_ROI,
+          MAX_ROI
         )
       );
     },
@@ -215,7 +218,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
   useEffect(() => {
     setResultsReady(false);
     calculateTotalInvestment();
-    if (!investment || !expectedReturns || (!tenure.months && !tenure.years)) {
+    if (!investment || !roi || (!tenure.months && !tenure.years)) {
       setIsValidForm(false);
       setMaturityValue(0);
       setProfit(0);
@@ -227,7 +230,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
       calculate();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [investment, expectedReturns, tenure]);
+  }, [investment, roi, tenure]);
 
   return {
     isValidForm,
@@ -235,7 +238,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
     investment,
     yearlyInvestment: investment * 12,
     totalInvestment,
-    expectedReturns,
+    roi,
     tenure,
     profit,
     maturityValue,

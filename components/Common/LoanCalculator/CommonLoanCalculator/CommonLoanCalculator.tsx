@@ -8,6 +8,14 @@ import { LoanCalculatorProps } from "@/components/Loan/LoanCalculatorSummary";
 import { useLoanAmortisation } from "@/hooks/Loan/useLoanAmortisation";
 import LoanAmortisation from "../LoanAmortisation/LoanAmortisation";
 import CommonLoanCalculatorInput from "../CommonLoanCalculatorInput/CommonLoanCalculatorInput";
+import {
+  LOAN_AMOUNT_STEP,
+  MAX_LOAN_AMOUNT,
+  MAX_ROI,
+  MIN_LOAN_AMOUNT,
+  MIN_ROI,
+  ROI_STEP,
+} from "@/constants/calculator";
 
 import styles from "./CommonLoanCalculator.module.css";
 
@@ -59,6 +67,12 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         roi={roi}
         tenure={tenure}
         isValidForm={isValidForm}
+        minAmount={MIN_LOAN_AMOUNT}
+        maxAmount={MAX_LOAN_AMOUNT}
+        minRoi={MIN_ROI}
+        maxRoi={MAX_ROI}
+        stepAmount={LOAN_AMOUNT_STEP}
+        stepRoi={ROI_STEP}
         calculate={handleCalculateBtnClick}
         handleLoanAmountChange={handleLoanAmountChange}
         handleROIChange={handleROIChange}
@@ -72,11 +86,11 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
       roi,
       tenure,
       isValidForm,
+      handleCalculateBtnClick,
       handleLoanAmountChange,
       handleROIChange,
       handleTenureYearsChange,
       handleTenureMonthsChange,
-      handleCalculateBtnClick,
     ]
   );
 

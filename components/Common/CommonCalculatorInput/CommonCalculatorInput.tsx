@@ -6,16 +6,14 @@ import { CalculatorType, Tenure } from "@/types/ConfigTypes";
 import InputElement from "../InputElement/InputElement";
 import {
   commonCalculatorLabels,
-  defaultInvestmentAmount,
   defaultInvestmentTenureMonths,
   defaultInvestmentTenureYears,
-  defaultOneTimeAmount,
-  FDInvestmentReturnsRate,
 } from "./constants";
 import { useLoanSelection } from "@/hooks/Loan/useLoanSelection";
 import TenureInputElement from "../TenureInputElement/TenureInputElement";
 import { useMediaQuery, useTheme } from "@mui/material";
 import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
+import { getInvestmentShortcutData, getRoiShortcutData } from "./helpers";
 
 type Props = {
   handleInvestmentChange: (
@@ -38,8 +36,14 @@ type Props = {
   calculatorType: CalculatorType;
   isValidForm: boolean;
   investment: number;
-  expectedReturns: number;
+  roi: string;
   tenure: Tenure;
+  minAmount: number;
+  maxAmount: number;
+  stepAmount: number;
+  minRoi: number;
+  maxRoi: number;
+  stepRoi: number;
 };
 
 const CommonCalculatorInput = ({
@@ -51,8 +55,14 @@ const CommonCalculatorInput = ({
   isValidForm,
   calculatorType,
   investment,
-  expectedReturns,
-  tenure: tenure,
+  roi,
+  tenure,
+  minAmount,
+  maxAmount,
+  stepAmount,
+  minRoi,
+  maxRoi,
+  stepRoi,
 }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -69,25 +79,22 @@ const CommonCalculatorInput = ({
   } = useLoanSelection({
     investment,
     tenure,
-    roi: expectedReturns.toString(),
+    roi: roi.toString(),
     handleInvestmentChange,
     handleROIChange,
     handleTenureYearsChange,
     handleTenureMonthsChange,
   });
 
-  const defaultInvestmentShortcutData = useMemo(() => {
-    switch (calculatorType) {
-      case CalculatorType.SIP:
-        return defaultInvestmentAmount;
-      case CalculatorType.FD:
-        return defaultOneTimeAmount;
-      case CalculatorType.RD:
-        return defaultInvestmentAmount;
-      case CalculatorType.Lumpsum:
-        return defaultOneTimeAmount;
-    }
-  }, [calculatorType]);
+  const investmentShortcutData = useMemo(
+    () => getInvestmentShortcutData(calculatorType),
+    [calculatorType]
+  );
+
+  const roiShortcutData = useMemo(
+    () => getRoiShortcutData(calculatorType),
+    [calculatorType]
+  );
 
   const shouldShowMonths =
     calculatorType === CalculatorType.FD ||
@@ -97,7 +104,7 @@ const CommonCalculatorInput = ({
     <Section title={commonCalculatorLabels[calculatorType].title}>
       <InputElement
         value={investment}
-        buttonsData={defaultInvestmentShortcutData}
+        buttonsData={investmentShortcutData}
         label={commonCalculatorLabels[calculatorType].investment}
         placeholder={
           commonCalculatorLabels[calculatorType].investmentPlaceholder
@@ -106,16 +113,22 @@ const CommonCalculatorInput = ({
         handleChange={handleInvestmentChange}
         isActiveShortcutButton={isActiveInvestmentButton}
         selectShortcutButton={selectInvestment}
+        step={stepAmount}
+        min={minAmount}
+        max={maxAmount / 10}
       />
       <InputElement
-        value={expectedReturns}
-        buttonsData={FDInvestmentReturnsRate}
+        value={roi}
+        buttonsData={roiShortcutData}
         label={commonCalculatorLabels[calculatorType].returns}
         placeholder={commonCalculatorLabels[calculatorType].roiPlaceholder}
         handleChange={handleROIChange}
         isActiveShortcutButton={isActiveROIButton}
         selectShortcutButton={selectROI}
         isROI={true}
+        step={stepRoi}
+        min={minRoi}
+        max={maxRoi / 4}
       />
       <TenureInputElement
         tenure={tenure}

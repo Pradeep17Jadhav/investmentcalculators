@@ -22,6 +22,12 @@ type Props = {
   roi: string;
   tenure: Tenure;
   isValidForm: boolean;
+  minAmount: number;
+  maxAmount: number;
+  stepAmount: number;
+  minRoi: number;
+  maxRoi: number;
+  stepRoi: number;
   calculate: () => void;
   handleLoanAmountChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -47,6 +53,12 @@ const CommonLoanCalculatorInput = ({
   roi,
   tenure,
   isValidForm,
+  minAmount,
+  maxAmount,
+  stepAmount,
+  minRoi,
+  maxRoi,
+  stepRoi,
   calculate,
   handleLoanAmountChange,
   handleROIChange,
@@ -86,6 +98,9 @@ const CommonLoanCalculatorInput = ({
         handleChange={handleLoanAmountChange}
         isActiveShortcutButton={isActiveLoanAmountButton}
         selectShortcutButton={selectLoanAmount}
+        step={stepAmount}
+        min={minAmount}
+        max={maxAmount / 50}
       />
 
       <InputElement
@@ -97,6 +112,9 @@ const CommonLoanCalculatorInput = ({
         isActiveShortcutButton={isActiveROIButton}
         selectShortcutButton={selectROI}
         isROI
+        step={stepRoi}
+        min={minRoi}
+        max={maxRoi / 4}
       />
 
       <TenureInputElement

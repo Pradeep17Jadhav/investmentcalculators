@@ -38,8 +38,8 @@ export const getUpdatedNumberWithValidation = (
 export const getUpdatedInterestRateWithValidation = (
   newNumber: string,
   originalNumber: string,
-  min: string = "0",
-  max: string = "100"
+  min: number = 0,
+  max: number = 100
 ): string => {
   const decimalSplit = newNumber.split(",");
   const isDecimal = decimalSplit.length === 2;
@@ -57,11 +57,11 @@ export const getUpdatedInterestRateWithValidation = (
     }
     return originalNumber || "0";
   }
-  if (parseFloat(newNumber) < parseFloat(min)) {
-    return min;
+  if (parseFloat(newNumber) < min) {
+    return min.toString();
   }
-  if (parseFloat(newNumber) > parseFloat(max)) {
-    return max;
+  if (parseFloat(newNumber) > max) {
+    return max.toString();
   }
   return newNumber;
 };
