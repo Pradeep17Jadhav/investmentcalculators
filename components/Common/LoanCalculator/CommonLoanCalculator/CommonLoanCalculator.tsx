@@ -8,6 +8,8 @@ import { LoanCalculatorProps } from "@/components/Loan/LoanCalculatorSummary";
 import { useLoanAmortisation } from "@/hooks/Loan/useLoanAmortisation";
 import LoanAmortisation from "../LoanAmortisation/LoanAmortisation";
 import CommonLoanCalculatorInput from "../CommonLoanCalculatorInput/CommonLoanCalculatorInput";
+import { usePrepayment } from "@/hooks/Loan/usePrepayments";
+import { usePrepaymentsProvider } from "@/contexts/loan/prepaymentsContext";
 import {
   LOAN_AMOUNT_STEP,
   MAX_LOAN_AMOUNT,
@@ -43,12 +45,23 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     handleTenureMonthsChange,
   } = useLoanCalculator({ loanCalculatorType });
 
+  const { prepayments } = usePrepaymentsProvider();
+  const { prepaymentsByMonth, hasPrepayments } = usePrepayment({
+    prepayments,
+    tenure,
+  });
+
   const {
-    hasPrepayments,
     yearlyRowData: yearlyAmortisationData,
     monthlyRowData: monthlyAmortisationData,
     downloadAmortisation,
-  } = useLoanAmortisation(loanAmount, roi, tenure);
+  } = useLoanAmortisation(
+    loanAmount,
+    roi,
+    tenure,
+    prepaymentsByMonth,
+    hasPrepayments
+  );
 
   const handleCalculateBtnClick = useCallback(
     (valid?: boolean) => {

@@ -1,6 +1,7 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
+import { Dayjs } from "dayjs";
 import Section from "@/components/Section/Section";
 import { useLoanSelection } from "@/hooks/Loan/useLoanSelection";
 import { LoanCalculatorType, Tenure } from "@/types/ConfigTypes";
@@ -15,6 +16,15 @@ import InputElement from "../../InputElement/InputElement";
 import TenureInputElement from "../../TenureInputElement/TenureInputElement";
 import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
 import { useMediaQuery, useTheme } from "@mui/material";
+import PaymentInputItem from "../../PaymentInput/PaymentInputItem";
+import { PrepaymentInterval } from "@/hooks/Loan/usePrepayments";
+import {
+  PrepaymentsActionType,
+  usePrepaymentsProvider,
+} from "@/contexts/loan/prepaymentsContext";
+import TinyButton from "@/components/Buttons/TinyButton/TinyButton";
+
+import styles from "./CommonLoanCalculatorInput.module.css";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -67,6 +77,7 @@ const CommonLoanCalculatorInput = ({
 }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { dispatch, prepayments } = usePrepaymentsProvider();
 
   const {
     isActiveLoanAmountButton,
@@ -87,11 +98,51 @@ const CommonLoanCalculatorInput = ({
     handleTenureMonthsChange,
   });
 
+  const onPrepaymentChange = useCallback(
+    (startDate: Dayjs) => (newAmount: number) => {
+      dispatch({
+        type: PrepaymentsActionType.UPDATE_AMOUNT,
+        startDate,
+        amount: newAmount,
+      });
+    },
+    [dispatch]
+  );
+
+  const onIntervalChange = useCallback(
+    (startDate: Dayjs) => (newInterval: PrepaymentInterval) => {
+      dispatch({
+        type: PrepaymentsActionType.UPDATE_INTERVAL,
+        startDate,
+        interval: newInterval,
+      });
+    },
+    [dispatch]
+  );
+
+  const onStartDateChange = useCallback(
+    (startDate: Dayjs) => (newStartDate: Dayjs) => {
+      dispatch({
+        type: PrepaymentsActionType.UPDATE_START_DATE,
+        startDate,
+        newStartDate,
+      });
+    },
+    [dispatch]
+  );
+
+  const onAddPrepaymentClick = useCallback(() => {
+    dispatch({
+      type: PrepaymentsActionType.ADD_PREPAYMENT,
+    });
+  }, [dispatch]);
+
   return (
     <Section title={labels[loanCalculatorType].title}>
       <InputElement
         value={loanAmount}
         buttonsData={defaultLoanAmount}
+        hideSelectionButtons={isMobile}
         label={labels[loanCalculatorType].loanAmount}
         placeholder={labels[loanCalculatorType].loanAmountPlaceholder}
         isPrice={true}
@@ -106,6 +157,7 @@ const CommonLoanCalculatorInput = ({
       <InputElement
         value={roi}
         buttonsData={defaultLoanInterestRates}
+        hideSelectionButtons={isMobile}
         label={labels[loanCalculatorType].roi}
         placeholder={labels[loanCalculatorType].roiPlaceholder}
         handleChange={handleROIChange}
@@ -119,6 +171,7 @@ const CommonLoanCalculatorInput = ({
 
       <TenureInputElement
         tenure={tenure}
+        hideSelectionButtons={isMobile}
         label={labels[loanCalculatorType].tenure}
         placeholderYears={labels[loanCalculatorType].tenureYearsPlaceholder}
         placeholderMonths={labels[loanCalculatorType].tenureMonthsPlaceholder}
@@ -132,6 +185,31 @@ const CommonLoanCalculatorInput = ({
         selectMonths={selectMonths}
         showMonths
       />
+
+      <strong style={{ marginBottom: "16px" }}>Prepayments</strong>
+      {prepayments.map((prepayment, i) => (
+        <PaymentInputItem
+          className={styles.prepaymentItem}
+          key={prepayment.startDate.unix() + i}
+          intervalLabel="Interval"
+          amountLabel="Prepayment Amount"
+          dateLabel="Start Month"
+          interval={prepayment.interval}
+          amountValue={prepayment.amount}
+          dateValue={prepayment.startDate}
+          onAmountChange={onPrepaymentChange(prepayment.startDate)}
+          onDateChange={onStartDateChange(prepayment.startDate)}
+          onIntervalChange={onIntervalChange(prepayment.startDate)}
+        />
+      ))}
+      {false && (
+        <TinyButton
+          className={styles.addPrepaymentButton}
+          onClick={onAddPrepaymentClick}
+          roundBorder
+        >{`Add Prepayment`}</TinyButton>
+      )}
+
       {isMobile && (
         <LargeButton onClick={calculate} disabled={!isValidForm} centered>
           CALCULATE

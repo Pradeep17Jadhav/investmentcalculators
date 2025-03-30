@@ -24,6 +24,7 @@ type Props = {
   ) => void;
   isPrice?: boolean;
   isROI?: boolean;
+  hideSelectionButtons?: boolean;
   isActiveShortcutButton: (selectedValue: number) => boolean;
   selectShortcutButton: (selectedValue: number) => () => void;
   step: number;
@@ -38,8 +39,9 @@ const InputElement = ({
   max,
   isPrice,
   isROI,
-  handleChange,
   step,
+  hideSelectionButtons = false,
+  handleChange,
   isActiveShortcutButton,
   selectShortcutButton,
 }: Props) => {
@@ -87,7 +89,7 @@ const InputElement = ({
             backgroundColor: "var(--highlight-color-blue-dark)",
           },
           "& .MuiSlider-rail": {
-            backgroundColor: "gray", 
+            backgroundColor: "gray",
           },
         }}
         value={parseInt(value.toString()) || 0}
@@ -99,11 +101,14 @@ const InputElement = ({
         step={step}
       />
 
-      <SelectionButtonsSet
-        buttonsData={buttonsData}
-        isActive={isActiveShortcutButton}
-        onClick={selectShortcutButton}
-      />
+      {!hideSelectionButtons && (
+        <SelectionButtonsSet
+          buttonsData={buttonsData}
+          isActive={isActiveShortcutButton}
+          onClick={selectShortcutButton}
+        />
+      )}
+
       {!!value && isPrice && isNumber(value) && (
         <div className={styles.caption}>{toWords.convert(value)}</div>
       )}

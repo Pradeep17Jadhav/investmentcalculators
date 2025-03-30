@@ -24,6 +24,11 @@ export type LoanData = {
   loanAmount: number;
   rateOfInterest: number;
   tenureMonths: number;
+  tenureWithPrepaymentMonths: number;
   emi: number;
   monthYear: number;
+  hasPrepayments: boolean;
+  totalPrepayments: number;
+  totalPrincipalPaid: number;
+  totalInterestPaid: number;
 };

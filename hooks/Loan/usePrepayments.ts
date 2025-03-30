@@ -1,144 +1,101 @@
-import { useState, useEffect, useMemo } from "react";
-import dayjs from "dayjs";
+import { useState, useEffect, useCallback } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { Tenure } from "@/types/ConfigTypes";
 
-type Prepayments = Record<string, number>;
+export type PrepaymentsByMonth = Record<string, number>;
+export enum PrepaymentInterval {
+  ONE_TIME = "One Time",
+  MONTHLY = "Monthly",
+  QUARTERLY = "Quarterly",
+  HALF_ANNUALLY = "Half Annually",
+  ANNUALLY = "Annually",
+}
 
-type UsePrepaymentProps = {
-  monthlyPrepaymentStartDate?: number;
-  quarterlyPrepaymentStartDate?: number;
-  halfAnnualyPrepaymentStartDate?: number;
-  annuallyPrepaymentStartDate?: number;
-  oneTimePrepayments?: { startDate: number; amount: number }[];
-  monthlyPrepaymentAmount?: number;
-  quarterlyPrepaymentAmount?: number;
-  halfAnnualyPrepaymentAmount?: number;
-  annuallyPrepaymentAmount?: number;
+export type Prepayment = {
+  startDate: Dayjs;
+  amount: number;
+  interval: PrepaymentInterval;
 };
 
 export const usePrepayment = ({
-  monthlyPrepaymentStartDate,
-  quarterlyPrepaymentStartDate,
-  halfAnnualyPrepaymentStartDate,
-  annuallyPrepaymentStartDate,
-  oneTimePrepayments = [],
-  monthlyPrepaymentAmount = 0,
-  quarterlyPrepaymentAmount = 0,
-  halfAnnualyPrepaymentAmount = 0,
-  annuallyPrepaymentAmount = 0,
-}: UsePrepaymentProps) => {
-  const [prepayments, setPrepayments] = useState<Prepayments>({});
+  prepayments,
+  tenure,
+}: {
+  prepayments: Prepayment[];
+  tenure: Tenure;
+}) => {
+  const [prepaymentsByMonth, setPrepaymentsByMonth] =
+    useState<PrepaymentsByMonth>({});
   const [hasPrepayments, setHasPrepayments] = useState<boolean>(false);
-  const memoizedOneTimePrepayments = useMemo(
-    () => JSON.stringify(oneTimePrepayments),
-    [oneTimePrepayments]
+  const [totalPrepayments, setTotalPrepayments] = useState<number>(0);
+
+  const getRemainingIterations = useCallback(
+    (interval: PrepaymentInterval) => {
+      switch (interval) {
+        case PrepaymentInterval.ONE_TIME:
+          return 1;
+        case PrepaymentInterval.ANNUALLY:
+          return tenure.years + 1;
+        case PrepaymentInterval.HALF_ANNUALLY:
+          return tenure.years * 2 + 2;
+        case PrepaymentInterval.QUARTERLY:
+          return tenure.years * 4 + 5;
+        case PrepaymentInterval.MONTHLY:
+          return tenure.years * 12 + tenure.months + 1;
+      }
+    },
+    [tenure.months, tenure.years]
   );
 
-  const addPrepayment = (
-    startDate: number | undefined,
-    amount: number,
-    interval: number,
-    newPrepayments: Prepayments,
-    baseDate: dayjs.Dayjs
-  ) => {
-    if (!startDate || amount <= 0) return;
-
-    let date = dayjs(startDate.toString(), "YYYYMM");
-    while (date.isAfter(baseDate) || date.isSame(baseDate, "month")) {
-      const key = date.format("YYYYMM");
-      newPrepayments[key] = (newPrepayments[key] || 0) + amount;
-      date = date.add(interval, "month");
-    }
-  };
-
-  const addOneTimePrepayments = (
-    oneTimePrepayments: { startDate: number; amount: number }[],
-    newPrepayments: Prepayments
-  ) => {
-    oneTimePrepayments.forEach(({ startDate, amount }) => {
-      const dateKey = dayjs(startDate.toString(), "YYYYMM").format("YYYYMM");
-      newPrepayments[dateKey] = (newPrepayments[dateKey] || 0) + amount;
-    });
-  };
-
   useEffect(() => {
-    if (!monthlyPrepaymentStartDate || monthlyPrepaymentAmount <= 0) return;
-    setPrepayments((prev) => {
-      const newPrepayments = { ...prev };
-      addPrepayment(
-        monthlyPrepaymentStartDate,
-        monthlyPrepaymentAmount,
-        1,
-        newPrepayments,
-        dayjs()
-      );
-      return newPrepayments;
-    });
-  }, [monthlyPrepaymentStartDate, monthlyPrepaymentAmount]);
+    const newPrepayments: PrepaymentsByMonth = {};
+    prepayments.forEach(({ startDate, amount, interval }) => {
+      if (!tenure.years && !tenure.months && !tenure.days) {
+        return;
+      }
+      let remainingIterations = getRemainingIterations(interval);
+      let count = 0;
+      while (
+        (startDate.isAfter(dayjs()) || startDate.isSame(dayjs(), "month")) &&
+        remainingIterations
+      ) {
+        count += 1;
+        const key = startDate.format("YYYYMM");
+        console.log(key, count);
+        newPrepayments[key] = (newPrepayments[key] || 0) + amount;
+        remainingIterations -= 1;
 
-  useEffect(() => {
-    if (!quarterlyPrepaymentStartDate || quarterlyPrepaymentAmount <= 0) return;
-    setPrepayments((prev) => {
-      const newPrepayments = { ...prev };
-      addPrepayment(
-        quarterlyPrepaymentStartDate,
-        quarterlyPrepaymentAmount,
-        3,
-        newPrepayments,
-        dayjs()
-      );
-      return newPrepayments;
+        switch (interval) {
+          case PrepaymentInterval.MONTHLY:
+            startDate = startDate.add(1, "month");
+            break;
+          case PrepaymentInterval.QUARTERLY:
+            startDate = startDate.add(3, "month");
+            break;
+          case PrepaymentInterval.HALF_ANNUALLY:
+            startDate = startDate.add(6, "month");
+            break;
+          case PrepaymentInterval.ANNUALLY:
+            startDate = startDate.add(12, "month");
+            break;
+        }
+      }
     });
-  }, [quarterlyPrepaymentStartDate, quarterlyPrepaymentAmount]);
 
-  useEffect(() => {
-    if (!halfAnnualyPrepaymentStartDate || halfAnnualyPrepaymentAmount <= 0)
-      return;
-    setPrepayments((prev) => {
-      const newPrepayments = { ...prev };
-      addPrepayment(
-        halfAnnualyPrepaymentStartDate,
-        halfAnnualyPrepaymentAmount,
-        6,
-        newPrepayments,
-        dayjs()
-      );
-      return newPrepayments;
-    });
-  }, [halfAnnualyPrepaymentStartDate, halfAnnualyPrepaymentAmount]);
-
-  useEffect(() => {
-    if (!annuallyPrepaymentStartDate || annuallyPrepaymentAmount <= 0) return;
-    setPrepayments((prev) => {
-      const newPrepayments = { ...prev };
-      addPrepayment(
-        annuallyPrepaymentStartDate,
-        annuallyPrepaymentAmount,
-        12,
-        newPrepayments,
-        dayjs()
-      );
-      return newPrepayments;
-    });
-  }, [annuallyPrepaymentStartDate, annuallyPrepaymentAmount]);
-
-  useEffect(() => {
-    setPrepayments((prev) => {
-      const newPrepayments = { ...prev };
-      addOneTimePrepayments(
-        JSON.parse(memoizedOneTimePrepayments),
-        newPrepayments
-      );
-      return newPrepayments;
-    });
-  }, [memoizedOneTimePrepayments]);
-
-  useEffect(() => {
-    const totalPrepayments = Object.values(prepayments).reduce(
-      (sum, amount) => sum + amount,
-      0
+    setPrepaymentsByMonth(newPrepayments);
+    setHasPrepayments(
+      Object.values(newPrepayments).some((amount) => amount > 0)
     );
-    setHasPrepayments(!!totalPrepayments);
-  }, [prepayments]);
+    setTotalPrepayments(
+      Object.values(newPrepayments).reduce((acc, amount) => acc + amount, 0)
+    );
+  }, [
+    getRemainingIterations,
+    prepayments,
+    tenure.days,
+    tenure.months,
+    tenure.years,
+  ]);
 
-  return { prepayments, hasPrepayments };
+  return { prepaymentsByMonth, hasPrepayments, totalPrepayments };
 };

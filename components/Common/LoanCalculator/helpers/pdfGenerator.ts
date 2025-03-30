@@ -14,11 +14,24 @@ import {
   LoanData,
 } from "../../../../types/Loan/LoanTypes";
 
+const getStartMonth = (loanData: LoanData) => {
+  const month = getPrintableMonthYear(
+    AmortisationTableFrequency.Monthly,
+    loanData.monthYear
+  );
+  const year = getPrintableMonthYear(
+    AmortisationTableFrequency.Yearly,
+    loanData.monthYear,
+    false,
+    true
+  );
+  return `${month} ${year}`;
+};
+
 export const generatePDF = async (
   amortisationData: AmortisationRow[],
   loanData: LoanData,
-  tableFrequency: AmortisationTableFrequency,
-  hasPrepayments: boolean
+  tableFrequency: AmortisationTableFrequency
 ) => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -26,6 +39,7 @@ export const generatePDF = async (
   const tablePadding = 20;
   const usableWidth = pageWidth - tablePadding * 2;
   const robotoFont = await getRobotoFont();
+  const hasPrepayments = loanData.hasPrepayments;
 
   doc.addFileToVFS("Roboto.ttf", robotoFont);
   doc.addFont("Roboto.ttf", "Roboto", "normal");
@@ -41,20 +55,60 @@ export const generatePDF = async (
   );
 
   doc.setTextColor(80, 80, 80).setFontSize(12).text("Loan Details", 20, 35);
+
+  const loanTablePrepaymentBody = hasPrepayments
+    ? [
+        [
+          "Tenure With Prepayments (Months)",
+          `${loanData.tenureWithPrepaymentMonths} Months`,
+        ],
+        [
+          "Tenure With Prepayments (Years)",
+          getMonthsToYearMonths(loanData.tenureWithPrepaymentMonths),
+        ],
+        ["Total Prepayments", `₹${formatPrice(loanData.totalPrepayments)}`],
+        [
+          "Principal Amount (excluding prepayments)",
+          `₹${formatPrice(loanData.totalPrincipalPaid)}`,
+        ],
+      ]
+    : [];
+
   const loanTableBody = [
-    ["Loan Amount", `₹${loanData.loanAmount.toLocaleString()}`],
+    ["Loan Amount", `₹${formatPrice(loanData.loanAmount)}`],
     ["Interest Rate", `${loanData.rateOfInterest}%`],
-    ["Tenure (Months)", `${loanData.tenureMonths}`],
-    ["Tenure (Years)", getMonthsToYearMonths(loanData.tenureMonths)],
-    ["EMI (Monthly)", `₹${loanData.emi.toLocaleString()}`],
+    ["EMI (Monthly)", `₹${formatPrice(loanData.emi)}`],
+    ["Start Month", getStartMonth(loanData)],
     [
-      "Start Month",
-      getPrintableMonthYear(
-        AmortisationTableFrequency.Monthly,
-        loanData.monthYear
-      ),
+      `${hasPrepayments ? "Original " : ""}Tenure (Months)`,
+      `${loanData.tenureMonths} Months`,
     ],
+    [
+      `${hasPrepayments ? "Original " : ""}Tenure (Years)`,
+      getMonthsToYearMonths(loanData.tenureMonths),
+    ],
+    ...loanTablePrepaymentBody,
+    ["Interest Amount", `₹${formatPrice(loanData.totalInterestPaid)}`],
+    [
+      `Total Repayment ${hasPrepayments ? "(excluding prepayments)" : ""}`,
+      `₹${formatPrice(
+        loanData.totalInterestPaid + loanData.totalPrincipalPaid
+      )}`,
+    ],
+    ...(hasPrepayments
+      ? [
+          [
+            "Total Repayment With Prepayments",
+            `₹${formatPrice(
+              loanData.totalInterestPaid +
+                loanData.totalPrincipalPaid +
+                loanData.totalPrepayments
+            )}`,
+          ],
+        ]
+      : []),
   ];
+
   autoTable(doc, {
     startY: 38,
     body: loanTableBody,
@@ -72,7 +126,7 @@ export const generatePDF = async (
         : "(Yearly)"
     }`,
     20,
-    92
+    52 + loanTableBody.length * 7
   );
 
   const desktopColumns = getDesktopColumns(hasPrepayments);
@@ -109,7 +163,7 @@ export const generatePDF = async (
     }, {} as Record<number, { cellWidth: number }>);
 
   autoTable(doc, {
-    startY: 95,
+    startY: 55 + loanTableBody.length * 7,
     head: [headers],
     body: rows,
     theme: "grid",

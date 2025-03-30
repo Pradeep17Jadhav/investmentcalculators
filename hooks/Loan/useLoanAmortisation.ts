@@ -8,41 +8,28 @@ import {
 } from "@/types/Loan/LoanTypes";
 import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGenerator";
 import { Tenure } from "@/types/ConfigTypes";
-import { usePrepayment } from "./usePrepayments";
+import { PrepaymentsByMonth } from "./usePrepayments";
 
 export const useLoanAmortisation = (
   loanAmount: number,
   roi: string,
   tenure: Tenure,
-  startDate?: string
+  prepaymentsByMonth: PrepaymentsByMonth,
+  hasPrepayments: boolean
 ) => {
   const tenureMonths = tenure.years * 12 + tenure.months;
   const [yearlyRowData, setYearlyRowData] = useState<AmortisationRow[]>([]);
   const [monthlyRowData, setMonthlyRowData] = useState<AmortisationRow[]>([]);
+  const [totalInterestPaid, setTotalInterestPaid] = useState(0);
+  const [totalPrincipalPaid, setTotalPrincipalPaid] = useState(0);
+  const [totalPrepayments, setTotalPrepayments] = useState(0);
   const [emi, setEmi] = useState(0);
   const sanitizedROI = sanitizeROI(roi);
   const isIncompleteROT = sanitizedROI[sanitizedROI.length - 1] === ".";
   const rateOfInterest = isIncompleteROT
     ? parseFloat(sanitizedROI.split(".")[0])
     : parseFloat(sanitizedROI);
-  const baseDate = startDate ? dayjs(startDate) : dayjs();
-
-  const { prepayments, hasPrepayments } = usePrepayment({
-    // monthlyPrepaymentStartDate: "2025-01-01",
-    // monthlyPrepaymentAmount: 5000,
-    // quarterlyPrepaymentStartDate: "2025-03-01",
-    // quarterlyPrepaymentAmount: 10000,
-    // halfAnnualyPrepaymentStartDate: "2025-06-01",
-    // halfAnnualyPrepaymentAmount: 15000,
-    // annuallyPrepaymentStartDate: "2025-12-01",
-    // annuallyPrepaymentAmount: 20000,
-    oneTimePrepayments: [
-      {
-        startDate: 202608,
-        amount: 0,
-      },
-    ],
-  });
+  const baseDate = dayjs();
 
   const calculateAmortisation = useCallback(() => {
     const monthlyRate = rateOfInterest / 12 / 100;
@@ -59,17 +46,28 @@ export const useLoanAmortisation = (
     > = {};
 
     for (let i = 0; i < tenureMonths; i++) {
-      const interest = balance * monthlyRate;
-      const isBalanceFullyPaid = emi - interest >= balance;
-      const principal = isBalanceFullyPaid ? balance : emi - interest;
       const emiDate = baseDate.add(i, "month");
       const monthYear = Number(emiDate.format("YYYYMM"));
-      const prepayment = prepayments[monthYear] || 0;
+      const availablePrepayment = prepaymentsByMonth[monthYear] || 0;
+      const interest = balance * monthlyRate;
+      const amountCanBeGivenToPrincipal = emi - interest;
+      const isBalanceFullyPaid: boolean =
+        amountCanBeGivenToPrincipal >= balance;
+      const isBalanceFullyPaidWithPrepayment =
+        amountCanBeGivenToPrincipal + availablePrepayment >= balance;
+      const prepayment = isBalanceFullyPaid
+        ? 0
+        : isBalanceFullyPaidWithPrepayment
+        ? balance - amountCanBeGivenToPrincipal
+        : availablePrepayment;
+      const principal = isBalanceFullyPaid
+        ? balance
+        : amountCanBeGivenToPrincipal;
       const totalPaid = isBalanceFullyPaid
         ? principal + interest + prepayment
         : emi + prepayment;
 
-      balance -= principal + prepayment;
+      balance -= principal + availablePrepayment;
       if (balance < 0) {
         balance = 0;
       }
@@ -119,9 +117,23 @@ export const useLoanAmortisation = (
       })
     );
 
+    const { totalInterest, totalPrincipal, totalPrepayments } =
+      formattedYearlyData.reduce(
+        (acc, yearlyData) => {
+          acc.totalInterest += yearlyData.interestPaid;
+          acc.totalPrincipal += yearlyData.principalPaid;
+          acc.totalPrepayments += yearlyData.prepayments;
+          return acc;
+        },
+        { totalInterest: 0, totalPrincipal: 0, totalPrepayments: 0 }
+      );
+
     setYearlyRowData(formattedYearlyData);
     setMonthlyRowData(monthlyData);
-  }, [loanAmount, rateOfInterest, tenureMonths, baseDate, prepayments]);
+    setTotalInterestPaid(totalInterest);
+    setTotalPrincipalPaid(totalPrincipal);
+    setTotalPrepayments(totalPrepayments);
+  }, [loanAmount, rateOfInterest, tenureMonths, baseDate, prepaymentsByMonth]);
 
   const downloadAmortisation = useCallback(
     (
@@ -136,30 +148,37 @@ export const useLoanAmortisation = (
         loanAmount,
         rateOfInterest,
         tenureMonths,
+        tenureWithPrepaymentMonths: monthlyRowData.length,
         emi,
         monthYear,
+        hasPrepayments,
+        totalPrepayments,
+        totalPrincipalPaid,
+        totalInterestPaid,
       };
-      generatePDF(tableData, loanData, tableFrequency, hasPrepayments);
+      generatePDF(tableData, loanData, tableFrequency);
     },
     [
       baseDate,
       emi,
+      hasPrepayments,
       loanAmount,
       monthlyRowData,
       rateOfInterest,
       tenureMonths,
+      totalInterestPaid,
+      totalPrepayments,
+      totalPrincipalPaid,
       yearlyRowData,
-      hasPrepayments,
     ]
   );
 
   useEffect(() => {
     calculateAmortisation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loanAmount, roi, tenureMonths, startDate]);
+  }, [loanAmount, roi, tenureMonths, prepaymentsByMonth, hasPrepayments]);
 
   return {
-    hasPrepayments,
     yearlyRowData,
     monthlyRowData,
     downloadAmortisation,

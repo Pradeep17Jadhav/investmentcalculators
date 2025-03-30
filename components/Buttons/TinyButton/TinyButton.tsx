@@ -8,6 +8,7 @@ type Props = {
   className?: string;
   centered?: boolean;
   active?: boolean;
+  roundBorder?: boolean;
   onClick?: () => void;
 };
 const TinyButton = ({
@@ -15,18 +16,20 @@ const TinyButton = ({
   className,
   onClick,
   centered,
-  active,
+  active = false,
+  roundBorder = false,
 }: Props) => {
   return (
     <div
-      className={classnames({
+      className={classnames(className, {
         [styles.centered]: centered,
       })}
     >
       <button
         onClick={onClick}
-        className={classnames(styles.button, className, {
+        className={classnames(styles.button, {
           [styles.active]: active,
+          [styles.roundBorder]: roundBorder,
         })}
       >
         {children}

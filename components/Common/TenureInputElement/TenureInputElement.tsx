@@ -14,6 +14,7 @@ type Props = {
   yearsData: number[];
   monthsData: number[];
   showMonths?: boolean;
+  hideSelectionButtons?: boolean;
   handleYearChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     newYear?: string
@@ -36,6 +37,7 @@ const TenureInputElement = ({
   yearsData,
   monthsData,
   showMonths,
+  hideSelectionButtons,
   handleYearChange,
   handleMonthChange,
   isActiveYearButton,
@@ -62,20 +64,23 @@ const TenureInputElement = ({
             },
           }}
         />
-        <SelectionButtonsSet
-          buttonsData={yearsData}
-          isActive={isActiveYearButton}
-          onClick={selectYears}
-        />
+        {!hideSelectionButtons && (
+          <SelectionButtonsSet
+            buttonsData={yearsData}
+            isActive={isActiveYearButton}
+            onClick={selectYears}
+          />
+        )}
       </div>
     ),
     [
-      handleYearChange,
-      isActiveYearButton,
       placeholderYears,
-      selectYears,
+      hideSelectionButtons,
       tenure.years,
       yearsData,
+      handleYearChange,
+      isActiveYearButton,
+      selectYears,
     ]
   );
 
@@ -99,20 +104,23 @@ const TenureInputElement = ({
             },
           }}
         />
-        <SelectionButtonsSet
-          buttonsData={monthsData}
-          isActive={isActiveMonthButton}
-          onClick={selectMonths}
-        />
+        {!hideSelectionButtons && (
+          <SelectionButtonsSet
+            buttonsData={monthsData}
+            isActive={isActiveMonthButton}
+            onClick={selectMonths}
+          />
+        )}
       </div>
     ),
     [
+      monthsData,
+      hideSelectionButtons,
+      placeholderMonths,
+      tenure.months,
+      selectMonths,
       handleMonthChange,
       isActiveMonthButton,
-      monthsData,
-      placeholderMonths,
-      selectMonths,
-      tenure.months,
     ]
   );
 
