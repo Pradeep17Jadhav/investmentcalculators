@@ -10,6 +10,9 @@ import { getPrintableMonthYear } from "../Common/LoanCalculator/helpers/loan";
 import { AmortisationTableFrequency } from "@/types/Loan/LoanTypes";
 
 import styles from "./LoanCalculatorSummary.module.css";
+import LoanBreakdownChart from "../Charts/Loan/TestChart";
+import { ToWords } from "to-words";
+import { toDecimal } from "@/helpers/numbers";
 
 export type LoanCalculatorProps = {
   resultsReady: boolean;
@@ -46,6 +49,8 @@ const LoanCalculatorSummary = ({
   ends,
   ref,
 }: LoanCalculatorProps) => {
+  const toWords = new ToWords();
+
   return (
     <div className={styles.container}>
       <Section ref={ref} autoHeight>
@@ -81,19 +86,23 @@ const LoanCalculatorSummary = ({
           <SummaryItem
             left="Total Prepayments"
             right={`₹${formatPrice(prepayments)}`}
+            tooltip={toWords.convert(prepayments)}
           />
           <SummaryItem
             left="Principal Payable"
             right={`₹${formatPrice(resultsReady ? principalPaid : 0)}`}
+            tooltip={toWords.convert(principalPaid)}
           />
           <SummaryItem
             left="Interest Payable"
             right={`₹${formatPrice(interestPaid)}`}
             loss
+            tooltip={toWords.convert(interestPaid)}
           />
           <SummaryItem
             left="Total Repayment"
             right={`₹${formatPrice(totalPaid)}`}
+            tooltip={toWords.convert(totalPaid)}
           />
           <SummaryItem
             left="Loan Amount Multiplied By"
@@ -104,9 +113,15 @@ const LoanCalculatorSummary = ({
               left="Savings with Prepayments"
               right={`₹${formatPrice(prepaymentSavings, 0, 0)}`}
               profit
+              tooltip={toWords.convert(toDecimal(prepaymentSavings, 0))}
             />
           )}
         </SummaryBlock>
+        <LoanBreakdownChart
+          loanAmount={loanAmount}
+          interestPaid={interestPaid}
+          prepayments={prepayments}
+        />
       </Section>
     </div>
   );
