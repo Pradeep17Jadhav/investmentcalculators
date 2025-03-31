@@ -4,12 +4,14 @@ import { createContext, ReactNode, useContext, useReducer } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Prepayment, PrepaymentInterval } from "@/hooks/Loan/usePrepayments";
 
-const defaultPrepayment: Prepayment = {
+const getDefaultPrepayment = () => ({
   amount: 0,
   startDate: dayjs(),
   interval: PrepaymentInterval.ONE_TIME,
-};
-const defaultPrepayments: Prepayment[] = [defaultPrepayment];
+  id: Date.now(),
+});
+
+const defaultPrepayments: Prepayment[] = [getDefaultPrepayment()];
 
 export enum PrepaymentsActionType {
   UPDATE_AMOUNT = "UPDATE_AMOUNT",
@@ -62,7 +64,7 @@ const prepaymentsReducer = (
           : prepayment
       );
     case PrepaymentsActionType.ADD_PREPAYMENT:
-      return [...state, defaultPrepayment];
+      return [...state, getDefaultPrepayment()];
     case PrepaymentsActionType.REMOVE_PREPAYMENT:
       return state.filter(
         (prepayment) => !prepayment.startDate.isSame(action.startDate)

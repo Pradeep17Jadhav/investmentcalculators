@@ -6,6 +6,13 @@
     font-weight: 400;
 }
 
+.profit {
+    color: #10b983;
+}
+
+.loss {
+    color: #f35631;
+}
 
 @media (max-width: 600px) {
     .summaryItem {

@@ -20,9 +20,11 @@ export const useLoanAmortisation = (
   const tenureMonths = tenure.years * 12 + tenure.months;
   const [yearlyRowData, setYearlyRowData] = useState<AmortisationRow[]>([]);
   const [monthlyRowData, setMonthlyRowData] = useState<AmortisationRow[]>([]);
-  const [totalInterestPaid, setTotalInterestPaid] = useState(0);
-  const [totalPrincipalPaid, setTotalPrincipalPaid] = useState(0);
+  const [interestPaid, setInterestPaid] = useState(0);
+  const [principalPaid, setPrincipalPaid] = useState(0);
   const [totalPrepayments, setTotalPrepayments] = useState(0);
+  const [totalPayment, setTotalPayment] = useState(0);
+  const [timesPaid, setTimesPaid] = useState(0);
   const [emi, setEmi] = useState(0);
   const sanitizedROI = sanitizeROI(roi);
   const isIncompleteROT = sanitizedROI[sanitizedROI.length - 1] === ".";
@@ -128,12 +130,16 @@ export const useLoanAmortisation = (
         { totalInterest: 0, totalPrincipal: 0, totalPrepayments: 0 }
       );
 
+    const totalPayment = totalInterest + totalPrincipal + totalPrepayments;
+    const timesPaid = totalPayment / loanAmount;
+    setTotalPayment(totalPayment);
     setYearlyRowData(formattedYearlyData);
     setMonthlyRowData(monthlyData);
-    setTotalInterestPaid(totalInterest);
-    setTotalPrincipalPaid(totalPrincipal);
+    setInterestPaid(totalInterest);
+    setPrincipalPaid(totalPrincipal);
     setTotalPrepayments(totalPrepayments);
-  }, [loanAmount, rateOfInterest, tenureMonths, baseDate, prepaymentsByMonth]);
+    setTimesPaid(toDecimal(timesPaid));
+  }, [rateOfInterest, loanAmount, tenureMonths, baseDate, prepaymentsByMonth]);
 
   const downloadAmortisation = useCallback(
     (
@@ -153,8 +159,8 @@ export const useLoanAmortisation = (
         monthYear,
         hasPrepayments,
         totalPrepayments,
-        totalPrincipalPaid,
-        totalInterestPaid,
+        totalPrincipalPaid: principalPaid,
+        totalInterestPaid: interestPaid,
       };
       generatePDF(tableData, loanData, tableFrequency);
     },
@@ -166,9 +172,9 @@ export const useLoanAmortisation = (
       monthlyRowData,
       rateOfInterest,
       tenureMonths,
-      totalInterestPaid,
+      interestPaid,
       totalPrepayments,
-      totalPrincipalPaid,
+      principalPaid,
       yearlyRowData,
     ]
   );
@@ -182,5 +188,10 @@ export const useLoanAmortisation = (
     yearlyRowData,
     monthlyRowData,
     downloadAmortisation,
+    interestPaidActual: interestPaid,
+    principalPaidActual: principalPaid,
+    totalPrepayments,
+    timesPaidActual: timesPaid,
+    totalPaidActual: totalPayment,
   };
 };

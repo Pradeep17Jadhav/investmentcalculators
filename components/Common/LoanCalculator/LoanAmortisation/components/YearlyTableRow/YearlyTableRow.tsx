@@ -53,6 +53,7 @@ const YearlyTableRow = ({
               sx={{
                 backgroundColor: "transparent",
                 width: `${PREPAYMENTS_COLUMN_WIDTH}px`,
+                padding: "6px",
               }}
               align="right"
             >
@@ -64,7 +65,7 @@ const YearlyTableRow = ({
           return (
             <TableCell
               key={key}
-              sx={{ backgroundColor: "transparent" }}
+              sx={{ backgroundColor: "transparent", padding: "6px" }}
               align="right"
             >
               {value}

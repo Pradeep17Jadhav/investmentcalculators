@@ -1,17 +1,41 @@
-export const formatPrice = (price: number, minimumFractionDigits?: number) => {
+/**
+ * Formats a number as a price in the Indian number system (en-IN locale).
+ *
+ * - Uses comma separators as per the Indian numbering format.
+ * - Limits decimal places to a maximum of 2.
+ * - Allows specifying a minimum number of decimal places.
+ */
+export const formatPrice = (
+  price: number,
+  minimumFractionDigits: number = 0,
+  maximumFractionDigits: number = 2
+): string => {
   return price.toLocaleString("en-IN", {
-    maximumFractionDigits: 2,
-    minimumFractionDigits:
-      minimumFractionDigits === undefined ? 0 : minimumFractionDigits,
+    maximumFractionDigits,
+    minimumFractionDigits,
   });
 };
 
+/**
+ * Converts a formatted price string into an integer by removing commas.
+ *
+ * - Strips out commas from the input string.
+ * - Parses the cleaned string into an integer using base 10.
+ */
 export const convertPriceToInt = (price: string) =>
   parseInt(price.replace(/,/g, ""), 10);
 
 export const isInputStringAValidNumber = (amount: string) =>
   Number.isFinite(parseInt(amount));
 
+/**
+ * Validates and updates a numeric input while ensuring it stays within the allowed range.
+ *
+ * - If the input is not a valid number, it returns the original value or `0`.
+ * - If `isPrice` is `true`, the input is converted to an integer price format.
+ * - Ensures the value stays within the provided `min` and `max` limits.
+ * - Defaults to parsing as an integer if `isPrice` is not specified.
+ */
 export const getUpdatedNumberWithValidation = (
   newNumber: string,
   originalNumber?: number,
@@ -35,6 +59,14 @@ export const getUpdatedNumberWithValidation = (
   return updatedNumber;
 };
 
+/**
+ * Validates and updates an interest rate input while ensuring it stays within the allowed range.
+ *
+ * - If the input is not a valid number, it returns the original value or "0".
+ * - Allows incomplete decimal inputs (e.g., "12.") without resetting.
+ * - Ensures the value stays within the provided `min` and `max` limits.
+ * - Supports both integer and decimal values.
+ */
 export const getUpdatedInterestRateWithValidation = (
   newNumber: string,
   originalNumber: string,

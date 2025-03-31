@@ -6,14 +6,18 @@ import styles from "./AmountBanner.module.css";
 
 type Props = {
   amount: number;
+  prefix?: string;
   ref?: Ref<HTMLDivElement>;
 };
 
-const AmountBanner = ({ amount, ref }: Props) => {
+const AmountBanner = ({ amount, ref, prefix }: Props) => {
   const toWords = new ToWords();
   return (
     <div className={styles.banner} ref={ref}>
-      <div className={styles.amount}>₹{formatPrice(amount)}</div>
+      <div className={styles.amount}>
+        {prefix && <span className={styles.prefix}>{prefix}</span>}
+        <span>₹{formatPrice(amount)}</span>
+      </div>
       {!!amount && (
         <div className={styles.caption}>
           {toWords.convert(parseFloat(amount.toFixed(2)))}

@@ -12,6 +12,7 @@ export enum PrepaymentInterval {
 }
 
 export type Prepayment = {
+  id: number;
   startDate: Dayjs;
   amount: number;
   interval: PrepaymentInterval;
@@ -27,7 +28,6 @@ export const usePrepayment = ({
   const [prepaymentsByMonth, setPrepaymentsByMonth] =
     useState<PrepaymentsByMonth>({});
   const [hasPrepayments, setHasPrepayments] = useState<boolean>(false);
-  const [totalPrepayments, setTotalPrepayments] = useState<number>(0);
 
   const getRemainingIterations = useCallback(
     (interval: PrepaymentInterval) => {
@@ -86,9 +86,6 @@ export const usePrepayment = ({
     setHasPrepayments(
       Object.values(newPrepayments).some((amount) => amount > 0)
     );
-    setTotalPrepayments(
-      Object.values(newPrepayments).reduce((acc, amount) => acc + amount, 0)
-    );
   }, [
     getRemainingIterations,
     prepayments,
@@ -97,5 +94,5 @@ export const usePrepayment = ({
     tenure.years,
   ]);
 
-  return { prepaymentsByMonth, hasPrepayments, totalPrepayments };
+  return { prepaymentsByMonth, hasPrepayments };
 };

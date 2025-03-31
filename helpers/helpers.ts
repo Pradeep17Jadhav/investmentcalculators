@@ -5,6 +5,9 @@
  * @returns
  */
 export const getMonthsToYearMonths = (months: number): string => {
+  if (!months) {
+    return "0 Months";
+  }
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
 

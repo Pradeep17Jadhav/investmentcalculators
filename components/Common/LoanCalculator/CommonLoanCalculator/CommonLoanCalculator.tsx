@@ -35,7 +35,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     totalPaid,
     roi,
     tenure,
-    interest,
+    interestPaid,
     timesPaid,
     emi,
     calculate,
@@ -55,6 +55,11 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     yearlyRowData: yearlyAmortisationData,
     monthlyRowData: monthlyAmortisationData,
     downloadAmortisation,
+    interestPaidActual,
+    principalPaidActual,
+    totalPrepayments,
+    totalPaidActual,
+    timesPaidActual,
   } = useLoanAmortisation(
     loanAmount,
     roi,
@@ -108,6 +113,18 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
     ]
   );
 
+  const summaryLoanProps = {
+    hasPrepayments,
+    principalPaid: hasPrepayments ? principalPaidActual : loanAmount,
+    timesMultiplied: hasPrepayments ? timesPaidActual : timesPaid,
+    totalPaid: hasPrepayments ? totalPaidActual : totalPaid,
+    interestPaid: hasPrepayments ? interestPaidActual : interestPaid,
+    prepayments: hasPrepayments ? totalPrepayments : 0,
+    starts: monthlyAmortisationData[0]?.year,
+    ends: monthlyAmortisationData[monthlyAmortisationData.length - 1]?.year,
+    prepaymentSavings: totalPaid - totalPaidActual,
+  };
+
   return (
     <div className={styles.container}>
       <TwoColumnContainer
@@ -119,14 +136,8 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
             isValidForm={isValidForm}
             loanAmount={loanAmount}
             roi={roi}
-            timesMultiplied={timesPaid}
-            totalPaid={totalPaid}
-            interest={interest}
             emi={emi}
-            starts={monthlyAmortisationData[0]?.year}
-            ends={
-              monthlyAmortisationData[monthlyAmortisationData.length - 1]?.year
-            }
+            {...summaryLoanProps}
           />
         }
       />

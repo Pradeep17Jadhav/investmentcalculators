@@ -3,7 +3,7 @@ import { TableColumns } from "@/types/Loan/LoanTypes";
 enum ColumnLabels {
   YEAR = "Year",
   PRINCIPAL = "Principal",
-  PREPAYMENTS = "Prepayments",
+  PREPAYMENT = "Prepayment",
   INTEREST = "Interest",
   BALANCE = "Balance",
   TOTAL_PAYMENT = "Total Payment",
@@ -23,7 +23,7 @@ export const TableColumnKeys = {
 const desktopColumns: TableColumns = [
   { key: TableColumnKeys.YEAR, label: ColumnLabels.YEAR },
   { key: TableColumnKeys.PRINCIPAL_PAID, label: ColumnLabels.PRINCIPAL },
-  { key: TableColumnKeys.PREPAYMENTS, label: ColumnLabels.PREPAYMENTS },
+  { key: TableColumnKeys.PREPAYMENTS, label: ColumnLabels.PREPAYMENT },
   { key: TableColumnKeys.INTEREST_PAID, label: ColumnLabels.INTEREST },
   { key: TableColumnKeys.TOTAL_PAID, label: ColumnLabels.TOTAL_PAYMENT },
   { key: TableColumnKeys.BALANCE, label: ColumnLabels.BALANCE },
@@ -42,14 +42,14 @@ export const getDesktopColumns = (hasPrepayments: boolean) => {
 const tabletColumns: TableColumns = [
   { key: TableColumnKeys.YEAR, label: ColumnLabels.YEAR },
   { key: TableColumnKeys.PRINCIPAL_PAID, label: ColumnLabels.PRINCIPAL },
-  { key: TableColumnKeys.PREPAYMENTS, label: ColumnLabels.PREPAYMENTS },
+  { key: TableColumnKeys.PREPAYMENTS, label: ColumnLabels.PREPAYMENT },
   { key: TableColumnKeys.INTEREST_PAID, label: ColumnLabels.INTEREST },
   { key: TableColumnKeys.BALANCE, label: ColumnLabels.BALANCE },
 ];
 
 export const getTabletColumns = (hasPrepayments: boolean) => {
   return hasPrepayments
-    ? tabletColumns.filter((col) => col.key !== TableColumnKeys.BALANCE)
+    ? tabletColumns
     : tabletColumns.filter((col) => col.key !== TableColumnKeys.PREPAYMENTS);
 };
 

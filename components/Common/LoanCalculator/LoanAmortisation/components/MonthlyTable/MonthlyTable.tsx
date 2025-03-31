@@ -23,7 +23,9 @@ const MonthlyTable = ({ monthlyData, columns }: Props) => {
         <TableCell
           key={key}
           align="right"
-          sx={key === "year" ? { width: "72px", padding: 0 } : undefined}
+          sx={
+            key === "year" ? { width: "72px", padding: 0 } : { padding: "6px" }
+          }
         >
           {label}
         </TableCell>

@@ -33,7 +33,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   const [roi, setRoi] = useState("");
   const [emi, setEmi] = useState(0);
   const [tenure, setTenure] = useState<Tenure>(initialTenure);
-  const [interest, setInterest] = useState(0);
+  const [interestPaid, setInterestPaid] = useState(0);
   const [timesPaid, setTimesPaid] = useState(0);
 
   const calculateHomeLoan = useCallback(() => {
@@ -48,7 +48,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     const timesPaid = totalPayment / loanAmount;
 
     setEmi(emi);
-    setInterest(Math.round(totalInterest));
+    setInterestPaid(Math.round(totalInterest));
     setIsValidForm(true);
     setLoanAmount(loanAmount);
     setTimesPaid(toDecimal(timesPaid));
@@ -161,7 +161,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
       setIsValidForm(false);
       setTotalPayment(0);
       setEmi(0);
-      setInterest(0);
+      setInterestPaid(0);
       setTimesPaid(0);
       return;
     }
@@ -179,7 +179,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     totalPaid: totalPayment,
     roi,
     tenure,
-    interest,
+    interestPaid,
     timesPaid,
     emi,
     calculate,

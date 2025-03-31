@@ -27,6 +27,7 @@ const YearlyTable = ({
       sx={{
         backgroundColor: "transparent",
         tableLayout: "fixed",
+        minWidth: "450px",
       }}
     >
       <YearlyTableHeader columns={columns} />

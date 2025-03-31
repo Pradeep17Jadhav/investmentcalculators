@@ -14,10 +14,14 @@ import styles from "./LoanCalculatorSummary.module.css";
 export type LoanCalculatorProps = {
   resultsReady: boolean;
   isValidForm: boolean;
+  hasPrepayments: boolean;
   loanAmount: number;
   roi: string;
   totalPaid: number;
-  interest: number;
+  principalPaid: number;
+  interestPaid: number;
+  prepayments: number;
+  prepaymentSavings: number;
   timesMultiplied: number;
   emi: number;
   starts: number;
@@ -28,10 +32,14 @@ export type LoanCalculatorProps = {
 const LoanCalculatorSummary = ({
   resultsReady,
   isValidForm,
+  hasPrepayments,
   loanAmount,
   roi,
   totalPaid,
-  interest,
+  principalPaid,
+  interestPaid,
+  prepaymentSavings,
+  prepayments,
   timesMultiplied,
   emi,
   starts,
@@ -40,12 +48,16 @@ const LoanCalculatorSummary = ({
 }: LoanCalculatorProps) => {
   return (
     <div className={styles.container}>
-      <Section title="EMI" ref={ref} autoHeight>
-        <AmountBanner amount={emi} />
+      <Section ref={ref} autoHeight>
+        <AmountBanner amount={emi} prefix="EMI " />
       </Section>
       <Section title="Summary of Loan">
         {resultsReady && isValidForm && (
           <SummaryBlock title="Loan Details">
+            <SummaryItem
+              left="Loan Amount"
+              right={`₹${formatPrice(resultsReady ? loanAmount : 0)}`}
+            />
             <SummaryItem left="Rate of Interest" right={`${roi}%`} />
             <SummaryItem
               left="Start Date"
@@ -67,21 +79,33 @@ const LoanCalculatorSummary = ({
         )}
         <SummaryBlock title="Repayment Details">
           <SummaryItem
-            left="Principal Amount"
-            right={`₹${formatPrice(resultsReady ? loanAmount : 0)}`}
+            left="Total Prepayments"
+            right={`₹${formatPrice(prepayments)}`}
+          />
+          <SummaryItem
+            left="Principal Payable"
+            right={`₹${formatPrice(resultsReady ? principalPaid : 0)}`}
           />
           <SummaryItem
             left="Interest Payable"
-            right={`₹${formatPrice(interest)}`}
+            right={`₹${formatPrice(interestPaid)}`}
+            loss
           />
           <SummaryItem
-            left="Total Payment"
+            left="Total Repayment"
             right={`₹${formatPrice(totalPaid)}`}
           />
           <SummaryItem
             left="Loan Amount Multiplied By"
             right={`${timesMultiplied} times`}
           />
+          {hasPrepayments && (
+            <SummaryItem
+              left="Savings with Prepayments"
+              right={`₹${formatPrice(prepaymentSavings, 0, 0)}`}
+              profit
+            />
+          )}
         </SummaryBlock>
       </Section>
     </div>
