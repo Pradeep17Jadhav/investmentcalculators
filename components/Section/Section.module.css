@@ -6,7 +6,34 @@
     background-color: var(--background-secondary);
     padding: 1.5rem;
     transition: box-shadow 0.5s ease-in-out;
+    position: relative;
 }
+
+.content {
+    z-index: 2;
+}
+
+.section:hover::before {
+    background: linear-gradient(var(--rotation), transparent 80%, #fff41c48 85%, #1cff2b47 90%, #008be760 95%);
+    /* background: linear-gradient(var(--rotation), transparent 60%, #215DEE 70%, #B61CFF 90%); */
+    content: "";
+    inset: 0;
+    z-index: 1;
+    border-radius: 0.80rem;
+    transition: opacity .25s;
+    position: absolute;
+    opacity: 1;
+}
+
+.section::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: var(--background-secondary);
+    z-index: 1;
+    border-radius: 16px;
+}
+
 
 .fullHeight {
     height: 100%;

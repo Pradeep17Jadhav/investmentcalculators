@@ -29,8 +29,10 @@
 @media (prefers-color-scheme: dark) {
   :root {
     /* Background color shades */
-    --background: #080E15;
-    --background-secondary: #161b25;
+    --background: #101216;
+    --background-secondary: #181c24;
+    /* --background: #101216;
+    --background-secondary: #181c24; */
     --foreground: rgba(255, 255, 255, 0.85);
     --foreground-secondary: rgba(255, 255, 255, 0.60);
     --foreground-caption: rgba(255, 255, 255, 0.45);

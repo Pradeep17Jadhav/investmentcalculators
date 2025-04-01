@@ -3,8 +3,8 @@
     margin: 64px auto 64px;
     line-height: 28px;
     background-color: var(--background-secondary);
-    border-radius: var(--border-radius-large);
     padding: 0 24px;
+    border-radius: 16px;
 }
 
 .container .content a {
