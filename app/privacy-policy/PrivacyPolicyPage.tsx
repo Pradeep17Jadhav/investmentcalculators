@@ -33,23 +33,19 @@ const PrivacyPolicyPage = async () => {
       </div>
       <div className={styles.section}>
         <h3>Information We Might Collect</h3>
-        <p>
-          <ul>
-            {privacyPolicyData.informationCollected.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </p>
+        <ul>
+          {privacyPolicyData.informationCollected.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
       </div>
       <div className={styles.section}>
         <h3>How We Use Your Information</h3>
-        <p>
-          <ul>
-            {privacyPolicyData.informationUsedTo.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </p>
+        <ul>
+          {privacyPolicyData.informationUsedTo.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
       </div>
 
       <div className={styles.section}>

@@ -12,7 +12,7 @@
 }
 
 .button:hover, .button:active, .active {
-    border-color: var(--highlight-color-blue);
+    border-color: var(--primary);
 }
 
 .centered {

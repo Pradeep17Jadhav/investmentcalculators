@@ -12,7 +12,7 @@
 }
 
 .container hr {
-    border: 1px dashed var(--border-color);
+    border: 1px dashed var(--border-color) !important;
     margin: 8px 4px;
 }
 
@@ -34,8 +34,8 @@
 }
 
 .container:hover {
-    box-shadow: var(--shadow-card);
-    border-bottom: 1px solid var(--highlight-color-blue);
+    box-shadow: var(--shadow-spread);
+    border-bottom: 1px solid var(--primary);
 }
 
 .container:hover .img {

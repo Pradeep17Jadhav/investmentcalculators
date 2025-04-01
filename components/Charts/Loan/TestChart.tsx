@@ -70,13 +70,13 @@ const LoanProgressChart: React.FC<LoanProgressProps> = ({
           <Bar
             dataKey="Principal"
             stackId="a"
-            fill="var(--highlight-color-blue)"
+            fill="var(--profit)"
             radius={[10, 0, 0, 10]}
           />
           <Bar
             dataKey="Prepayments"
             stackId="a"
-            fill="var(--highlight-color-green)"
+            fill="var(--primary)"
             radius={[0, 0, 0, 0]}
           />
           <Bar

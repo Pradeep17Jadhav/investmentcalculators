@@ -25,7 +25,6 @@ const CellWithExpand = ({
   return (
     <TableCell
       sx={{
-        backgroundColor: "transparent",
         width: `${YEAR_COLUMN_WIDTH}px`,
         padding: "0",
       }}

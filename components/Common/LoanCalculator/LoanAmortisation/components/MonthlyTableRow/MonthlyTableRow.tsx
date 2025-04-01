@@ -20,16 +20,20 @@ const MonthlyTableRow = ({ monthlyRow, columns }: Props) => {
 
   const getSX = useCallback(
     (col: TableColumn) => {
+      const common = {
+        backgroundColor: "var(--background)",
+        padding: "6px",
+      };
       switch (col.key) {
         case TableColumnKeys.YEAR:
-          return { width: isMobile ? "60px" : "72px", padding: 0 };
+          return { ...common, width: isMobile ? "60px" : "72px", padding: 0 };
         case TableColumnKeys.PREPAYMENTS:
           return {
+            ...common,
             width: `${PREPAYMENTS_COLUMN_WIDTH}px`,
-            padding: "6px",
           };
         default:
-          return { padding: "6px" };
+          return { ...common };
       }
     },
     [isMobile]

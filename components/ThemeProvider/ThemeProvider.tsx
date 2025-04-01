@@ -31,10 +31,10 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
                   borderColor: "var(--border-color)",
                 },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--border-color-hovered)",
+                  borderColor: "var(--primary)",
                 },
                 "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--border-color-focused)",
+                  borderColor: "var(--primary)",
                   color: "#fff !important",
                 },
               },
@@ -43,24 +43,24 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiTable: {
             styleOverrides: {
               root: {
-                backgroundColor: "table-background",
+                backgroundColor: "background-secondary",
               },
             },
           },
           MuiTableCell: {
             styleOverrides: {
               root: {
-                backgroundColor: "table-background",
+                backgroundColor: "background-secondary",
               },
             },
           },
           MuiAccordion: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--paper-1)",
+                backgroundColor: "var(--background-secondary)",
                 color: "var(--foreground)",
                 border: "1px solid var(--border-color)",
-                boxShadow: "var(--shadow)",
+                boxShadow: "var(--shadow-primary)",
                 "&.Mui-expanded": {
                   borderColor: "var(--border-color)",
                 },
@@ -70,7 +70,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiAccordionSummary: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--dark-background)",
+                backgroundColor: "var(--background-secondary)",
                 color: "var(--foreground)",
                 "&.Mui-expanded": {
                   borderBottom: "1px solid var(--border-color)",
@@ -81,7 +81,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiAccordionDetails: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--table-background)",
+                backgroundColor: "var(--background-secondary)",
                 color: "var(--foreground)",
               },
             },
@@ -109,10 +109,10 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
                   borderColor: "var(--border-color)",
                 },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--border-color-hovered)",
+                  borderColor: "var(--primary)",
                 },
                 "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--border-color-focused)",
+                  borderColor: "var(--primary)",
                   color: "#fff !important",
                 },
               },
@@ -121,24 +121,24 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiTable: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--table-background)",
+                backgroundColor: "var(--background-secondary)",
               },
             },
           },
           MuiTableCell: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--table-background)",
+                backgroundColor: "var(--background-secondary)",
               },
             },
           },
           MuiAccordion: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--paper-1)",
+                backgroundColor: "var(--background-secondary)",
                 color: "var(--foreground)",
-                border: "1px solid var(--border-color)",
-                boxShadow: "var(--shadow)",
+                border: "none",
+                boxShadow: "var(--shadow-primary)",
                 "&.Mui-expanded": {
                   borderColor: "var(--border-color)",
                 },
@@ -148,7 +148,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiAccordionSummary: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--dark-background)",
+                backgroundColor: "var(--background-secondary)",
                 color: "var(--foreground)",
                 "&.Mui-expanded": {
                   borderBottom: "1px solid var(--border-color)",
@@ -159,7 +159,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
           MuiAccordionDetails: {
             styleOverrides: {
               root: {
-                backgroundColor: "var(--table-background)",
+                backgroundColor: "var(--background-secondary)",
                 color: "var(--foreground)",
               },
             },

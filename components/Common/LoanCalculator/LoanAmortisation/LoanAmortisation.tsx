@@ -68,6 +68,7 @@ const LoanAmortisation = ({
           toggleRow={toggleRow}
         />
       </TableContainer>
+
       <SmallButton
         className={styles.downloadPdfBtn}
         onClick={handleAmortisationDownload(AmortisationTableFrequency.Yearly)}

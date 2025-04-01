@@ -1,59 +1,62 @@
-.blogPost {
+.container {
     max-width: 1200px;
-    margin: 40px auto 64px;
+    margin: 64px auto 64px;
     line-height: 28px;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius-large);
+    padding: 0 24px;
 }
 
-.blogPost .content a {
-    color: var(--highlight-color-blue)
+.container .content a {
+    color: var(--primary)
 }
 
-.blogPost hr {
+.container hr {
     border: 1px solid var(--border-color);
     margin: 12px 0;
 }
 
-.blogPost .content h2, .blogPost .content h3, .blogPost .content h4 {
+.container .content h2, .container .content h3, .container .content h4 {
     font-family: "Inter", serif;
     font-weight: 500;
     letter-spacing: 0px;
     user-select: text;
 }
 
-.blogPost h1 {
+.container h1 {
     font-family: Inter, Helvetica, sans-serif !important;
     letter-spacing: normal;
     font-size: 3.3em;
 }
 
-.blogPost .content h2 {
+.container .content h2 {
     font-size: 1.6em;
     margin: 48px 0 16px;
 }
 
-.blogPost .content h3 {
+.container .content h3 {
     font-size: 1.3em;
     margin: 32px 0 16px;
 }
 
-.blogPost .content h4 {
+.container .content h4 {
     font-size: 1.1em;
     margin: 24px 0 12px;
 }
 
-.blogPost .content p {
+.container .content p {
     margin: 16px 0 32px;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.95em;
 }
 
-.blogPost .content ul, .blogPost .content ol {
+.container .content ul, .container .content ol {
     margin: 16px 0 16px 16px;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.95em;
 }
 
-.blogPost li {
+.container li {
     margin-bottom: 8px;
 }
 
@@ -69,7 +72,7 @@
     flex-direction: row;
     gap: 16px;
     font-size: 0.8em;
-    color: var(--foreground-secondary)
+    color: var(--foreground-caption)
 }
 
 .blogInfoItem {
@@ -97,10 +100,6 @@
     margin: 24px 0 24px;
 }
 
-.container {
-    padding: 0 16px;
-}
-
 .rightSection {
     display: flex;
     flex-direction: column;
@@ -108,11 +107,11 @@
 }
 
 @media (max-width: 600px) {
-    .blogPost .content p {
+    .container .content p {
         font-size: 0.9em;
     }
 
-    .blogPost .content ul, .blogPost .content ol {
+    .container .content ul, .container .content ol {
         font-size: 0.9em;
     }
 }

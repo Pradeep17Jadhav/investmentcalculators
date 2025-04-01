@@ -31,6 +31,6 @@
 }
 
 .item:hover {
-    border-left: 2px solid var(--highlight-color-blue);
+    border-left: 2px solid var(--primary);
     background-color: var(--hover-background);
 }

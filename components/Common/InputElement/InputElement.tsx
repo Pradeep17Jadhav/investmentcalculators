@@ -83,10 +83,10 @@ const InputElement = ({
         className={styles.slider}
         sx={{
           "& .MuiSlider-thumb": {
-            backgroundColor: "#var(--highlight-color-blue)",
+            backgroundColor: "var(--primary)",
           },
           "& .MuiSlider-track": {
-            backgroundColor: "var(--highlight-color-blue-dark)",
+            backgroundColor: "var(--primary)",
           },
           "& .MuiSlider-rail": {
             backgroundColor: "gray",

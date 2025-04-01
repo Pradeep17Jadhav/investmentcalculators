@@ -5,8 +5,9 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import styles from "./FAQs.module.css";
 import { FAQ } from "@/types/ConfigTypes";
+
+import styles from "./FAQs.module.css";
 
 type Props = {
   faqs: FAQ[];

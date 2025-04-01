@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--footer-background);
+    background-color: var(--background-secondary);
     text-align: center;
     width: 100%;
     border-top-left-radius: 64px;

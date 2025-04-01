@@ -19,16 +19,19 @@ const YearlyTableHeader = ({ columns }: Props) => {
 
   const getSX = useCallback(
     (key: string) => {
+      const common = {
+        padding: "6px",
+      };
       switch (key) {
         case TableColumnKeys.YEAR:
-          return { width: isMobile ? "60px" : "72px", padding: 0 };
+          return { ...common, width: isMobile ? "60px" : "72px", padding: 0 };
         case TableColumnKeys.PREPAYMENTS:
           return {
+            ...common,
             width: `${PREPAYMENTS_COLUMN_WIDTH}px`,
-            padding: "6px",
           };
         default:
-          return { padding: "6px" };
+          return { ...common };
       }
     },
     [isMobile]

@@ -25,7 +25,6 @@ const YearlyTable = ({
       className={styles.table}
       size="small"
       sx={{
-        backgroundColor: "transparent",
         tableLayout: "fixed",
         minWidth: "450px",
       }}

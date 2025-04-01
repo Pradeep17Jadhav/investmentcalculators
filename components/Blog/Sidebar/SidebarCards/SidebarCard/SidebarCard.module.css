@@ -2,7 +2,6 @@
     border-radius: 12px;
     border: 1px solid var(--border-color);
     overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out;
     display: flex;
     flex-direction: row;
     height: 120px;
@@ -44,16 +43,6 @@
     line-height: 1.4em;
 }
 
-.blogInfo {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    font-size: 0.8em;
-    color: var(--foreground-secondary);
-    justify-content: center;
-    margin: 12px 0 8px 0;
-}
-
 .blogInfoItem {
     display: flex;
     flex-direction: row;
@@ -66,7 +55,7 @@
     flex-direction: row;
     gap: 16px;
     font-size: 0.8em;
-    color: var(--foreground-secondary);
+    color: var(--foreground-caption);
     justify-content: center;
     margin: 12px 0 8px 0;
 }

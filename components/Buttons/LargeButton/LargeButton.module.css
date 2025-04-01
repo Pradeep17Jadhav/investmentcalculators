@@ -2,7 +2,7 @@
     font-family: 'Inter';
     font-weight: 500;
     text-transform: uppercase;
-    border: 1px solid var(--highlight-color-blue);
+    border: 1px solid var(--primary);
     color: var(--foreground);
     padding: 16px 64px;
     border-radius: 48px;
@@ -14,7 +14,7 @@
     font-family: 'Inter';
     font-weight: 500;
     text-transform: uppercase;
-    border: 1px solid var(--highlight-color-blue);
+    border: 1px solid var(--primary);
     color: var(--foreground);
     padding: 16px 64px;
     border-radius: 48px;
@@ -25,12 +25,12 @@
 }
 
 .button:hover, .link:hover {
-    background-color: var(--highlight-color-blue-dark);
+    background-color: var(--primary);
     color: #FFF;
 }
 
 .button:active, .link:active {
-    background-color: var(--highlight-color-blue);
+    background-color: var(--primary);
 }
 
 .disabled {

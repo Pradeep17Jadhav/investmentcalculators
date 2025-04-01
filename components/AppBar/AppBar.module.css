@@ -9,12 +9,12 @@
 }
 
 .appbarContainer {
-    background-color: var(--appbar-background);
+    background-color: var(--background-secondary);
     border-bottom: 1px solid var(--border-color);
     z-index: 10;
     top: 0;
     position: sticky;
-    box-shadow: var(--shadow-appbar);
+    box-shadow: var(--shadow-primary);
 }
 
 .navLinkContainer {
@@ -35,5 +35,5 @@
 }
 
 .activeNavLink, .navLink:hover {
-    border-bottom: 2px solid var(--highlight-color-blue);
+    border-bottom: 2px solid var(--primary);
 }

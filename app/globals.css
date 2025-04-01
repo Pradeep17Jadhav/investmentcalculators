@@ -1,56 +1,50 @@
 :root {
-  --highlight-color-green: #9EC22D;
-  --highlight-color-blue: #0089E7;
-  --highlight-color-blue-dark: #0b7ac4;
-  --background: #fff;
-  --background-secondary: #FFF;
-  --foreground: #171717;
-  --foreground-secondary: rgba(23, 23, 23, 0.75);
-  --background-image: #fff;
-  --paper-1: #fff;
-  --border-color: hsla(220, 20%, 80%, 0.4);
-  --border-color-hovered: #1e7dd7;
-  --border-color-focused: #1973c8;
-  --shadow: rgba(9, 11, 17, 0.05) 0px 5px 15px 0px, rgba(19, 23, 32, 0.05) 0px 15px 35px -5px;
-  --shadow-card: rgba(9, 11, 17, 0.05) 0px 5px 15px 0px, rgba(19, 23, 32, 0.05) 0px 15px 35px -5px;
-  --shadow-heavy: 0 8px 16px rgba(0, 0, 5, 0.2);
-  --shadow-appbar: rgba(0, 0, 0, 0.08) 0px 1px 4px;
-  --shadow-section: rgba(0, 0, 0, 0.08) 0px 1px 4px;
-  --dark-background: #fff;
-  --banner-background: #f1f8ff;
-  --table-background: #fff;
-  --banner-shadow: #ffffffee;
-  --footer-background: #f2f2f2;
-  --appbar-background: #FFF;
-  --hover-background: rgba(0, 139, 231, 0.08);
+  /* Fixed colors */
+  --primary-green: #9EC22D;
+  --primary: #0089E7;
   --profit: #10b983;
   --loss: #f35631;
+  --hover-background: rgba(0, 120, 250, 0.1);
+
+  /* Background color shades */
+  --background: #EFF3F7;
+  --background-secondary: #FFF;
+  --foreground: rgba(0, 0, 0, 0.85);
+  --foreground-secondary: rgba(0, 0, 0, 0.6);
+  --foreground-caption: rgba(0, 0, 0, 0.45);
+
+  /* Shadow shades */
+  --shadow-primary: rgba(0, 0, 0, 0.08) 0px 1px 4px;
+  --shadow-spread: rgba(9, 11, 17, 0.05) 0px 5px 15px 0px, rgba(19, 23, 32, 0.05) 0px 15px 35px -5px;
+  --shadow-elevated: 0 23px 20px -24px hsla(219, 37%, 18%, 0.24);
+
+  /* Component specific */
+  --banner-shadow: #ffffffee;
+
+  /* common shades */
+  --border-color: rgba(200, 200, 200, 0.6);
 }
 
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Background color shades */
     --background: #080E15;
-    --background-secondary: #19202a;
-    --foreground: #ededed;
-    --foreground-secondary: rgba(237, 237, 237, 0.75);
-    --background-image: radial-gradient(at 50% 50%, rgba(0, 41, 82, 0.5), rgb(9, 11, 17));
-    --paper-1: #071018;
-    --border-color: rgba(51, 59, 77, 0.6);
-    --border-color-hovered: #1e7dd7;
-    --border-color-focused: #1973c8;
-    --shadow: rgba(9, 11, 17, 0.5) 0px 5px 15px 0px, rgba(19, 23, 32, 0.08) 0px 15px 35px -5px;
-    --shadow-card: 0 8px 16px rgba(0, 0, 5, 1);
-    --shadow-heavy: 0 8px 16px rgba(0, 0, 5, 0.5);
-    --shadow-appbar: rgba(0, 0, 0, 0.80) 0px 3px 4px;
-    --shadow-section: rgba(0, 0, 0, 0.20) 0px 3px 4px;
-    --dark-background: #080B11;
-    --banner-background: #071E34;
-    --table-background: #090c11;
+    --background-secondary: #161b25;
+    --foreground: rgba(255, 255, 255, 0.85);
+    --foreground-secondary: rgba(255, 255, 255, 0.60);
+    --foreground-caption: rgba(255, 255, 255, 0.45);
+
+    /* Shadow shades */
+    --shadow-primary: rgba(0, 0, 0, 0.20) 0px 3px 4px;
+    --shadow-spread: 0 8px 16px rgba(0, 0, 5, 1);
+    --shadow-elevated: 0 23px 20px -24px rgba(0, 0, 0, 0.8);
+
+    /* Component specific */
     --banner-shadow: #000000ee;
-    --footer-background: #161b25;
-    --appbar-background: #161b25;
-    --hover-background: rgba(0, 139, 231, 0.08);
+
+    /* common shades */
+    --border-color: rgba(60, 60, 60, 0.6);
   }
 }
 
