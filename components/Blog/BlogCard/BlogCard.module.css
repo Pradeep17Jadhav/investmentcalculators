@@ -5,6 +5,7 @@
     overflow: hidden;
     transition: box-shadow 0.3s ease-in-out;
     line-height: normal;
+    background-color: var(--background-secondary);
 }
 
 .mini {
