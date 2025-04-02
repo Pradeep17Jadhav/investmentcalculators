@@ -19,6 +19,7 @@
     "@mui/x-date-pickers": "^7.28.2",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
+    "disqus-react": "^1.1.6",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
     "jspdf": "^3.0.1",

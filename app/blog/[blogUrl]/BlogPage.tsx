@@ -7,6 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SidebarLists from "@/components/Blog/Sidebar/SidebarLists/SidebarLists";
 import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
+import DisqusComments from "@/components/Disqus/Disqus";
 
 import styles from "./BlogPage.module.css";
 
@@ -68,6 +69,7 @@ const BlogPage = async ({ metadata, content }: Props) => {
           </div>
         </Grid>
       </Grid>
+      <DisqusComments url={metadata.slug} title={title} id={metadata.slug} />
     </div>
   );
 };
