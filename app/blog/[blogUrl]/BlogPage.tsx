@@ -8,7 +8,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SidebarLists from "@/components/Blog/Sidebar/SidebarLists/SidebarLists";
 import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
-import DisqusComments from "@/components/Disqus/Disqus";
 
 import styles from "./BlogPage.module.css";
 
@@ -22,9 +21,6 @@ const BlogPage = async ({ metadata, content }: Props) => {
     source: content,
     options: { parseFrontmatter: false },
   });
-  const headersList = await headers();
-  const host = headersList.get("host");
-  const absoluteUrl = `https://${host}/blog/${metadata.slug}`;
   const recentBlogs = getRecentBlogs(metadata.slug, 3);
   const relatedBlogs = getRecentBlogs(metadata.slug, 10, true);
   const title = metadata.title;
@@ -73,7 +69,6 @@ const BlogPage = async ({ metadata, content }: Props) => {
             </div>
           </Grid>
         </Grid>
-        {/* <DisqusComments url={absoluteUrl} title={title} id={metadata.slug} /> */}
       </div>
     </>
   );
