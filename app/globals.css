@@ -2,6 +2,7 @@
   /* Fixed colors */
   --primary-green: #9EC22D;
   --primary: #0089E7;
+  --primary-light: #008be7ca;
   --profit: #10b983;
   --loss: #f35631;
   --hover-background: rgba(0, 120, 250, 0.1);
@@ -9,7 +10,7 @@
   /* Background color shades */
   --background: #EFF3F7;
   --background-secondary: #FFF;
-  --foreground: rgba(0, 0, 0, 0.85);
+  --foreground: rgba(0, 0, 0, 0.87);
   --foreground-secondary: rgba(0, 0, 0, 0.6);
   --foreground-caption: rgba(0, 0, 0, 0.45);
 
@@ -33,7 +34,7 @@
     --background-secondary: #181c24;
     /* --background: #101216;
     --background-secondary: #181c24; */
-    --foreground: rgba(255, 255, 255, 0.85);
+    --foreground: rgba(255, 255, 255, 0.87);
     --foreground-secondary: rgba(255, 255, 255, 0.60);
     --foreground-caption: rgba(255, 255, 255, 0.45);
 
@@ -46,7 +47,7 @@
     --banner-shadow: #000000ee;
 
     /* common shades */
-    --border-color: rgba(60, 60, 60, 0.6);
+    --border-color: rgba(60, 60, 60, 1);
   }
 }
 
@@ -54,6 +55,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  height: 100%;
 }
 
 body {

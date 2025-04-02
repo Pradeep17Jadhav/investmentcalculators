@@ -1,13 +1,3 @@
-.appbarContainer .logo {
-    cursor: pointer;
-    margin: 0 8px;
-}
-
-
-.logoContainer {
-    flex-grow: 1;
-}
-
 .appbarContainer {
     background-color: var(--background-secondary);
     border-bottom: 1px solid var(--border-color);
@@ -15,6 +5,16 @@
     top: 0;
     position: sticky;
     box-shadow: var(--shadow-primary);
+    opacity: 0.95;
+}
+
+.appbarContainer .logo {
+    cursor: pointer;
+    margin: 0 8px;
+}
+
+.logoContainer {
+    flex-grow: 1;
 }
 
 .navLinkContainer {

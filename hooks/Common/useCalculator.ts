@@ -161,7 +161,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
 
   const handleROIChange = useCallback(
     (e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, roi?: string) => {
-      const newROI = e?.target.value || roi || "0";
+      const newROI = e?.target.value || roi || "";
       const sanitizedROI = sanitizeROI(newROI);
       setRoi((currROI) =>
         getUpdatedInterestRateWithValidation(

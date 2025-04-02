@@ -96,12 +96,12 @@ const LoanCalculatorSummary = ({
           <SummaryItem
             left="Interest Payable"
             right={`₹${formatPrice(interestPaid)}`}
-            loss
+            loss={!!interestPaid}
             tooltip={toWords.convert(interestPaid)}
           />
           <SummaryItem
             left="Total Repayment"
-            right={`₹${formatPrice(totalPaid)}`}
+            right={`₹${formatPrice(totalPaid, 0, 0)}`}
             tooltip={toWords.convert(totalPaid)}
           />
           <SummaryItem

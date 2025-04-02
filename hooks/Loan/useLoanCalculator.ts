@@ -101,7 +101,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
 
   const handleROIChange = useCallback(
     (e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, roi?: string) => {
-      const newROIInput = e?.target.value || roi || "0";
+      const newROIInput = e?.target.value || roi || "";
       const sanitizedROI = sanitizeROI(newROIInput);
       setRoi((currROI) =>
         getUpdatedInterestRateWithValidation(

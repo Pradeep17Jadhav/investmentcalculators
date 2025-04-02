@@ -73,6 +73,7 @@ export const getUpdatedInterestRateWithValidation = (
   min: number = 0,
   max: number = 100
 ): string => {
+  if (newNumber === "") return newNumber;
   const decimalSplit = newNumber.split(",");
   const isDecimal = decimalSplit.length === 2;
   const isValid =
@@ -87,7 +88,7 @@ export const getUpdatedInterestRateWithValidation = (
     if (isIncompleteDecimal) {
       return newNumber;
     }
-    return originalNumber || "0";
+    return originalNumber || "";
   }
   if (parseFloat(newNumber) < min) {
     return min.toString();

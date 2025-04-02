@@ -5,6 +5,7 @@ import Script from "next/script";
 import AppBar from "@/components/AppBar/AppBar";
 import ThemeProvider from "@/components/ThemeProvider/ThemeProvider";
 import Footer from "@/components/Footer/Footer";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 
 import "./globals.css";
 
@@ -138,6 +139,7 @@ export default function RootLayout({
           <AppBar />
           <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
           <Footer />
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

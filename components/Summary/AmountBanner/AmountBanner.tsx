@@ -16,7 +16,7 @@ const AmountBanner = ({ amount, ref, prefix }: Props) => {
     <div className={styles.banner} ref={ref}>
       <div className={styles.amount}>
         {prefix && <span className={styles.prefix}>{prefix}</span>}
-        <span>₹{formatPrice(amount)}</span>
+        <span>₹{formatPrice(amount, 0, 0)}</span>
       </div>
       {!!amount && (
         <div className={styles.caption}>

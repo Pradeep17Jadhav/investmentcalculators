@@ -31,7 +31,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
                   borderColor: "var(--border-color)",
                 },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--primary)",
+                  borderColor: "var(--primary-light)",
                 },
                 "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                   borderColor: "var(--primary)",
@@ -109,7 +109,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
                   borderColor: "var(--border-color)",
                 },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "var(--primary)",
+                  borderColor: "var(--primary-light)",
                 },
                 "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                   borderColor: "var(--primary)",

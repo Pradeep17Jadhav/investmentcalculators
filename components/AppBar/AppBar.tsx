@@ -14,11 +14,11 @@ import {
   Tooltip,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-
-import styles from "./AppBar.module.css";
 import Link from "next/link";
 import Logo from "../Logo/Logo";
 import { PATHS } from "@/constants/path";
+
+import styles from "./AppBar.module.css";
 
 const AppBar = () => {
   const router = useRouter();

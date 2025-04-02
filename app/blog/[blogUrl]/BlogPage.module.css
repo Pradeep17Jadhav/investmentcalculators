@@ -13,7 +13,7 @@
 
 .container hr {
     border: 1px solid var(--border-color);
-    margin: 12px 0;
+    margin: 16px 0;
 }
 
 .container .content h2, .container .content h3, .container .content h4 {
@@ -47,13 +47,13 @@
 .container .content p {
     margin: 16px 0 32px;
     font-weight: 400;
-    font-size: 0.95em;
+    font-size: 1em;
 }
 
 .container .content ul, .container .content ol {
     margin: 16px 0 16px 16px;
     font-weight: 400;
-    font-size: 0.95em;
+    font-size: 1em;
 }
 
 .container li {
@@ -104,6 +104,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+    position: sticky;
+    top: 96px;
+    margin-bottom: 32px;
 }
 
 @media (max-width: 600px) {
