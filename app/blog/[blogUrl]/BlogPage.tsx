@@ -73,7 +73,7 @@ const BlogPage = async ({ metadata, content }: Props) => {
             </div>
           </Grid>
         </Grid>
-        <DisqusComments url={absoluteUrl} title={title} id={metadata.slug} />
+        {/* <DisqusComments url={absoluteUrl} title={title} id={metadata.slug} /> */}
       </div>
     </>
   );
