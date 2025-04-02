@@ -1,6 +1,5 @@
 import { BlogMetadata, formatDate, getRecentBlogs } from "@/helpers/blogs";
 import { compileMDX } from "next-mdx-remote/rsc";
-import { headers } from "next/headers";
 import Image from "next/image";
 import Grid from "@mui/material/Grid/Grid";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
