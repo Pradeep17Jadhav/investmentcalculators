@@ -124,12 +124,14 @@ const AppBar = () => {
               ))}
             </Menu>
           </Box>
-          <Link className={styles.logoContainer} href={PATHS.HOME_PAGE}>
-            <Logo className={styles.logo} width={240} height={32} />
-          </Link>
+          <div className={styles.logoContainer}>
+            <Link href={PATHS.HOME_PAGE}>
+              <Logo className={styles.logo} width={240} height={32} />
+            </Link>
+          </div>
           <Box
             className={styles.navLinkContainer}
-            sx={{ flexGrow: 0, display: { xs: "none", sm: "flex" } }}
+            sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
           >
             {publicPages.map(({ label, tooltip, to }) => {
               const isActive = pathname === to;

@@ -26,14 +26,16 @@
   --border-color: rgba(200, 200, 200, 0.6);
 }
 
+iframe {
+  color-scheme: dark !important;
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
     /* Background color shades */
     --background: #101216;
     --background-secondary: #181c24;
-    /* --background: #101216;
-    --background-secondary: #181c24; */
     --foreground: rgba(255, 255, 255, 0.87);
     --foreground-secondary: rgba(255, 255, 255, 0.60);
     --foreground-caption: rgba(255, 255, 255, 0.45);
@@ -48,6 +50,10 @@
 
     /* common shades */
     --border-color: rgba(60, 60, 60, 1);
+  }
+
+  iframe {
+    color-scheme: light !important;
   }
 }
 
@@ -104,10 +110,4 @@ h6 {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }

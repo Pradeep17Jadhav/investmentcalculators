@@ -35,10 +35,10 @@ const ScrollToTop = () => {
         bottom: 32,
         right: 48,
         backgroundColor: "var(--background-secondary)",
-        color: "white",
+        color: "var(--foreground)",
         border: "1px solid var(--background)",
         boxShadow: "var(--shadow-primary)",
-        "&:hover": { borderColor: "var(--primary)" },
+        "&:hover": { backgroundColor: "var(--primary)", color: "white" },
       }}
       style={{ display: visible ? "flex" : "none" }}
     >

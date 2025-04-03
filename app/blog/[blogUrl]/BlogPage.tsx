@@ -1,5 +1,6 @@
 import { BlogMetadata, formatDate, getRecentBlogs } from "@/helpers/blogs";
 import { compileMDX } from "next-mdx-remote/rsc";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Grid from "@mui/material/Grid/Grid";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -7,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SidebarLists from "@/components/Blog/Sidebar/SidebarLists/SidebarLists";
 import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
+import DisqusComments from "@/components/Disqus/Disqus";
 
 import styles from "./BlogPage.module.css";
 
@@ -20,6 +22,9 @@ const BlogPage = async ({ metadata, content }: Props) => {
     source: content,
     options: { parseFrontmatter: false },
   });
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const absoluteUrl = `https://${host}/blog/${metadata.slug}`;
   const recentBlogs = getRecentBlogs(metadata.slug, 3);
   const relatedBlogs = getRecentBlogs(metadata.slug, 10, true);
   const title = metadata.title;
@@ -68,6 +73,9 @@ const BlogPage = async ({ metadata, content }: Props) => {
             </div>
           </Grid>
         </Grid>
+      </div>
+      <div className={styles.container}>
+        <DisqusComments url={absoluteUrl} title={title} id={metadata.slug} />
       </div>
     </>
   );

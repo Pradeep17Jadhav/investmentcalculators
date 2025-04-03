@@ -106,6 +106,7 @@
     gap: 32px;
     position: sticky;
     top: 96px;
+    bottom: 32px;
     margin-bottom: 32px;
 }
 
