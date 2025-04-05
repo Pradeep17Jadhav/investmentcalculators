@@ -25,7 +25,7 @@ const BlogPage = async ({ metadata, content }: Props) => {
     source: content,
     options: { parseFrontmatter: false },
     components: {
-      AdSlot: ArticleAd,
+      Ad: ArticleAd,
     },
   });
   const headersList = await headers();
