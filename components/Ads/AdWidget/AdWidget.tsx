@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
+import classnames from "classnames";
+import styles from "./AdWidget.module.css";
 
 type Props = {
   client: string;
@@ -8,6 +10,7 @@ type Props = {
   slot: string;
   textAlign?: "center" | "left" | "right";
   responsive?: boolean;
+  mb?: boolean;
 };
 
 const AdWidget = ({
@@ -17,6 +20,7 @@ const AdWidget = ({
   slot,
   textAlign,
   responsive = false,
+  mb = false,
 }: Props) => {
   const adRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +40,7 @@ const AdWidget = ({
   };
 
   return (
-    <div ref={adRef}>
+    <div className={classnames({ [styles.mb]: mb })} ref={adRef}>
       <ins
         className="adsbygoogle"
         style={{

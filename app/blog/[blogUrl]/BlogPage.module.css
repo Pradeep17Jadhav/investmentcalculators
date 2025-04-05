@@ -1,6 +1,6 @@
 .container {
     max-width: 1200px;
-    margin: 64px auto 64px;
+    margin: 48px auto 64px;
     line-height: 28px;
     background-color: var(--background-secondary);
     padding: 0 24px;
@@ -26,7 +26,9 @@
 .container h1 {
     font-family: Inter, Helvetica, sans-serif !important;
     letter-spacing: normal;
-    font-size: 3.3em;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 40px;
 }
 
 .container .content h2 {
@@ -62,9 +64,7 @@
 
 .title {
     margin-bottom: 24px;
-    font-size: 0.5em;
     user-select: text;
-    font-weight: 400;
 }
 
 .blogInfo {
@@ -113,6 +113,11 @@
 }
 
 @media (max-width: 600px) {
+    .container {
+        margin: 0 auto 0;
+        border-radius: 0;
+    }
+
     .container .content p {
         font-size: 0.9em;
     }

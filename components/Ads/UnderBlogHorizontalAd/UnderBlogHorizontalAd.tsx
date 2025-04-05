@@ -9,6 +9,7 @@ const UnderBlogHorizontalAd = () => {
       slot={underBlogHorizontalSlot}
       format="auto"
       responsive={true}
+      mb
     ></AdWidget>
   );
 };

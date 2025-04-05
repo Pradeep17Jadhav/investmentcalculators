@@ -3,14 +3,16 @@
     margin: 96px auto;
     line-height: 2em;
     font-size: 1.2em;
-    padding: 16px;
+    padding: 24px;
+    background-color: var(--background-secondary);
+    border-radius: 16px;
 }
 
 .container p {
     font-size: 0.8em;
 }
 
-.container p ul, .container p ol {
+.container ul, .container ol {
     margin-left: 16px;
 }
 

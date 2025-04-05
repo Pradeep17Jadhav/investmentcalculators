@@ -43,7 +43,7 @@ const BlogPage = async ({ metadata, content }: Props) => {
   return (
     <>
       <div className={styles.container}>
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ mt: 0 }}>
           <Grid item sm={8} xs={12}>
             <div className={styles.leftSection}>
               <div className={styles.title}>

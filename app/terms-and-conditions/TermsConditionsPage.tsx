@@ -32,23 +32,19 @@ const TermsConditionsPage = async () => {
       </div>
       <div className={styles.section}>
         <h3>Use of Website</h3>
-        <p>
-          <ul>
-            {termsData.useOfWebsite.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </p>
+        <ul>
+          {termsData.useOfWebsite.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
       </div>
       <div className={styles.section}>
         <h3>Calculators Disclaimer</h3>
-        <p>
-          <ul>
-            {termsData.disclaimers.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </p>
+        <ul>
+          {termsData.disclaimers.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
       </div>
 
       <div className={styles.section}>
@@ -75,8 +71,8 @@ const TermsConditionsPage = async () => {
         <p>{termsData.contactUs}</p>
         <p>
           Email:{" "}
-          <a href="mailto:contact@pradeepjadhav.com">
-            contact@pradeepjadhav.com
+          <a href="mailto:contact@investmentcalculators.in">
+            contact@investmentcalculators.in
           </a>
         </p>
       </div>

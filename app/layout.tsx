@@ -96,7 +96,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Investment Calculators",
+              name: "Inv Calculators",
               url: "https://investmentcalculators.in",
               alternateName: [
                 "InvestmentCalculators",
@@ -116,7 +116,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebPage",
-              name: "Investment Calculators",
+              name: "Inv Calculators",
               alternateName: [
                 "InvestmentCalculators",
                 "Investment Calculator",

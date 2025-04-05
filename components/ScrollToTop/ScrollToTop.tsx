@@ -11,19 +11,16 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      setVisible(
-        document.body.scrollTop > 100 ||
-          document.documentElement.scrollTop > 100
-      );
+      setVisible(window.scrollY > 100);
     };
     if (!isMobile) {
-      document.body.addEventListener("scroll", toggleVisibility);
+      window.addEventListener("scroll", toggleVisibility);
     }
-    return () => document.body.removeEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, [isMobile]);
 
   const scrollToTop = () => {
-    document.body.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -32,15 +29,17 @@ const ScrollToTop = () => {
       size="large"
       sx={{
         position: "fixed",
-        bottom: 32,
+        bottom: visible ? 32 : -50,
         right: 48,
+        opacity: visible ? 1 : 0,
+        pointerEvents: visible ? "auto" : "none",
         backgroundColor: "var(--background-secondary)",
         color: "var(--foreground)",
         border: "1px solid var(--background)",
         boxShadow: "var(--shadow-primary)",
+        transition: "bottom 300ms ease, opacity 500ms ease",
         "&:hover": { backgroundColor: "var(--primary)", color: "white" },
       }}
-      style={{ display: visible ? "flex" : "none" }}
     >
       <KeyboardArrowUpIcon />
     </IconButton>

@@ -72,8 +72,8 @@ const PrivacyPolicyPage = async () => {
         <p>{privacyPolicyData.contactUs}</p>
         <p>
           Email:{" "}
-          <a href="mailto:contact@pradeepjadhav.com">
-            contact@pradeepjadhav.com
+          <a href="mailto:contact@investmentcalculators.in">
+            contact@investmentcalculators.in
           </a>
         </p>
       </div>
