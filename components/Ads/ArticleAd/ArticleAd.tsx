@@ -1,7 +1,11 @@
+"use client";
+import { useTheme } from "@mui/material";
 import AdWidget from "../AdWidget/AdWidget";
 
 const ArticleAd = () => {
-  const articleSlot = "6781928555";
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+  const articleSlot = isDark ? "4967096076" : "6781928555";
 
   return (
     <AdWidget
