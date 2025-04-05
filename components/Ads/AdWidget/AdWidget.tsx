@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 type Props = {
   client: string;
@@ -18,34 +18,37 @@ const AdWidget = ({
   textAlign,
   responsive = false,
 }: Props) => {
-  const optionalProps = {
-    ...(layout ? { "data-ad-layout": layout } : {}),
-    ...(responsive ? { "data-full-width-responsive": responsive } : {}),
-  };
+  const adRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.adsbygoogle = window.adsbygoogle || [];
+    if (typeof window !== "undefined" && adRef.current) {
       try {
-        window.adsbygoogle.push({});
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (e) {
         console.error("AdSense Error:", e);
       }
     }
   }, []);
 
+  const optionalProps = {
+    ...(layout ? { "data-ad-layout": layout } : {}),
+    ...(responsive ? { "data-full-width-responsive": responsive } : {}),
+  };
+
   return (
-    <ins
-      className="adsbygoogle"
-      style={{
-        display: "block",
-        ...(textAlign ? { textAlign } : {}),
-      }}
-      data-ad-client={client}
-      data-ad-format={format}
-      data-ad-slot={slot}
-      {...optionalProps}
-    ></ins>
+    <div ref={adRef}>
+      <ins
+        className="adsbygoogle"
+        style={{
+          display: "block",
+          ...(textAlign ? { textAlign } : {}),
+        }}
+        data-ad-client={client}
+        data-ad-format={format}
+        data-ad-slot={slot}
+        {...optionalProps}
+      />
+    </div>
   );
 };
 
