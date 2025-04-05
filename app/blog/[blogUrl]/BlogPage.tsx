@@ -28,7 +28,7 @@ const BlogPage = async ({ metadata, content }: Props) => {
   const host = headersList.get("host");
   const absoluteUrl = `https://${host}/blog/${metadata.slug}`;
   const recentBlogs = getRecentBlogs(metadata.slug, 3);
-  const relatedBlogs = getRecentBlogs(metadata.slug, 10, true);
+  const relatedBlogs = getRecentBlogs(metadata.slug, 5, true);
   const title = metadata.title;
   const date = metadata.date;
   const image = metadata.image;
