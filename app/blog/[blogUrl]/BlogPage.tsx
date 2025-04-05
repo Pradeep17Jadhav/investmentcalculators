@@ -11,6 +11,7 @@ import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
 import DisqusComments from "@/components/Disqus/Disqus";
 import SidebarSquareAd from "@/components/Ads/SidebarSquareAd/SidebarSquareAd";
 import UnderBlogHorizontalAd from "@/components/Ads/UnderBlogHorizontalAd/UnderBlogHorizontalAd";
+import ArticleAd from "@/components/Ads/ArticleAd/ArticleAd";
 
 import styles from "./BlogPage.module.css";
 
@@ -23,6 +24,9 @@ const BlogPage = async ({ metadata, content }: Props) => {
   const { content: renderableContent } = await compileMDX<{ title: string }>({
     source: content,
     options: { parseFrontmatter: false },
+    components: {
+      AdSlot: ArticleAd,
+    },
   });
   const headersList = await headers();
   const host = headersList.get("host");
