@@ -10,6 +10,7 @@ import SidebarLists from "@/components/Blog/Sidebar/SidebarLists/SidebarLists";
 import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
 import DisqusComments from "@/components/Disqus/Disqus";
 import SidebarSquareAd from "@/components/Ads/SidebarSquareAd/SidebarSquareAd";
+import UnderBlogHorizontalAd from "@/components/Ads/UnderBlogHorizontalAd/UnderBlogHorizontalAd";
 
 import styles from "./BlogPage.module.css";
 
@@ -69,12 +70,13 @@ const BlogPage = async ({ metadata, content }: Props) => {
           </Grid>
           <Grid item sm={4} xs={12}>
             <div className={styles.rightSection}>
-              <SidebarSquareAd />
               <SidebarLists title="Related Blogs" blogs={relatedBlogs} />
+              <SidebarSquareAd />
               <SidebarCards title="Latest Blogs" blogs={recentBlogs} />
             </div>
           </Grid>
         </Grid>
+        <UnderBlogHorizontalAd />
       </div>
       <div className={styles.container}>
         <DisqusComments url={absoluteUrl} title={title} id={metadata.slug} />
