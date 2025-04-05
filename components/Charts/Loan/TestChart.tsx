@@ -14,6 +14,7 @@ interface LoanProgressProps {
   loanAmount: number;
   interestPaid: number;
   prepayments: number;
+  show?: boolean;
 }
 
 const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
@@ -44,6 +45,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
   );
 };
 const LoanProgressChart: React.FC<LoanProgressProps> = ({
+  show = true,
   loanAmount,
   interestPaid,
   prepayments,
@@ -56,6 +58,10 @@ const LoanProgressChart: React.FC<LoanProgressProps> = ({
       Interest: interestPaid,
     },
   ];
+
+  if (!show) {
+    return null;
+  }
 
   return (
     <div style={{ width: "100%", height: "20px" }}>

@@ -40,7 +40,7 @@ export const commonCalculatorLabels: CalculatorInputLabels = {
     title: "RD Details",
     investment: "Monthly Savings",
   },
-  [CalculatorType.Lumpsum]: {
+  [CalculatorType.LUMPSUM]: {
     ...commonInputLabels,
     title: "Lumpsum Investment Details",
     investment: "Investment Amount",

@@ -15,7 +15,7 @@ export const getInvestmentShortcutData = (calculatorType: CalculatorType) => {
       return defaultOneTimeAmount;
     case CalculatorType.RD:
       return defaultInvestmentAmount;
-    case CalculatorType.Lumpsum:
+    case CalculatorType.LUMPSUM:
       return defaultOneTimeAmount;
   }
 };
@@ -28,7 +28,7 @@ export const getRoiShortcutData = (calculatorType: CalculatorType) => {
       return FDInvestmentReturnsRate;
     case CalculatorType.RD:
       return RDInvestmentReturnsRate;
-    case CalculatorType.Lumpsum:
+    case CalculatorType.LUMPSUM:
       return defaultInvestmentReturnsRate;
   }
 };

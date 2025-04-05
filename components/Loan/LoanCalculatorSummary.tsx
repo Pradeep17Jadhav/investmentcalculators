@@ -117,11 +117,12 @@ const LoanCalculatorSummary = ({
             />
           )}
         </SummaryBlock>
-        <LoanBreakdownChart
-          loanAmount={loanAmount}
-          interestPaid={interestPaid}
-          prepayments={prepayments}
-        />
+          <LoanBreakdownChart
+            show={resultsReady}
+            loanAmount={loanAmount}
+            interestPaid={interestPaid}
+            prepayments={prepayments}
+          />
       </Section>
     </div>
   );

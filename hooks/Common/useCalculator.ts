@@ -7,7 +7,7 @@ import {
 import { CalculatorType, Tenure } from "@/types/ConfigTypes";
 import { useMediaQuery, useTheme } from "@mui/material";
 import {
-  MAX_INVESTMENT,
+  getMaximumInvestment,
   MAX_ROI,
   MIN_INVESTMENT,
   MIN_ROI,
@@ -126,7 +126,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
         calculateRD();
         break;
       }
-      case CalculatorType.Lumpsum: {
+      case CalculatorType.LUMPSUM: {
         calculateLumpsum();
         break;
       }
@@ -146,17 +146,18 @@ export const useCalculator = ({ calculatorType }: Props) => {
       investment?: string
     ) => {
       const newInvestment = e?.target.value || investment || "0";
+      const maximumInvestment = getMaximumInvestment(calculatorType);
       setInvestment((currInvestment) =>
         getUpdatedNumberWithValidation(
           newInvestment,
           currInvestment,
           true,
           MIN_INVESTMENT,
-          MAX_INVESTMENT
+          maximumInvestment
         )
       );
     },
-    []
+    [calculatorType]
   );
 
   const handleROIChange = useCallback(

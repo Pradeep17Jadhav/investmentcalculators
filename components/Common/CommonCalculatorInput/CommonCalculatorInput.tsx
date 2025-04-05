@@ -16,6 +16,17 @@ import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
 import { getInvestmentShortcutData, getRoiShortcutData } from "./helpers";
 
 type Props = {
+  calculatorType: CalculatorType;
+  isValidForm: boolean;
+  investment: number;
+  roi: string;
+  tenure: Tenure;
+  minAmount: number;
+  maxAmount: number;
+  stepAmount: number;
+  minRoi: number;
+  maxRoi: number;
+  stepRoi: number;
   handleInvestmentChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     investment?: string
@@ -33,25 +44,11 @@ type Props = {
     months?: string
   ) => void;
   onCalculate: () => void;
-  calculatorType: CalculatorType;
-  isValidForm: boolean;
-  investment: number;
-  roi: string;
-  tenure: Tenure;
-  minAmount: number;
-  maxAmount: number;
-  stepAmount: number;
-  minRoi: number;
-  maxRoi: number;
-  stepRoi: number;
+  getInvestmentScale?: (value: number) => number;
+  getInvestmentInverseScale?: (value: number) => number;
 };
 
 const CommonCalculatorInput = ({
-  handleInvestmentChange,
-  handleROIChange,
-  handleTenureYearsChange,
-  handleTenureMonthsChange,
-  onCalculate,
   isValidForm,
   calculatorType,
   investment,
@@ -63,6 +60,13 @@ const CommonCalculatorInput = ({
   minRoi,
   maxRoi,
   stepRoi,
+  handleInvestmentChange,
+  handleROIChange,
+  handleTenureYearsChange,
+  handleTenureMonthsChange,
+  onCalculate,
+  getInvestmentScale,
+  getInvestmentInverseScale,
 }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -113,9 +117,11 @@ const CommonCalculatorInput = ({
         handleChange={handleInvestmentChange}
         isActiveShortcutButton={isActiveInvestmentButton}
         selectShortcutButton={selectInvestment}
+        getScale={getInvestmentScale}
+        getInverseScale={getInvestmentInverseScale}
         step={stepAmount}
         min={minAmount}
-        max={maxAmount / 10}
+        max={maxAmount}
       />
       <InputElement
         value={roi}

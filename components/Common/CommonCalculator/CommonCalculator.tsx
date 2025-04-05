@@ -10,18 +10,19 @@ import { SIPCalculatorSummaryProps } from "@/components/SIP/SIPCalculatorSummary
 import { FDCalculatorSummaryProps } from "@/components/FD/FDCalculatorSummary";
 import { RDCalculatorSummaryProps } from "@/components/RD/RDCalculatorSummary";
 import {
-  INVESTMENT_STEP,
-  MAX_INVESTMENT,
-  MAX_MONTHLY_INVESTMENT,
   MAX_ROI,
   MIN_INVESTMENT,
   MIN_MONTHLY_INVESTMENT,
   MIN_ROI,
-  MONTHLY_INVESTMENT_STEP,
   ROI_STEP,
 } from "@/constants/calculator";
 
 import styles from "./CommonCalculator.module.css";
+import {
+  getInvestmentInverseScale,
+  getInvestmentMax,
+  getInvestmentScale,
+} from "./constants";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -65,16 +66,6 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
     calculatorType === CalculatorType.RD
       ? MIN_MONTHLY_INVESTMENT
       : MIN_INVESTMENT;
-  const maxAmount =
-    calculatorType === CalculatorType.SIP ||
-    calculatorType === CalculatorType.RD
-      ? MAX_MONTHLY_INVESTMENT
-      : MAX_INVESTMENT;
-  const stepAmount =
-    calculatorType === CalculatorType.SIP ||
-    calculatorType === CalculatorType.RD
-      ? MONTHLY_INVESTMENT_STEP
-      : INVESTMENT_STEP;
 
   const input = useMemo(
     () => (
@@ -85,16 +76,18 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
         roi={roi}
         tenure={tenure}
         minAmount={minAmount}
-        maxAmount={maxAmount}
+        maxAmount={getInvestmentMax(calculatorType)}
+        stepAmount={1}
         minRoi={MIN_ROI}
         maxRoi={MAX_ROI}
-        stepAmount={stepAmount}
         stepRoi={ROI_STEP}
         handleInvestmentChange={handleInvestmentChange}
         handleROIChange={handleROIChange}
         handleTenureYearsChange={handleTenureYearsChange}
         handleTenureMonthsChange={handleTenureMonthsChange}
         onCalculate={handleCalculateBtnClick}
+        getInvestmentScale={getInvestmentScale(calculatorType)}
+        getInvestmentInverseScale={getInvestmentInverseScale(calculatorType)}
       />
     ),
     [
@@ -104,8 +97,6 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
       roi,
       tenure,
       minAmount,
-      maxAmount,
-      stepAmount,
       handleInvestmentChange,
       handleROIChange,
       handleTenureYearsChange,

@@ -11,14 +11,17 @@ import CommonLoanCalculatorInput from "../CommonLoanCalculatorInput/CommonLoanCa
 import { usePrepayment } from "@/hooks/Loan/usePrepayments";
 import { usePrepaymentsProvider } from "@/contexts/loan/prepaymentsContext";
 import {
-  LOAN_AMOUNT_STEP,
-  MAX_LOAN_AMOUNT,
   MAX_ROI,
   MIN_LOAN_AMOUNT,
   MIN_ROI,
   ROI_STEP,
 } from "@/constants/calculator";
 import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
+import {
+  getLoanAmountInverseScale,
+  getLoanAmountScale,
+  getLoanMax,
+} from "./constants";
 
 import styles from "./CommonLoanCalculator.module.css";
 
@@ -88,16 +91,18 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         tenure={tenure}
         isValidForm={isValidForm}
         minAmount={MIN_LOAN_AMOUNT}
-        maxAmount={MAX_LOAN_AMOUNT}
+        maxAmount={getLoanMax()}
         minRoi={MIN_ROI}
         maxRoi={MAX_ROI}
-        stepAmount={LOAN_AMOUNT_STEP}
+        stepAmount={1}
         stepRoi={ROI_STEP}
         calculate={handleCalculateBtnClick}
         handleLoanAmountChange={handleLoanAmountChange}
         handleROIChange={handleROIChange}
         handleTenureYearsChange={handleTenureYearsChange}
         handleTenureMonthsChange={handleTenureMonthsChange}
+        getLoanAmountScale={getLoanAmountScale}
+        getLoanAmountInverseScale={getLoanAmountInverseScale}
       />
     ),
     [

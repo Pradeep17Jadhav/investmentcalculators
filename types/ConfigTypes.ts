@@ -97,7 +97,7 @@ export enum CalculatorType {
   SIP = "SIP",
   FD = "FD",
   RD = "RD",
-  Lumpsum = "LUMPSUM",
+  LUMPSUM = "LUMPSUM",
 }
 
 export enum LoanCalculatorType {

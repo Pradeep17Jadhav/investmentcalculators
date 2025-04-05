@@ -46,6 +46,8 @@ type Props = {
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     months?: string
   ) => void;
+  getLoanAmountScale: (value: number) => number;
+  getLoanAmountInverseScale: (value: number) => number;
 };
 
 const CommonLoanCalculatorInput = ({
@@ -65,6 +67,8 @@ const CommonLoanCalculatorInput = ({
   handleROIChange,
   handleTenureYearsChange,
   handleTenureMonthsChange,
+  getLoanAmountScale,
+  getLoanAmountInverseScale,
 }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -100,9 +104,11 @@ const CommonLoanCalculatorInput = ({
         handleChange={handleLoanAmountChange}
         isActiveShortcutButton={isActiveLoanAmountButton}
         selectShortcutButton={selectLoanAmount}
+        getScale={getLoanAmountScale}
+        getInverseScale={getLoanAmountInverseScale}
         step={stepAmount}
         min={minAmount}
-        max={maxAmount / 50}
+        max={maxAmount}
       />
 
       <InputElement

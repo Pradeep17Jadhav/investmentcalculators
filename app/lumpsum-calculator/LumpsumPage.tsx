@@ -19,7 +19,7 @@ const LumpsumPage = async () => {
         Calculate Lumpsum Investment Returns
       </h2>
       <CommonCalculator
-        calculatorType={CalculatorType.Lumpsum}
+        calculatorType={CalculatorType.LUMPSUM}
         Summary={LumpsumCalculatorSummary}
       />
       <UnderCalculatorAd />

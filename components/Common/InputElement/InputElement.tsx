@@ -28,6 +28,8 @@ type Props = {
   isActiveShortcutButton: (selectedValue: number) => boolean;
   selectShortcutButton: (selectedValue: number) => () => void;
   step: number;
+  getScale?: (newValue: number) => number;
+  getInverseScale?: (newValue: number) => number;
 };
 
 const InputElement = ({
@@ -44,7 +46,13 @@ const InputElement = ({
   handleChange,
   isActiveShortcutButton,
   selectShortcutButton,
+  getScale,
+  getInverseScale,
 }: Props) => {
+  const inverseValue = getInverseScale
+    ? getInverseScale(parseInt(value.toString()) || 0)
+    : parseInt(value.toString()) || 0;
+
   const toWords = new ToWords();
   const elementValue = value
     ? isPrice && isNumber(value)
@@ -54,9 +62,12 @@ const InputElement = ({
 
   const onSliderChange = useCallback(
     (event: Event, value: number | number[]) => {
-      handleChange(undefined, value.toString());
+      const newValue = getScale
+        ? getScale(value as number).toString()
+        : value.toString();
+      handleChange(undefined, newValue);
     },
-    [handleChange]
+    [getScale, handleChange]
   );
 
   return (
@@ -79,6 +90,11 @@ const InputElement = ({
           },
         })}
       />
+
+      {!!value && isPrice && isNumber(value) && (
+        <div className={styles.caption}>{toWords.convert(value)}</div>
+      )}
+
       <Slider
         className={styles.slider}
         sx={{
@@ -92,7 +108,7 @@ const InputElement = ({
             backgroundColor: "gray",
           },
         }}
-        value={parseInt(value.toString()) || 0}
+        value={inverseValue}
         size="small"
         aria-label="slider"
         onChange={onSliderChange}
@@ -107,10 +123,6 @@ const InputElement = ({
           isActive={isActiveShortcutButton}
           onClick={selectShortcutButton}
         />
-      )}
-
-      {!!value && isPrice && isNumber(value) && (
-        <div className={styles.caption}>{toWords.convert(value)}</div>
       )}
     </div>
   );
