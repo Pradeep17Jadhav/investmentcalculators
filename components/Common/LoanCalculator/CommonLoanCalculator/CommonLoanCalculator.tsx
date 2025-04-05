@@ -18,6 +18,7 @@ import {
   MIN_ROI,
   ROI_STEP,
 } from "@/constants/calculator";
+import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
 
 import styles from "./CommonLoanCalculator.module.css";
 
@@ -141,6 +142,9 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
           />
         }
       />
+
+      <UnderCalculatorAd />
+
       {isValidForm && resultsReady && (
         <LoanAmortisation
           hasPrepayments={hasPrepayments}

@@ -3,6 +3,7 @@ import { CalculatorType, Config } from "@/types/ConfigTypes";
 import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalculator";
 import RDCalculatorSummary from "@/components/RD/RDCalculatorSummary";
 import FAQs from "@/components/Common/FAQs/FAQs";
+import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
 
 import styles from "./RDPage.module.css";
 
@@ -21,6 +22,7 @@ const RDPage = async () => {
         calculatorType={CalculatorType.RD}
         Summary={RDCalculatorSummary}
       />
+      <UnderCalculatorAd />
       <FAQs faqs={faqs} />
     </div>
   );

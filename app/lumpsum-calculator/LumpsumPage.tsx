@@ -2,9 +2,10 @@ import { getConfig } from "@/helpers/config";
 import { CalculatorType, Config } from "@/types/ConfigTypes";
 import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalculator";
 import LumpsumCalculatorSummary from "@/components/Lumpsum/LumpsumCalculatorSummary";
+import FAQs from "@/components/Common/FAQs/FAQs";
+import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
 
 import styles from "./LumpsumPage.module.css";
-import FAQs from "@/components/Common/FAQs/FAQs";
 
 const LumpsumPage = async () => {
   const config: Config = await getConfig();
@@ -21,6 +22,7 @@ const LumpsumPage = async () => {
         calculatorType={CalculatorType.Lumpsum}
         Summary={LumpsumCalculatorSummary}
       />
+      <UnderCalculatorAd />
       <FAQs faqs={faqs} />
     </div>
   );

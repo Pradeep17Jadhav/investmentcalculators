@@ -4,6 +4,7 @@ import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalcula
 import SIPCalculatorSummary from "@/components/SIP/SIPCalculatorSummary";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import SIPPageInformation from "@/components/SIP/SIPPageInformation";
+import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
 
 import styles from "./SIPPage.module.css";
 
@@ -22,6 +23,7 @@ const SIPPage = async () => {
         calculatorType={CalculatorType.SIP}
         Summary={SIPCalculatorSummary}
       />
+      <UnderCalculatorAd />
       <SIPPageInformation />
       <FAQs faqs={faqs} />
     </div>
