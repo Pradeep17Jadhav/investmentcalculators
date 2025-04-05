@@ -21,6 +21,8 @@ import {
   ROI_STEP,
 } from "@/constants/calculator";
 
+import styles from "./CommonCalculator.module.css";
+
 type Props = {
   calculatorType: CalculatorType;
   Summary: React.ComponentType<
@@ -113,23 +115,25 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
   );
 
   return (
-    <TwoColumnContainer
-      leftColumn={input}
-      rightColumn={
-        <Summary
-          isValidForm={isValidForm}
-          resultsReady={resultsReady}
-          profit={profit}
-          maturityValue={maturityValue}
-          timesMultiplied={timesMultiplied}
-          investment={investment}
-          monthlyInvestment={investment}
-          yearlyInvestment={yearlyInvestment}
-          totalInvestment={totalInvestment}
-          ref={resultRef}
-        />
-      }
-    ></TwoColumnContainer>
+    <div className={styles.container}>
+      <TwoColumnContainer
+        leftColumn={input}
+        rightColumn={
+          <Summary
+            isValidForm={isValidForm}
+            resultsReady={resultsReady}
+            profit={profit}
+            maturityValue={maturityValue}
+            timesMultiplied={timesMultiplied}
+            investment={investment}
+            monthlyInvestment={investment}
+            yearlyInvestment={yearlyInvestment}
+            totalInvestment={totalInvestment}
+            ref={resultRef}
+          />
+        }
+      />
+    </div>
   );
 };
 
