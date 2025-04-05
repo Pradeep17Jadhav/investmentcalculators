@@ -9,6 +9,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SidebarLists from "@/components/Blog/Sidebar/SidebarLists/SidebarLists";
 import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
 import DisqusComments from "@/components/Disqus/Disqus";
+import SidebarSquareAd from "@/components/Ads/SidebarSquareAd/SidebarSquareAd";
 
 import styles from "./BlogPage.module.css";
 
@@ -68,6 +69,7 @@ const BlogPage = async ({ metadata, content }: Props) => {
           </Grid>
           <Grid item sm={4} xs={12}>
             <div className={styles.rightSection}>
+              <SidebarSquareAd />
               <SidebarLists title="Related Blogs" blogs={relatedBlogs} />
               <SidebarCards title="Latest Blogs" blogs={recentBlogs} />
             </div>
