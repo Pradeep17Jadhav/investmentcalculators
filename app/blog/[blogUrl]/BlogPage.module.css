@@ -100,11 +100,16 @@
     margin: 24px 0 24px;
 }
 
-.rightSection {
+.sidebarSet, .sidebarSetFloating {
     display: flex;
     flex-direction: column;
     gap: 32px;
     margin-bottom: 32px;
+}
+
+.sidebarSetFloating {
+    position: sticky;
+    top: 96px;
 }
 
 @media (max-width: 600px) {

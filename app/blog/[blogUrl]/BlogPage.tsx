@@ -1,4 +1,5 @@
 import { BlogMetadata, formatDate, getRecentBlogs } from "@/helpers/blogs";
+import classnames from "classnames";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -72,9 +73,16 @@ const BlogPage = async ({ metadata, content }: Props) => {
               <div className={styles.content}>{renderableContent}</div>
             </div>
           </Grid>
-          <Grid item sm={4} xs={12}>
-            <div className={styles.rightSection}>
+          <Grid className={styles.rightSection} item sm={4} xs={12}>
+            <div className={styles.sidebarSet}>
               <SidebarLists title="Related Blogs" blogs={relatedBlogs} />
+            </div>
+            <div
+              className={classnames(
+                styles.sidebarSet,
+                styles.sidebarSetFloating
+              )}
+            >
               <SidebarSquareAd />
               <SidebarCards title="Latest Blogs" blogs={recentBlogs} />
             </div>
