@@ -148,7 +148,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         }
       />
 
-      <UnderCalculatorAd />
+      <UnderCalculatorAd enabled={false} />
 
       {isValidForm && resultsReady && (
         <LoanAmortisation

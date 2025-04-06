@@ -1,6 +1,6 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import {
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Budget, CalculatedTaxSlab, ITOtherTax } from "@/types/ConfigTypes";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
+import ProgressChart, { BarData } from "@/components/Charts/ProgressChart";
 
 import styles from "./IncomeTaxSummary.module.css";
 
@@ -49,6 +50,22 @@ const IncomeTaxSummary = ({
     otherTaxes,
     standardDeduction,
   } = getTaxCalculationSummary();
+
+  const barsData: BarData[] = useMemo(
+    () => [
+      {
+        label: "After Tax Income",
+        fill: "var(--profit)",
+        value: income - totalIncomeTax,
+      },
+      {
+        label: "Income Tax",
+        fill: "var(--loss)",
+        value: totalIncomeTax,
+      },
+    ],
+    [income, totalIncomeTax]
+  );
 
   return (
     <div className={styles.container}>
@@ -179,6 +196,12 @@ const IncomeTaxSummary = ({
             </span>
           </>
         )}
+
+        <ProgressChart
+          show={resultsReady}
+          id="incomeTaxCalculator"
+          barsData={barsData}
+        />
       </Section>
     </div>
   );

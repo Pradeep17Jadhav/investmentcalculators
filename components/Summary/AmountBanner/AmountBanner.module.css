@@ -23,7 +23,7 @@
 }
 
 .caption {
-    font-size: 0.95em;
+    font-size: 0.9em;
     color: var(--foreground-secondary);
     padding: 0 8px 8px 8px;
     text-align: center;
@@ -36,6 +36,6 @@
     }
 
     .caption {
-        font-size: 0.9em;
+        font-size: 0.85em;
     }
 }

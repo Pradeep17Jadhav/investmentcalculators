@@ -1,11 +1,12 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
+import ProgressChart, { BarData } from "../Charts/ProgressChart";
 
 import styles from "./LumpsumCalculatorSummary.module.css";
 
@@ -28,6 +29,22 @@ const LumpsumCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: LumpsumCalculatorSummaryProps) => {
+  const barsData: BarData[] = useMemo(
+    () => [
+      {
+        label: "Lumpsum Investment",
+        fill: "var(--primary)",
+        value: investment,
+      },
+      {
+        label: "Profit",
+        fill: "var(--profit)",
+        value: profit,
+      },
+    ],
+    [investment, profit]
+  );
+
   return (
     <div className={styles.container}>
       <Section title="Maturity Amount" ref={ref} autoHeight>
@@ -40,6 +57,7 @@ const LumpsumCalculatorSummary = ({
             right={`₹${formatPrice(investment)}`}
           />
         </SummaryBlock>
+
         {resultsReady && isValidForm && (
           <SummaryBlock title="Profit Details">
             <SummaryItem
@@ -52,6 +70,12 @@ const LumpsumCalculatorSummary = ({
             />
           </SummaryBlock>
         )}
+
+        <ProgressChart
+          show={resultsReady}
+          id="lumpsumCalculator"
+          barsData={barsData}
+        />
       </Section>
     </div>
   );

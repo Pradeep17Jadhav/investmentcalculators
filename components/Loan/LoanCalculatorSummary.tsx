@@ -1,6 +1,7 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useMemo } from "react";
+import { ToWords } from "to-words";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
@@ -8,11 +9,10 @@ import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 import { getPrintableMonthYear } from "../Common/LoanCalculator/helpers/loan";
 import { AmortisationTableFrequency } from "@/types/Loan/LoanTypes";
+import { toDecimal } from "@/helpers/numbers";
+import ProgressChart, { BarData } from "../Charts/ProgressChart";
 
 import styles from "./LoanCalculatorSummary.module.css";
-import LoanBreakdownChart from "../Charts/Loan/TestChart";
-import { ToWords } from "to-words";
-import { toDecimal } from "@/helpers/numbers";
 
 export type LoanCalculatorProps = {
   resultsReady: boolean;
@@ -50,6 +50,27 @@ const LoanCalculatorSummary = ({
   ref,
 }: LoanCalculatorProps) => {
   const toWords = new ToWords();
+
+  const barsData: BarData[] = useMemo(
+    () => [
+      {
+        label: "Loan Amount",
+        fill: "var(--profit)",
+        value: loanAmount,
+      },
+      {
+        label: "Prepayments",
+        fill: "var(--primary)",
+        value: prepayments,
+      },
+      {
+        label: "Interest",
+        fill: "var(--loss)",
+        value: interestPaid,
+      },
+    ],
+    [interestPaid, loanAmount, prepayments]
+  );
 
   return (
     <div className={styles.container}>
@@ -117,12 +138,11 @@ const LoanCalculatorSummary = ({
             />
           )}
         </SummaryBlock>
-          <LoanBreakdownChart
-            show={resultsReady}
-            loanAmount={loanAmount}
-            interestPaid={interestPaid}
-            prepayments={prepayments}
-          />
+        <ProgressChart
+          show={resultsReady}
+          id="loanCalculator"
+          barsData={barsData}
+        />
       </Section>
     </div>
   );

@@ -32,6 +32,8 @@ type Props = {
   getInverseScale?: (newValue: number) => number;
 };
 
+const SELECTION_BUTTONS_TOGGLE = false;
+
 const InputElement = ({
   value,
   label,
@@ -117,7 +119,7 @@ const InputElement = ({
         step={step}
       />
 
-      {!hideSelectionButtons && (
+      {!hideSelectionButtons && SELECTION_BUTTONS_TOGGLE && (
         <SelectionButtonsSet
           buttonsData={buttonsData}
           isActive={isActiveShortcutButton}

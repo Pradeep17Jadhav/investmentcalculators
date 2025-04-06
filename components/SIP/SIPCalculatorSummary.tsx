@@ -1,11 +1,12 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
+import ProgressChart, { BarData } from "../Charts/ProgressChart";
 
 import styles from "./SIPCalculatorSummary.module.css";
 
@@ -32,6 +33,22 @@ const SIPCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: SIPCalculatorSummaryProps) => {
+  const barsData: BarData[] = useMemo(
+    () => [
+      {
+        label: "Total Investment",
+        fill: "var(--primary)",
+        value: totalInvestment,
+      },
+      {
+        label: "Profit",
+        fill: "var(--profit)",
+        value: profit,
+      },
+    ],
+    [profit, totalInvestment]
+  );
+
   return (
     <div className={styles.container}>
       <Section title="Maturity Amount" ref={ref} autoHeight>
@@ -65,6 +82,12 @@ const SIPCalculatorSummary = ({
             />
           </SummaryBlock>
         )}
+
+        <ProgressChart
+          show={resultsReady}
+          id="sipCalculator"
+          barsData={barsData}
+        />
       </Section>
     </div>
   );

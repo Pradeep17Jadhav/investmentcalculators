@@ -29,6 +29,8 @@ type Props = {
   selectMonths: (months: number) => () => void;
 };
 
+const SELECTION_BUTTONS_TOGGLE = false;
+
 const TenureInputElement = ({
   tenure,
   label,
@@ -64,7 +66,7 @@ const TenureInputElement = ({
             },
           }}
         />
-        {!hideSelectionButtons && (
+        {!hideSelectionButtons && SELECTION_BUTTONS_TOGGLE && (
           <SelectionButtonsSet
             buttonsData={yearsData}
             isActive={isActiveYearButton}
@@ -104,7 +106,7 @@ const TenureInputElement = ({
             },
           }}
         />
-        {!hideSelectionButtons && (
+        {!hideSelectionButtons && SELECTION_BUTTONS_TOGGLE && (
           <SelectionButtonsSet
             buttonsData={monthsData}
             isActive={isActiveMonthButton}

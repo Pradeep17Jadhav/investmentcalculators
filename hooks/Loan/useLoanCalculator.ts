@@ -18,7 +18,7 @@ type Props = {
 };
 
 const initialTenure = {
-  years: 0,
+  years: 20,
   months: 0,
   days: 0,
 };
@@ -28,9 +28,9 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [resultsReady, setResultsReady] = useState(false);
   const [isValidForm, setIsValidForm] = useState(false);
-  const [loanAmount, setLoanAmount] = useState(0);
+  const [loanAmount, setLoanAmount] = useState<number>(5000000);
   const [totalPayment, setTotalPayment] = useState(0);
-  const [roi, setRoi] = useState("");
+  const [roi, setRoi] = useState<string>("9");
   const [emi, setEmi] = useState(0);
   const [tenure, setTenure] = useState<Tenure>(initialTenure);
   const [interestPaid, setInterestPaid] = useState(0);

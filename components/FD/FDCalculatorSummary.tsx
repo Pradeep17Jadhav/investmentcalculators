@@ -1,11 +1,12 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
+import ProgressChart, { BarData } from "../Charts/ProgressChart";
 
 import styles from "./FDCalculatorSummary.module.css";
 
@@ -28,6 +29,22 @@ const FDCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: FDCalculatorSummaryProps) => {
+  const barsData: BarData[] = useMemo(
+    () => [
+      {
+        label: "Investment",
+        fill: "var(--primary)",
+        value: investment,
+      },
+      {
+        label: "Interest",
+        fill: "var(--profit)",
+        value: profit,
+      },
+    ],
+    [investment, profit]
+  );
+
   return (
     <div className={styles.container}>
       <Section title="Maturity Amount" ref={ref} autoHeight>
@@ -52,6 +69,12 @@ const FDCalculatorSummary = ({
             />
           </SummaryBlock>
         )}
+
+        <ProgressChart
+          show={resultsReady}
+          id="fdCalculator"
+          barsData={barsData}
+        />
       </Section>
     </div>
   );

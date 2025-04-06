@@ -1,11 +1,12 @@
 "use client";
 
-import { Ref } from "react";
+import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
 import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
+import ProgressChart, { BarData } from "../Charts/ProgressChart";
 
 import styles from "./RDCalculatorSummary.module.css";
 
@@ -32,6 +33,22 @@ const RDCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: RDCalculatorSummaryProps) => {
+  const barsData: BarData[] = useMemo(
+    () => [
+      {
+        label: "Total Investment",
+        fill: "var(--primary)",
+        value: totalInvestment,
+      },
+      {
+        label: "Interest",
+        fill: "var(--profit)",
+        value: profit,
+      },
+    ],
+    [profit, totalInvestment]
+  );
+
   return (
     <div className={styles.container}>
       <Section title="Maturity Amount" ref={ref} autoHeight>
@@ -64,6 +81,12 @@ const RDCalculatorSummary = ({
             />
           </SummaryBlock>
         )}
+
+        <ProgressChart
+          show={resultsReady}
+          id="rdCalculator"
+          barsData={barsData}
+        />
       </Section>
     </div>
   );

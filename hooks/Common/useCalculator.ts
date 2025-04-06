@@ -12,15 +12,14 @@ import {
   MIN_INVESTMENT,
   MIN_ROI,
 } from "@/constants/calculator";
+import {
+  getDefaultInvestment,
+  getDefaultROI,
+  getDefaultTenure,
+} from "./constants";
 
 type Props = {
   calculatorType: CalculatorType;
-};
-
-const initialInvestmentPeriod = {
-  years: 10,
-  months: 0,
-  days: 0,
 };
 
 export const useCalculator = ({ calculatorType }: Props) => {
@@ -28,10 +27,14 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [isValidForm, setIsValidForm] = useState(false);
   const [resultsReady, setResultsReady] = useState(false);
-  const [investment, setInvestment] = useState(15000);
+  const [investment, setInvestment] = useState<number>(
+    getDefaultInvestment(calculatorType)
+  );
   const [totalInvestment, setTotalInvestment] = useState(0);
-  const [roi, setRoi] = useState("12.25");
-  const [tenure, setTenure] = useState<Tenure>(initialInvestmentPeriod);
+  const [roi, setRoi] = useState<string>(getDefaultROI(calculatorType));
+  const [tenure, setTenure] = useState<Tenure>(
+    getDefaultTenure(calculatorType)
+  );
   const [profit, setProfit] = useState(0);
   const [maturityValue, setMaturityValue] = useState(0);
   const [timesMultiplied, setTimesMultiplied] = useState(0);
