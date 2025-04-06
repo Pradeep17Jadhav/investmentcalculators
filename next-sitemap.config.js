@@ -12,37 +12,48 @@ module.exports = {
   changefreq: "daily",
   priority: 0.7,
 
-  transform: async (config, url) => {
-    let priority = 0.8;
-    let lastmod = new Date().toISOString();
+  additionalPaths: async (config) => {
+    const blogDir = path.join(process.cwd(), "content/blogs");
+    const blogFiles = fs.existsSync(blogDir) ? fs.readdirSync(blogDir) : [];
 
-    if (url === "/") priority = 1.0;
-    else if (url.startsWith("/blog")) {
-      priority = 0.7;
-      const slug = url.replace("/blog/", "");
-      const blogFilePath = path.join(
-        process.cwd(),
-        "content/blogs",
-        `${slug}.mdx`
-      );
-      if (fs.existsSync(blogFilePath)) {
-        const fileContents = fs.readFileSync(blogFilePath, "utf-8");
-        const { data } = matter(fileContents);
+    const blogPaths = blogFiles.map((file) => {
+      const slug = file.replace(/\.mdx$/, "");
+      return `/blog/${slug}`;
+    });
 
-        if (data.date) {
-          lastmod = new Date(data.date).toISOString();
+    const staticPaths = Object.keys(pagesMeta);
+    const allPaths = ["/", ...staticPaths.sort(), ...blogPaths.sort()];
+
+    return Promise.all(
+      allPaths.map(async (url) => {
+        let priority = 0.8;
+        let lastmod = new Date().toISOString();
+
+        if (url === "/") {
+          priority = 1.0;
+        } else if (url.startsWith("/blog")) {
+          const slug = url.replace("/blog/", "");
+          const blogFilePath = path.join(blogDir, `${slug}.mdx`);
+          if (fs.existsSync(blogFilePath)) {
+            const fileContents = fs.readFileSync(blogFilePath, "utf-8");
+            const { data } = matter(fileContents);
+            if (data.date) {
+              lastmod = new Date(data.date).toISOString();
+            }
+          }
+        } else if (pagesMeta[url]) {
+          // use same lastmod date from pages-meta.json
+          lastmod = new Date(pagesMeta[url]).toISOString();
+          priority = 0.3;
         }
-      }
-    } else if (pagesMeta[url]) {
-      lastmod = new Date(pagesMeta[url]).toISOString();
-      priority = 0.3;
-    }
 
-    return {
-      loc: url,
-      changefreq: config.changefreq,
-      priority: priority,
-      lastmod,
-    };
+        return {
+          loc: url,
+          changefreq: config.changefreq,
+          priority,
+          lastmod,
+        };
+      })
+    );
   },
 };

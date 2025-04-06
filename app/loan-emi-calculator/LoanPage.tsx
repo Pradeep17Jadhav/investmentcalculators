@@ -18,7 +18,7 @@ const LoanPage = async () => {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>Loan EMI Calculator</h1>
       <h2 className={styles.pageSubtitle}>
-        Calculate EMI for Home, Personal & Car Loans
+        Calculate Home, Personal & Car Loans With Prepayment
       </h2>
       <PrepaymentsProvider>
         <CurrencyProvider>
