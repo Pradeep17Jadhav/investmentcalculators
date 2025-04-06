@@ -23,6 +23,7 @@ import {
   getInvestmentMax,
   getInvestmentScale,
 } from "./constants";
+import { CurrencyProvider } from "@/contexts/currency";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -106,25 +107,27 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
   );
 
   return (
-    <div className={styles.container}>
-      <TwoColumnContainer
-        leftColumn={input}
-        rightColumn={
-          <Summary
-            isValidForm={isValidForm}
-            resultsReady={resultsReady}
-            profit={profit}
-            maturityValue={maturityValue}
-            timesMultiplied={timesMultiplied}
-            investment={investment}
-            monthlyInvestment={investment}
-            yearlyInvestment={yearlyInvestment}
-            totalInvestment={totalInvestment}
-            ref={resultRef}
-          />
-        }
-      />
-    </div>
+    <CurrencyProvider>
+      <div className={styles.container}>
+        <TwoColumnContainer
+          leftColumn={input}
+          rightColumn={
+            <Summary
+              isValidForm={isValidForm}
+              resultsReady={resultsReady}
+              profit={profit}
+              maturityValue={maturityValue}
+              timesMultiplied={timesMultiplied}
+              investment={investment}
+              monthlyInvestment={investment}
+              yearlyInvestment={yearlyInvestment}
+              totalInvestment={totalInvestment}
+              ref={resultRef}
+            />
+          }
+        />
+      </div>
+    </CurrencyProvider>
   );
 };
 

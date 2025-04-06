@@ -8,7 +8,7 @@ import SelectionButtonsSet, {
 } from "../SelectionButtonsSet/SelectionButtonsSet";
 import { Slider } from "@mui/material";
 import { isNumber } from "@/helpers/numbers";
-import { useCurrency } from "@/contexts/currency";
+import { useCurrency } from "../../../contexts/currency";
 
 import styles from "./InputElement.module.css";
 

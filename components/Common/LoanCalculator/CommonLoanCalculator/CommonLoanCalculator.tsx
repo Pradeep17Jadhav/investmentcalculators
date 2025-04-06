@@ -22,6 +22,7 @@ import {
   getLoanAmountScale,
   getLoanMax,
 } from "./constants";
+import { CurrencyProvider } from "@/contexts/currency";
 
 import styles from "./CommonLoanCalculator.module.css";
 
@@ -132,33 +133,35 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
   };
 
   return (
-    <div className={styles.container}>
-      <TwoColumnContainer
-        leftColumn={input}
-        rightColumn={
-          <Summary
-            ref={resultRef}
-            resultsReady={resultsReady}
-            isValidForm={isValidForm}
-            loanAmount={loanAmount}
-            roi={roi}
-            emi={emi}
-            {...summaryLoanProps}
-          />
-        }
-      />
-
-      <UnderCalculatorAd enabled={false} />
-
-      {isValidForm && resultsReady && (
-        <LoanAmortisation
-          hasPrepayments={hasPrepayments}
-          amortisationDataYearly={yearlyAmortisationData}
-          amortisationDataMonthly={monthlyAmortisationData}
-          downloadAmortisation={downloadAmortisation}
+    <CurrencyProvider>
+      <div className={styles.container}>
+        <TwoColumnContainer
+          leftColumn={input}
+          rightColumn={
+            <Summary
+              ref={resultRef}
+              resultsReady={resultsReady}
+              isValidForm={isValidForm}
+              loanAmount={loanAmount}
+              roi={roi}
+              emi={emi}
+              {...summaryLoanProps}
+            />
+          }
         />
-      )}
-    </div>
+
+        <UnderCalculatorAd />
+
+        {isValidForm && resultsReady && (
+          <LoanAmortisation
+            hasPrepayments={hasPrepayments}
+            amortisationDataYearly={yearlyAmortisationData}
+            amortisationDataMonthly={monthlyAmortisationData}
+            downloadAmortisation={downloadAmortisation}
+          />
+        )}
+      </div>
+    </CurrencyProvider>
   );
 };
 
