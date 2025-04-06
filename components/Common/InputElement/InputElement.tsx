@@ -8,6 +8,7 @@ import SelectionButtonsSet, {
 } from "../SelectionButtonsSet/SelectionButtonsSet";
 import { Slider } from "@mui/material";
 import { isNumber } from "@/helpers/numbers";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./InputElement.module.css";
 
@@ -32,7 +33,7 @@ type Props = {
   getInverseScale?: (newValue: number) => number;
 };
 
-const SELECTION_BUTTONS_TOGGLE = false;
+const SELECTION_BUTTONS_ENABLED_TOGGLE = false;
 
 const InputElement = ({
   value,
@@ -51,6 +52,7 @@ const InputElement = ({
   getScale,
   getInverseScale,
 }: Props) => {
+  const { currencySymbol } = useCurrency();
   const inverseValue = getInverseScale
     ? getInverseScale(parseInt(value.toString()) || 0)
     : parseInt(value.toString()) || 0;
@@ -74,24 +76,31 @@ const InputElement = ({
 
   return (
     <div className={styles.inputContainer}>
-      <strong>{label}</strong>
-      <TextField
-        placeholder={placeholder}
-        variant="outlined"
-        value={elementValue}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        size="small"
-        sx={{ mt: 1 }}
-        {...(isROI && {
-          slotProps: {
+      <div className={styles.inputWithLabel}>
+        <strong>{label}</strong>
+        <TextField
+          className={styles.input}
+          placeholder={placeholder}
+          variant="outlined"
+          value={elementValue}
+          onChange={handleChange}
+          margin="normal"
+          size="small"
+          sx={{ mt: 1 }}
+          slotProps={{
             input: {
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+              startAdornment: isPrice ? (
+                <InputAdornment position="start" sx={{ mr: "4px" }}>
+                  {currencySymbol}
+                </InputAdornment>
+              ) : undefined,
+              endAdornment: isROI ? (
+                <InputAdornment position="end">%</InputAdornment>
+              ) : undefined,
             },
-          },
-        })}
-      />
+          }}
+        />
+      </div>
 
       {!!value && isPrice && isNumber(value) && (
         <div className={styles.caption}>{toWords.convert(value)}</div>
@@ -119,7 +128,7 @@ const InputElement = ({
         step={step}
       />
 
-      {!hideSelectionButtons && SELECTION_BUTTONS_TOGGLE && (
+      {!hideSelectionButtons && SELECTION_BUTTONS_ENABLED_TOGGLE && (
         <SelectionButtonsSet
           buttonsData={buttonsData}
           isActive={isActiveShortcutButton}

@@ -1,4 +1,5 @@
 import { ChangeEvent, useMemo } from "react";
+import classnames from "classnames";
 import { Tenure } from "@/types/ConfigTypes";
 import TextField from "@mui/material/TextField/TextField";
 import SelectionButtonsSet from "../SelectionButtonsSet/SelectionButtonsSet";
@@ -29,7 +30,7 @@ type Props = {
   selectMonths: (months: number) => () => void;
 };
 
-const SELECTION_BUTTONS_TOGGLE = false;
+const SELECTION_BUTTONS_ENABLED_TOGGLE = false;
 
 const TenureInputElement = ({
   tenure,
@@ -47,16 +48,19 @@ const TenureInputElement = ({
   selectYears,
   selectMonths,
 }: Props) => {
+  const singleRowView = !showMonths;
+
   const yearsInput = useMemo(
     () => (
       <div className={styles.inputItem}>
         <TextField
+          className={classnames({ [styles.inputYears]: singleRowView })}
           placeholder={placeholderYears}
           variant="outlined"
           type="number"
           value={tenure.years || ""}
           onChange={handleYearChange}
-          fullWidth
+          fullWidth={!singleRowView}
           margin="normal"
           size="small"
           sx={{ mt: 1 }}
@@ -66,7 +70,7 @@ const TenureInputElement = ({
             },
           }}
         />
-        {!hideSelectionButtons && SELECTION_BUTTONS_TOGGLE && (
+        {!hideSelectionButtons && SELECTION_BUTTONS_ENABLED_TOGGLE && (
           <SelectionButtonsSet
             buttonsData={yearsData}
             isActive={isActiveYearButton}
@@ -76,11 +80,12 @@ const TenureInputElement = ({
       </div>
     ),
     [
+      singleRowView,
       placeholderYears,
-      hideSelectionButtons,
       tenure.years,
-      yearsData,
       handleYearChange,
+      hideSelectionButtons,
+      yearsData,
       isActiveYearButton,
       selectYears,
     ]
@@ -106,7 +111,7 @@ const TenureInputElement = ({
             },
           }}
         />
-        {!hideSelectionButtons && SELECTION_BUTTONS_TOGGLE && (
+        {!hideSelectionButtons && SELECTION_BUTTONS_ENABLED_TOGGLE && (
           <SelectionButtonsSet
             buttonsData={monthsData}
             isActive={isActiveMonthButton}
@@ -126,13 +131,29 @@ const TenureInputElement = ({
     ]
   );
 
-  return (
-    <div className={styles.inputContainer}>
-      <strong>{label}</strong>
+  const tenureContainer = useMemo(
+    () => (
       <div className={styles.tenureContainer}>
         {yearsInput}
         {showMonths && <>{monthsInput}</>}
       </div>
+    ),
+    [monthsInput, showMonths, yearsInput]
+  );
+
+  return (
+    <div className={styles.inputContainer}>
+      {singleRowView ? (
+        <div className={styles.inputWithLabel}>
+          <strong>{label}</strong>
+          {tenureContainer}
+        </div>
+      ) : (
+        <>
+          <strong>{label}</strong>
+          {tenureContainer}
+        </>
+      )}
     </div>
   );
 };

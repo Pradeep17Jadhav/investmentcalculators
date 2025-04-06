@@ -1,9 +1,11 @@
 import AdWidget from "../AdWidget/AdWidget";
 
-const UnderCalculatorAd = ({ enabled }: { enabled: boolean }) => {
+const AD_ENABLED_TOGGLE = false;
+
+const UnderCalculatorAd = () => {
   const underCalculatorSlot = "7860018578";
 
-  if (!enabled) {
+  if (!AD_ENABLED_TOGGLE) {
     return null;
   }
 
