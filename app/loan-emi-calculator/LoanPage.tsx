@@ -5,6 +5,7 @@ import LoanCalculatorSummary from "@/components/Loan/LoanCalculatorSummary";
 import LoanPageInformation from "@/components/Loan/LoanPageInformation";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import { PrepaymentsProvider } from "@/contexts/loan/prepaymentsContext";
+import { CurrencyProvider } from "@/contexts/currency";
 
 import styles from "./LoanPage.module.css";
 
@@ -20,10 +21,12 @@ const LoanPage = async () => {
         Calculate EMI for Home, Personal & Car Loans
       </h2>
       <PrepaymentsProvider>
-        <CommonLoanCalculator
-          loanCalculatorType={LoanCalculatorType.HOME}
-          Summary={LoanCalculatorSummary}
-        />
+        <CurrencyProvider>
+          <CommonLoanCalculator
+            loanCalculatorType={LoanCalculatorType.HOME}
+            Summary={LoanCalculatorSummary}
+          />
+        </CurrencyProvider>
       </PrepaymentsProvider>
       <LoanPageInformation />
       <FAQs faqs={faqs} />

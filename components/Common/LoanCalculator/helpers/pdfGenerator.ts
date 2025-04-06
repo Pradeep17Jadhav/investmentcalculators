@@ -1,7 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { getMonthsToYearMonths } from "@/helpers/helpers";
-import { formatPrice } from "@/helpers/price";
 import {
   columnsWithPrice,
   getDesktopColumns,
@@ -31,7 +30,8 @@ const getStartMonth = (loanData: LoanData) => {
 export const generatePDF = async (
   amortisationData: AmortisationRow[],
   loanData: LoanData,
-  tableFrequency: AmortisationTableFrequency
+  tableFrequency: AmortisationTableFrequency,
+  formatAmount: (amount: number, decimals?: number) => string
 ) => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -66,18 +66,18 @@ export const generatePDF = async (
           "Tenure With Prepayments (Years)",
           getMonthsToYearMonths(loanData.tenureWithPrepaymentMonths),
         ],
-        ["Total Prepayments", `₹${formatPrice(loanData.totalPrepayments)}`],
+        ["Total Prepayments", formatAmount(loanData.totalPrepayments)],
         [
           "Principal Amount (excluding prepayments)",
-          `₹${formatPrice(loanData.totalPrincipalPaid)}`,
+          formatAmount(loanData.totalPrincipalPaid),
         ],
       ]
     : [];
 
   const loanTableBody = [
-    ["Loan Amount", `₹${formatPrice(loanData.loanAmount)}`],
+    ["Loan Amount", formatAmount(loanData.loanAmount)],
     ["Interest Rate", `${loanData.rateOfInterest}%`],
-    ["EMI (Monthly)", `₹${formatPrice(loanData.emi)}`],
+    ["EMI (Monthly)", formatAmount(loanData.emi)],
     ["Start Month", getStartMonth(loanData)],
     [
       `${hasPrepayments ? "Original " : ""}Tenure (Months)`,
@@ -88,22 +88,20 @@ export const generatePDF = async (
       getMonthsToYearMonths(loanData.tenureMonths),
     ],
     ...loanTablePrepaymentBody,
-    ["Interest Amount", `₹${formatPrice(loanData.totalInterestPaid)}`],
+    ["Interest Amount", formatAmount(loanData.totalInterestPaid)],
     [
       `Total Repayment ${hasPrepayments ? "(excluding prepayments)" : ""}`,
-      `₹${formatPrice(
-        loanData.totalInterestPaid + loanData.totalPrincipalPaid
-      )}`,
+      formatAmount(loanData.totalInterestPaid + loanData.totalPrincipalPaid),
     ],
     ...(hasPrepayments
       ? [
           [
             "Total Repayment With Prepayments",
-            `₹${formatPrice(
+            formatAmount(
               loanData.totalInterestPaid +
                 loanData.totalPrincipalPaid +
                 loanData.totalPrepayments
-            )}`,
+            ),
           ],
         ]
       : []),
@@ -141,7 +139,7 @@ export const generatePDF = async (
   const rows = amortisationData.map((row) =>
     desktopColumns.map((col) => {
       if (columnsWithPrice.includes(col.key))
-        return `₹${formatPrice(row[col.key as keyof AmortisationRow])}`;
+        return formatAmount(row[col.key as keyof AmortisationRow]);
       if (col.key === TableColumnKeys.LOAN_PAID_PERCENT)
         return `${row[col.key as keyof AmortisationRow].toFixed(2)}%`;
       if (col.key === TableColumnKeys.YEAR) {

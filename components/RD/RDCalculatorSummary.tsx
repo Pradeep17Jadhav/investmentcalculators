@@ -2,13 +2,13 @@
 
 import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
-import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 import ProgressChart, { BarData } from "../Charts/ProgressChart";
 
 import styles from "./RDCalculatorSummary.module.css";
+import { useCurrency } from "@/contexts/currency";
 
 export type RDCalculatorSummaryProps = {
   isValidForm: boolean;
@@ -33,6 +33,8 @@ const RDCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: RDCalculatorSummaryProps) => {
+  const { formatAmount } = useCurrency();
+
   const barsData: BarData[] = useMemo(
     () => [
       {
@@ -58,23 +60,20 @@ const RDCalculatorSummary = ({
         <SummaryBlock title="Investment Details">
           <SummaryItem
             left="Monthly Investment"
-            right={`₹${formatPrice(monthlyInvestment)}`}
+            right={formatAmount(monthlyInvestment)}
           />
           <SummaryItem
             left="Annual Investment"
-            right={`₹${formatPrice(yearlyInvestment)}`}
+            right={formatAmount(yearlyInvestment)}
           />
           <SummaryItem
             left="Total Investment"
-            right={`₹${formatPrice(totalInvestment)}`}
+            right={formatAmount(totalInvestment)}
           />
         </SummaryBlock>
         {resultsReady && isValidForm && (
           <SummaryBlock title="Profit Details">
-            <SummaryItem
-              left="Total Interest"
-              right={`₹${formatPrice(profit)}`}
-            />
+            <SummaryItem left="Total Interest" right={formatAmount(profit)} />
             <SummaryItem
               left="Investment Multiplied"
               right={`${timesMultiplied} times`}

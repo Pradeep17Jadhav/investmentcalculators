@@ -2,11 +2,11 @@
 
 import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
-import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 import ProgressChart, { BarData } from "../Charts/ProgressChart";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./SIPCalculatorSummary.module.css";
 
@@ -33,6 +33,8 @@ const SIPCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: SIPCalculatorSummaryProps) => {
+  const { formatAmount } = useCurrency();
+
   const barsData: BarData[] = useMemo(
     () => [
       {
@@ -58,24 +60,21 @@ const SIPCalculatorSummary = ({
         <SummaryBlock title="Investment Details">
           <SummaryItem
             left="Monthly Investment"
-            right={`₹${formatPrice(monthlyInvestment)}`}
+            right={formatAmount(monthlyInvestment)}
           />
           <SummaryItem
             left="Annual Investment"
-            right={`₹${formatPrice(yearlyInvestment)}`}
+            right={formatAmount(yearlyInvestment)}
           />
           <SummaryItem
             left="Total Investment"
-            right={`₹${formatPrice(totalInvestment)}`}
+            right={formatAmount(totalInvestment)}
           />
         </SummaryBlock>
 
         {resultsReady && isValidForm && (
           <SummaryBlock title="Profit Details">
-            <SummaryItem
-              left="Total Profit"
-              right={`₹${formatPrice(profit)}`}
-            />
+            <SummaryItem left="Total Profit" right={formatAmount(profit)} />
             <SummaryItem
               left="Investment Multiplied"
               right={`${timesMultiplied} times`}

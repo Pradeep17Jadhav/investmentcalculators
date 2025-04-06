@@ -1,6 +1,6 @@
 import { Ref } from "react";
 import { ToWords } from "to-words";
-import { formatPrice } from "@/helpers/price";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./AmountBanner.module.css";
 
@@ -11,12 +11,14 @@ type Props = {
 };
 
 const AmountBanner = ({ amount, ref, prefix }: Props) => {
+  const { formatAmount } = useCurrency();
   const toWords = new ToWords();
+
   return (
     <div className={styles.banner} ref={ref}>
       <div className={styles.amount}>
         {prefix && <span className={styles.prefix}>{prefix}</span>}
-        <span>₹{formatPrice(amount, 0, 0)}</span>
+        <span>{formatAmount(amount)}</span>
       </div>
       {!!amount && (
         <div className={styles.caption}>

@@ -8,6 +8,7 @@ import { TableRow, TableCell } from "@mui/material";
 import { getCellValue } from "../../../helpers/loan";
 import CellWithExpand from "../../../CellRenderers/CellWithExpand/CellWithExpand";
 import { PREPAYMENTS_COLUMN_WIDTH, TableColumnKeys } from "../../../constants";
+import { useCurrency } from "@/contexts/currency";
 
 type Props = {
   yearlyRow: AmortisationRow;
@@ -22,13 +23,19 @@ const YearlyTableRow = ({
   isExpanded,
   toggleRow,
 }: Props) => {
+  const { formatAmount } = useCurrency();
   const memoizedValues = useMemo(
     () =>
       columns.map((col) => ({
         key: col.key,
-        value: getCellValue(col, yearlyRow, AmortisationTableFrequency.Yearly),
+        value: getCellValue(
+          col,
+          yearlyRow,
+          AmortisationTableFrequency.Yearly,
+          formatAmount
+        ),
       })),
-    [columns, yearlyRow]
+    [columns, formatAmount, yearlyRow]
   );
 
   const renderCell = useCallback(

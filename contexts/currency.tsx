@@ -1,5 +1,6 @@
 "use client";
 
+import { formatAmount } from "@/helpers/price";
 import {
   createContext,
   ReactNode,
@@ -22,7 +23,6 @@ const getCurrencySymbol = (currency: Currency) => {
   return symbols[currency] || currency;
 };
 
-// Helper: Map currency to locale
 const getCurrencyLocale = (currency: Currency) => {
   const locales: Record<Currency, string> = {
     INR: "en-IN",
@@ -61,23 +61,27 @@ export const currencyReducer = (
 };
 
 const CurrencyContext = createContext<CurrencyContextType>({
-  currency: "INR",
-  currencySymbol: "₹",
+  currency: "USD",
+  currencySymbol: "$",
   setCurrency: () => {},
-  formatAmount: (amount) => `₹${amount.toLocaleString("en-IN")}`,
+  formatAmount: (amount) => `$${amount.toLocaleString("en-US")}`,
 });
 
 type CurrencyContextType = {
   currency: Currency;
   currencySymbol: string;
   setCurrency: (currency: Currency) => void;
-  formatAmount: (amount: number) => string;
+  formatAmount: (
+    amount: number,
+    decimals?: number,
+    showSymbol?: boolean
+  ) => string;
 };
 
 export const initialCurrencyState: CurrencyState = {
-  currency: "INR",
-  currencySymbol: "₹",
-  locale: "en-IN",
+  currency: "USD",
+  currencySymbol: "$",
+  locale: "en-US",
 };
 
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
@@ -88,14 +92,9 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("currency", currency);
   };
 
-  const formatAmount = useCallback(
-    (amount: number) => {
-      return new Intl.NumberFormat(state.locale, {
-        style: "currency",
-        currency: state.currency,
-        minimumFractionDigits: 2,
-      }).format(amount);
-    },
+  const formatAmountMemo = useCallback(
+    (amount: number, decimals?: number, showSymbol?: boolean) =>
+      formatAmount(amount, state.locale, state.currency, decimals, showSymbol),
     [state.currency, state.locale]
   );
 
@@ -134,8 +133,8 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   }, [detectCurrency]);
 
   const contextValue = useMemo(
-    () => ({ ...state, setCurrency, formatAmount }),
-    [formatAmount, state]
+    () => ({ ...state, setCurrency, formatAmount: formatAmountMemo }),
+    [formatAmountMemo, state]
   );
 
   return (

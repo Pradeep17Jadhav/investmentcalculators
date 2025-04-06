@@ -2,11 +2,11 @@
 
 import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
-import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 import ProgressChart, { BarData } from "../Charts/ProgressChart";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./LumpsumCalculatorSummary.module.css";
 
@@ -29,6 +29,8 @@ const LumpsumCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: LumpsumCalculatorSummaryProps) => {
+  const { formatAmount } = useCurrency();
+
   const barsData: BarData[] = useMemo(
     () => [
       {
@@ -54,16 +56,13 @@ const LumpsumCalculatorSummary = ({
         <SummaryBlock title="Investment Details">
           <SummaryItem
             left="Lumpsum Investment"
-            right={`₹${formatPrice(investment)}`}
+            right={formatAmount(investment)}
           />
         </SummaryBlock>
 
         {resultsReady && isValidForm && (
           <SummaryBlock title="Profit Details">
-            <SummaryItem
-              left="Total Profit"
-              right={`₹${formatPrice(profit)}`}
-            />
+            <SummaryItem left="Total Profit" right={formatAmount(profit)} />
             <SummaryItem
               left="Investment Multiplied"
               right={`${timesMultiplied} times`}

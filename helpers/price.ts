@@ -1,3 +1,5 @@
+import { Currency } from "@/contexts/currency";
+
 /**
  * Formats a number as a price in the Indian number system (en-IN locale).
  *
@@ -97,4 +99,19 @@ export const getUpdatedInterestRateWithValidation = (
     return max.toString();
   }
   return newNumber;
+};
+
+export const formatAmount = (
+  amount: number,
+  locale: string,
+  currency: Currency,
+  decimals?: number,
+  showSymbol: boolean = true
+) => {
+  return new Intl.NumberFormat(locale, {
+    style: showSymbol ? "currency" : "decimal",
+    currency,
+    minimumFractionDigits: decimals ?? 0,
+    maximumFractionDigits: decimals ?? 0,
+  }).format(amount);
 };

@@ -2,7 +2,6 @@ import { ChangeEvent, useCallback } from "react";
 import { ToWords } from "to-words";
 import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 import TextField from "@mui/material/TextField/TextField";
-import { formatPrice } from "@/helpers/price";
 import SelectionButtonsSet, {
   ButtonObject,
 } from "../SelectionButtonsSet/SelectionButtonsSet";
@@ -52,7 +51,7 @@ const InputElement = ({
   getScale,
   getInverseScale,
 }: Props) => {
-  const { currencySymbol } = useCurrency();
+  const { currencySymbol, formatAmount } = useCurrency();
   const inverseValue = getInverseScale
     ? getInverseScale(parseInt(value.toString()) || 0)
     : parseInt(value.toString()) || 0;
@@ -60,7 +59,7 @@ const InputElement = ({
   const toWords = new ToWords();
   const elementValue = value
     ? isPrice && isNumber(value)
-      ? formatPrice(value)
+      ? formatAmount(value, 0, false)
       : value
     : "";
 

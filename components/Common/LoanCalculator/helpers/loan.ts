@@ -3,16 +3,16 @@ import {
   AmortisationRow,
   TableColumn,
 } from "../../../../types/Loan/LoanTypes";
-import { formatPrice } from "@/helpers/price";
 import { columnsWithPrice, TableColumnKeys } from "../constants";
 
 export const getCellValue = (
   col: TableColumn,
   row: AmortisationRow,
-  frequency: AmortisationTableFrequency
+  frequency: AmortisationTableFrequency,
+  formatAmount: (amount: number, decimals?: number | undefined) => string
 ) => {
   if (columnsWithPrice.includes(col.key)) {
-    return `₹${formatPrice(row[col.key as keyof AmortisationRow])}`;
+    return formatAmount(row[col.key as keyof AmortisationRow]);
   }
   if (col.key === TableColumnKeys.LOAN_PAID_PERCENT) {
     return `${row[col.key as keyof AmortisationRow].toFixed(2)}%`;

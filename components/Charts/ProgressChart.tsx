@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback } from "react";
-import { formatPrice } from "@/helpers/price";
 import {
   BarChart,
   Bar,
@@ -12,12 +11,14 @@ import {
   TooltipProps,
   Legend,
 } from "recharts";
+import { useCurrency } from "@/contexts/currency";
 
 type CustomTooltipProps = TooltipProps<number, string> & {
   barsData: BarData[];
 };
 
 const CustomTooltip = ({ active, payload, barsData }: CustomTooltipProps) => {
+  const { formatAmount } = useCurrency();
   if (!active || !payload || payload.length === 0) return null;
 
   return (
@@ -32,8 +33,8 @@ const CustomTooltip = ({ active, payload, barsData }: CustomTooltipProps) => {
     >
       {barsData.map(({ value, label, fill }) => (
         <p key={label} style={{ color: fill }}>
-          {`● ${label}:`}
-          <b>{`₹${formatPrice(value || 0)}`}</b>
+          {`● ${label}: `}
+          <b>{formatAmount(value || 0)}</b>
         </p>
       ))}
     </div>

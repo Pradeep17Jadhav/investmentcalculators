@@ -2,11 +2,11 @@
 
 import { Ref, useMemo } from "react";
 import Section from "@/components/Section/Section";
-import { formatPrice } from "@/helpers/price";
 import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 import ProgressChart, { BarData } from "../Charts/ProgressChart";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./FDCalculatorSummary.module.css";
 
@@ -29,6 +29,7 @@ const FDCalculatorSummary = ({
   timesMultiplied,
   ref,
 }: FDCalculatorSummaryProps) => {
+  const { formatAmount } = useCurrency();
   const barsData: BarData[] = useMemo(
     () => [
       {
@@ -54,15 +55,12 @@ const FDCalculatorSummary = ({
         <SummaryBlock title="Investment Details">
           <SummaryItem
             left="Invested Amount"
-            right={`₹${formatPrice(investment)}`}
+            right={formatAmount(investment)}
           />
         </SummaryBlock>
         {resultsReady && isValidForm && (
           <SummaryBlock title="Profit Details">
-            <SummaryItem
-              left="Total Interest"
-              right={`₹${formatPrice(profit)}`}
-            />
+            <SummaryItem left="Total Interest" right={formatAmount(profit)} />
             <SummaryItem
               left="Investment Multiplied"
               right={`${timesMultiplied} times`}

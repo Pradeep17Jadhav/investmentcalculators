@@ -12,8 +12,9 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { PrepaymentInterval } from "@/hooks/Loan/usePrepayments";
-import { convertPriceToInt, formatPrice } from "@/helpers/price";
+import { convertPriceToInt } from "@/helpers/price";
 import { isNumber } from "@/helpers/numbers";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./PaymentInputItem.module.css";
 
@@ -44,8 +45,12 @@ const PaymentInputItem = ({
   onDateChange,
   onIntervalChange,
 }: Props) => {
+  const { formatAmount } = useCurrency();
+
   const elementValue =
-    amountValue && isNumber(amountValue) ? formatPrice(amountValue) : "";
+    amountValue && isNumber(amountValue)
+      ? formatAmount(amountValue, 0, false)
+      : "";
 
   const handleAmountChange = useCallback(
     (e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

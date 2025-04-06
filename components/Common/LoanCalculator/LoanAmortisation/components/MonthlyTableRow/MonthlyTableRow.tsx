@@ -8,6 +8,7 @@ import {
 import { TableRow, TableCell, useMediaQuery, useTheme } from "@mui/material";
 import { getCellValue } from "../../../helpers/loan";
 import { PREPAYMENTS_COLUMN_WIDTH, TableColumnKeys } from "../../../constants";
+import { useCurrency } from "@/contexts/currency";
 
 type Props = {
   monthlyRow: AmortisationRow;
@@ -17,6 +18,7 @@ type Props = {
 const MonthlyTableRow = ({ monthlyRow, columns }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { formatAmount } = useCurrency();
 
   const getSX = useCallback(
     (col: TableColumn) => {
@@ -43,7 +45,12 @@ const MonthlyTableRow = ({ monthlyRow, columns }: Props) => {
     <TableRow key={monthlyRow.year}>
       {columns.map((col) => (
         <TableCell key={col.key} align="right" sx={getSX(col)}>
-          {getCellValue(col, monthlyRow, AmortisationTableFrequency.Monthly)}
+          {getCellValue(
+            col,
+            monthlyRow,
+            AmortisationTableFrequency.Monthly,
+            formatAmount
+          )}
         </TableCell>
       ))}
     </TableRow>

@@ -9,6 +9,7 @@ import {
 import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGenerator";
 import { Tenure } from "@/types/ConfigTypes";
 import { PrepaymentsByMonth } from "./usePrepayments";
+import { useCurrency } from "@/contexts/currency";
 
 export const useLoanAmortisation = (
   loanAmount: number,
@@ -17,6 +18,7 @@ export const useLoanAmortisation = (
   prepaymentsByMonth: PrepaymentsByMonth,
   hasPrepayments: boolean
 ) => {
+  const { formatAmount } = useCurrency();
   const tenureMonths = tenure.years * 12 + tenure.months;
   const [yearlyRowData, setYearlyRowData] = useState<AmortisationRow[]>([]);
   const [monthlyRowData, setMonthlyRowData] = useState<AmortisationRow[]>([]);
@@ -162,7 +164,7 @@ export const useLoanAmortisation = (
         totalPrincipalPaid: principalPaid,
         totalInterestPaid: interestPaid,
       };
-      generatePDF(tableData, loanData, tableFrequency);
+      generatePDF(tableData, loanData, tableFrequency, formatAmount);
     },
     [
       baseDate,
@@ -176,6 +178,7 @@ export const useLoanAmortisation = (
       totalPrepayments,
       principalPaid,
       yearlyRowData,
+      formatAmount,
     ]
   );
 
