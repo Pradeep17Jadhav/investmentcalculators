@@ -6,6 +6,7 @@ import AppBar from "@/components/AppBar/AppBar";
 import ThemeProvider from "@/components/ThemeProvider/ThemeProvider";
 import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
+import { CurrencyProvider } from "@/contexts/currency";
 
 import "./globals.css";
 
@@ -136,10 +137,12 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <AppBar />
-          <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
-          <Footer />
-          <ScrollToTop />
+          <CurrencyProvider>
+            <AppBar />
+            <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+            <Footer />
+            <ScrollToTop />
+          </CurrencyProvider>
         </ThemeProvider>
       </body>
     </html>

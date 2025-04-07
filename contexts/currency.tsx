@@ -19,23 +19,45 @@ const getCurrencySymbol = (currency: Currency) => {
     GBP: "£",
     JPY: "¥",
     AUD: "A$",
+    CNY: "¥",
+    CHF: "CHF",
+    CAD: "C$",
+    SGD: "S$",
+    HKD: "HK$",
   };
   return symbols[currency] || currency;
 };
 
 const getCurrencyLocale = (currency: Currency) => {
   const locales: Record<Currency, string> = {
-    INR: "en-IN",
-    USD: "en-US",
-    EUR: "de-DE",
-    GBP: "en-GB",
-    JPY: "ja-JP",
-    AUD: "en-AU",
+    INR: "en-IN", // India
+    USD: "en-US", // United States
+    EUR: "de-DE", // Germany (for Eurozone)
+    GBP: "en-GB", // United Kingdom
+    JPY: "ja-JP", // Japan
+    AUD: "en-AU", // Australia
+    CNY: "zh-CN", // China
+    CHF: "de-CH", // Switzerland (German-speaking region)
+    CAD: "en-CA", // Canada
+    SGD: "en-SG", // Singapore
+    HKD: "en-HK", // Hong Kong
   };
-  return locales[currency] || "en-IN";
+  return locales[currency] || "en-US"; // fallback to US English
 };
 
-export type Currency = "INR" | "USD" | "EUR" | "GBP" | "JPY" | "AUD";
+export type Currency =
+  | "INR"
+  | "USD"
+  | "EUR"
+  | "GBP"
+  | "JPY"
+  | "AUD"
+  | "CNY"
+  | "CHF"
+  | "CAD"
+  | "SGD"
+  | "HKD";
+
 export type CurrencyState = {
   currency: Currency;
   currencySymbol: string;
@@ -63,6 +85,7 @@ export const currencyReducer = (
 const CurrencyContext = createContext<CurrencyContextType>({
   currency: "USD",
   currencySymbol: "$",
+  isINR: false,
   setCurrency: () => {},
   formatAmount: (amount) => `$${amount.toLocaleString("en-US")}`,
 });
@@ -70,6 +93,7 @@ const CurrencyContext = createContext<CurrencyContextType>({
 type CurrencyContextType = {
   currency: Currency;
   currencySymbol: string;
+  isINR: boolean;
   setCurrency: (currency: Currency) => void;
   formatAmount: (
     amount: number,
@@ -105,12 +129,18 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
       const country = data.country_code as string; // e.g., "IN", "US"
 
       const countryToCurrency: Record<string, Currency> = {
-        IN: "INR",
-        US: "USD",
-        DE: "EUR",
-        GB: "GBP",
-        JP: "JPY",
-        AU: "AUD",
+        IN: "INR", // India
+        US: "USD", // United States
+        DE: "EUR", // Germany (Eurozone example)
+        FR: "EUR", // France (another Eurozone country)
+        GB: "GBP", // United Kingdom
+        JP: "JPY", // Japan
+        AU: "AUD", // Australia
+        CN: "CNY", // China
+        CH: "CHF", // Switzerland
+        CA: "CAD", // Canada
+        SG: "SGD", // Singapore
+        HK: "HKD", // Hong Kong
       };
 
       const currency = countryToCurrency[country] || "USD";
@@ -133,7 +163,12 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   }, [detectCurrency]);
 
   const contextValue = useMemo(
-    () => ({ ...state, setCurrency, formatAmount: formatAmountMemo }),
+    () => ({
+      ...state,
+      setCurrency,
+      formatAmount: formatAmountMemo,
+      isINR: state.currency === "INR",
+    }),
     [formatAmountMemo, state]
   );
 

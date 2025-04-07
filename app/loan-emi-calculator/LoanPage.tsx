@@ -5,7 +5,6 @@ import LoanCalculatorSummary from "@/components/Loan/LoanCalculatorSummary";
 import LoanPageInformation from "@/components/Loan/LoanPageInformation";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import { PrepaymentsProvider } from "@/contexts/loan/prepaymentsContext";
-import { CurrencyProvider } from "@/contexts/currency";
 
 import styles from "./LoanPage.module.css";
 
@@ -21,12 +20,10 @@ const LoanPage = async () => {
         Calculate Home, Personal & Car Loans With Prepayment
       </h2>
       <PrepaymentsProvider>
-        <CurrencyProvider>
-          <CommonLoanCalculator
-            loanCalculatorType={LoanCalculatorType.HOME}
-            Summary={LoanCalculatorSummary}
-          />
-        </CurrencyProvider>
+        <CommonLoanCalculator
+          loanCalculatorType={LoanCalculatorType.HOME}
+          Summary={LoanCalculatorSummary}
+        />
       </PrepaymentsProvider>
       <LoanPageInformation />
       <FAQs faqs={faqs} />

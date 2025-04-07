@@ -16,14 +16,13 @@ import {
   MIN_ROI,
   ROI_STEP,
 } from "@/constants/calculator";
-
-import styles from "./CommonCalculator.module.css";
 import {
   getInvestmentInverseScale,
   getInvestmentMax,
   getInvestmentScale,
 } from "./constants";
-import { CurrencyProvider } from "@/contexts/currency";
+
+import styles from "./CommonCalculator.module.css";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -107,27 +106,25 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
   );
 
   return (
-    <CurrencyProvider>
-      <div className={styles.container}>
-        <TwoColumnContainer
-          leftColumn={input}
-          rightColumn={
-            <Summary
-              isValidForm={isValidForm}
-              resultsReady={resultsReady}
-              profit={profit}
-              maturityValue={maturityValue}
-              timesMultiplied={timesMultiplied}
-              investment={investment}
-              monthlyInvestment={investment}
-              yearlyInvestment={yearlyInvestment}
-              totalInvestment={totalInvestment}
-              ref={resultRef}
-            />
-          }
-        />
-      </div>
-    </CurrencyProvider>
+    <div className={styles.container}>
+      <TwoColumnContainer
+        leftColumn={input}
+        rightColumn={
+          <Summary
+            isValidForm={isValidForm}
+            resultsReady={resultsReady}
+            profit={profit}
+            maturityValue={maturityValue}
+            timesMultiplied={timesMultiplied}
+            investment={investment}
+            monthlyInvestment={investment}
+            yearlyInvestment={yearlyInvestment}
+            totalInvestment={totalInvestment}
+            ref={resultRef}
+          />
+        }
+      />
+    </div>
   );
 };
 

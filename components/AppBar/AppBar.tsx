@@ -17,10 +17,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import Logo from "../Logo/Logo";
 import { PATHS } from "@/constants/path";
+import CurrencySelector from "../CurrencySelector/CurrencySelector";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./AppBar.module.css";
 
 const AppBar = () => {
+  const { isINR } = useCurrency();
   const router = useRouter();
   const pathname = usePathname();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -47,39 +50,46 @@ const AppBar = () => {
         to: "/blog",
         label: "Blog",
         tooltip: "Read our blogs",
+        enabled: true,
       },
       {
         to: "/income-tax-calculator",
         label: "Income Tax",
         tooltip: "Income Tax Calculator",
+        enabled: isINR,
       },
       {
         to: "/sip-calculator",
         label: "SIP",
         tooltip: "SIP Calculator",
+        enabled: true,
       },
       {
         to: "/lumpsum-calculator",
         label: "Lumpsum",
         tooltip: "Lumpsum Calculator",
+        enabled: true,
       },
       {
         to: "/fd-calculator",
         label: "Fixed Deposit",
         tooltip: "FD Calculator",
+        enabled: true,
       },
       {
         to: "/rd-calculator",
         label: "Recurring Deposit",
         tooltip: "RD Calculator",
+        enabled: true,
       },
       {
         to: "/loan-emi-calculator",
         label: "Loan EMI",
         tooltip: "Loan EMI Calculator",
+        enabled: true,
       },
     ],
-    []
+    [isINR]
   );
 
   return (
@@ -112,16 +122,18 @@ const AppBar = () => {
               onClose={handleCloseNavMenu("")}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {publicPages.map((page) => (
-                <MenuItem
-                  key={page.label}
-                  onClick={handleCloseNavMenu(page.to)}
-                >
-                  <Typography sx={{ textAlign: "center" }}>
-                    {page.label}
-                  </Typography>
-                </MenuItem>
-              ))}
+              {publicPages.map((page) =>
+                page.enabled ? (
+                  <MenuItem
+                    key={page.label}
+                    onClick={handleCloseNavMenu(page.to)}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      {page.label}
+                    </Typography>
+                  </MenuItem>
+                ) : null
+              )}
             </Menu>
           </Box>
           <div className={styles.logoContainer}>
@@ -133,9 +145,9 @@ const AppBar = () => {
             className={styles.navLinkContainer}
             sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
           >
-            {publicPages.map(({ label, tooltip, to }) => {
+            {publicPages.map(({ label, tooltip, to, enabled }) => {
               const isActive = pathname === to;
-              return (
+              return enabled ? (
                 <Tooltip key={label} title={tooltip}>
                   <Link
                     href={to}
@@ -146,9 +158,11 @@ const AppBar = () => {
                     {label}
                   </Link>
                 </Tooltip>
-              );
+              ) : null;
             })}
           </Box>
+
+          <CurrencySelector />
         </Toolbar>
       </Container>
     </>
