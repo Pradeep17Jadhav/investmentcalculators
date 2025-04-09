@@ -19,7 +19,7 @@ export const useLoanAmortisation = (
   prepaymentsByMonth: PrepaymentsByMonth,
   hasPrepayments: boolean
 ) => {
-  const { formatAmount } = useCurrency();
+  const { formatAmount, currency } = useCurrency();
   const tenureMonths = tenure.years * 12 + tenure.months;
   const [yearlyRowData, setYearlyRowData] = useState<AmortisationRow[]>([]);
   const [monthlyRowData, setMonthlyRowData] = useState<AmortisationRow[]>([]);
@@ -171,6 +171,7 @@ export const useLoanAmortisation = (
         tenure: tenureMonths,
         rateOfInterest,
         emi,
+        currency,
         totalPrepayments,
         amortisationFrequency: tableFrequency,
       });
@@ -187,6 +188,7 @@ export const useLoanAmortisation = (
       totalPrepayments,
       principalPaid,
       interestPaid,
+      currency,
       formatAmount,
     ]
   );

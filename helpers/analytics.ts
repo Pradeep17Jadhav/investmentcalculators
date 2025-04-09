@@ -9,6 +9,7 @@ type EventParamsMap = {
     tenure: number;
     emi: number;
     totalPrepayments: number;
+    currency: string;
     amortisationFrequency: AmortisationTableFrequency;
   };
   loan_calculate: {
