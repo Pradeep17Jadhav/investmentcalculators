@@ -7,6 +7,7 @@
     padding: 1.5rem;
     transition: box-shadow 0.5s ease-in-out;
     position: relative;
+    user-select: none;
 }
 
 .content {
@@ -16,6 +17,7 @@
 .section:hover::before {
     background: linear-gradient(var(--rotation), transparent 80%, #fff41c48 85%, #1cff2b47 90%, #008be760 95%);
     /* background: linear-gradient(var(--rotation), transparent 60%, #215DEE 70%, #B61CFF 90%); */
+    /* blue and purple shade */
     content: "";
     inset: 0;
     z-index: 1;
@@ -45,7 +47,6 @@
 
 .title {
     margin-bottom: 24px;
-    font-family: "Inter", Arial, Helvetica, sans-serif;
     font-size: 1.7em;
     font-weight: 500;
     letter-spacing: normal;

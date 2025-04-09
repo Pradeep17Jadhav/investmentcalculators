@@ -1,31 +1,29 @@
 .link {
-    font-family: 'Inter';
     font-weight: 500;
     text-transform: uppercase;
     border: 1px solid var(--primary);
-    color: var(--foreground);
+    color: #fff;
     padding: 16px 64px;
     border-radius: 48px;
     transition: background-color 0.3s ease-in-out;
-    background: none;
+    background: var(--primary);
 }
 
 .button {
-    font-family: 'Inter';
-    font-weight: 500;
+    font-weight: 600 !important;
     text-transform: uppercase;
     border: 1px solid var(--primary);
-    color: var(--foreground);
+    color: var(--background);
     padding: 16px 64px;
     border-radius: 48px;
     transition: background-color 0.3s ease-in-out;
-    background: none;
+    background: var(--primary);
     font-size: 1em;
     cursor: pointer;
 }
 
 .button:hover, .link:hover {
-    background-color: var(--primary);
+    background-color: var(--primary-light);
     color: #FFF;
 }
 

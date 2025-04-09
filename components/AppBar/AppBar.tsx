@@ -12,6 +12,8 @@ import {
   Container,
   Toolbar,
   Tooltip,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
@@ -23,6 +25,8 @@ import { useCurrency } from "@/contexts/currency";
 import styles from "./AppBar.module.css";
 
 const AppBar = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { isINR } = useCurrency();
   const router = useRouter();
   const pathname = usePathname();
@@ -137,9 +141,11 @@ const AppBar = () => {
             </Menu>
           </Box>
           <div className={styles.logoContainer}>
-            <Link href={PATHS.HOME_PAGE}>
-              <Logo className={styles.logo} width={240} height={32} />
-            </Link>
+            {isMobile ? null : (
+              <Link href={PATHS.HOME_PAGE}>
+                <Logo className={styles.logo} width={240} height={32} />
+              </Link>
+            )}
           </div>
           <Box
             className={styles.navLinkContainer}

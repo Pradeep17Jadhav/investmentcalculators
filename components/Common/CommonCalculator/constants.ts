@@ -1,5 +1,14 @@
-import { MAX_INVESTMENT, MAX_MONTHLY_INVESTMENT } from "@/constants/calculator";
+import {
+  MAX_INVESTMENT,
+  MAX_MONTHLY_INVESTMENT,
+  MIN_INVESTMENT,
+  MIN_MONTHLY_INVESTMENT,
+} from "@/constants/calculator";
 import { CalculatorType } from "@/types/ConfigTypes";
+
+export const getInitialInvestmentScale = () => {
+  return getOneTimeInvestmentScale;
+};
 
 export const getInvestmentScale = (calculatorType: CalculatorType) => {
   switch (calculatorType) {
@@ -30,6 +39,10 @@ export const getMonthlyInvestmentScale = (value: number) => {
   if (value <= 142) return 200000 + (value - 130) * 25000; // ₹25K steps up to ₹5L
   if (value <= 152) return 500000 + (value - 142) * 50000; // ₹50K steps up to ₹10L
   return 1000000 + (value - 152) * 100000; // ₹1L steps beyond
+};
+
+export const getInitialInvestmentInverseScale = () => {
+  return getOneTimeInvestmentInverseScale;
 };
 
 export const getInvestmentInverseScale = (calculatorType: CalculatorType) => {
@@ -63,6 +76,10 @@ export const getMonthlyInvestmentInverseScale = (value: number) => {
   return 152 + (value - 1000000) / 100000;
 };
 
+export const getInitialInvestmentMax = () => {
+  return getOneTimeInvestmentMax();
+};
+
 export const getInvestmentMax = (calculatorType: CalculatorType) => {
   switch (calculatorType) {
     case CalculatorType.FD:
@@ -75,7 +92,7 @@ export const getInvestmentMax = (calculatorType: CalculatorType) => {
 };
 
 export const getOneTimeInvestmentMax = () => {
-  let value = 0;
+  let value = MIN_INVESTMENT;
   while (true) {
     const investment = getOneTimeInvestmentScale(value);
     if (investment >= MAX_INVESTMENT) {
@@ -86,7 +103,7 @@ export const getOneTimeInvestmentMax = () => {
 };
 
 export const getMonthlyInvestmentMax = () => {
-  let value = 0;
+  let value = MIN_MONTHLY_INVESTMENT;
   while (true) {
     const investment = getMonthlyInvestmentScale(value);
     if (investment >= MAX_MONTHLY_INVESTMENT) {

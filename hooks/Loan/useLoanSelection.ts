@@ -3,6 +3,7 @@ import { Tenure } from "@/types/ConfigTypes";
 
 type LoanSelectionProps = {
   loanAmount?: number;
+  initialInvestment?: number;
   investment?: number;
   tenure: Tenure;
   roi: string;
@@ -13,6 +14,10 @@ type LoanSelectionProps = {
   handleInvestmentChange?: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     investment?: string
+  ) => void;
+  handleInitialInvestmentChange?: (
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    initialInvestment?: string
   ) => void;
   handleROIChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -28,12 +33,14 @@ type LoanSelectionProps = {
   ) => void;
 };
 
-export const useLoanSelection = ({
+export const useAmountSelection = ({
   loanAmount,
+  initialInvestment,
   investment,
   tenure,
   roi,
   handleLoanAmountChange,
+  handleInitialInvestmentChange,
   handleInvestmentChange,
   handleROIChange,
   handleTenureYearsChange,
@@ -42,6 +49,11 @@ export const useLoanSelection = ({
   const isActiveLoanAmountButton = useCallback(
     (amount: number) => amount === loanAmount,
     [loanAmount]
+  );
+
+  const isActiveInitialInvestmentButton = useCallback(
+    (initInvt: number) => initInvt === initialInvestment,
+    [initialInvestment]
   );
 
   const isActiveInvestmentButton = useCallback(
@@ -76,6 +88,12 @@ export const useLoanSelection = ({
     [handleInvestmentChange]
   );
 
+  const selectInitialInvestment = useCallback(
+    (initialInvestment: number) => () =>
+      handleInitialInvestmentChange?.(undefined, initialInvestment.toString()),
+    [handleInitialInvestmentChange]
+  );
+
   const selectYears = useCallback(
     (years: number) => () =>
       handleTenureYearsChange(undefined, years.toString()),
@@ -95,15 +113,16 @@ export const useLoanSelection = ({
 
   return {
     isActiveLoanAmountButton,
+    isActiveInitialInvestmentButton,
     isActiveInvestmentButton,
     isActiveYearButton,
     isActiveMonthButton,
     isActiveROIButton,
     selectLoanAmount,
+    selectInitialInvestment,
     selectInvestment,
     selectYears,
     selectMonths,
     selectROI,
-    selectInvestmentAmount: selectInvestment,
   };
 };

@@ -13,6 +13,8 @@ import styles from "./SIPCalculatorSummary.module.css";
 export type SIPCalculatorSummaryProps = {
   isValidForm: boolean;
   resultsReady: boolean;
+  haveInitialInvestment: boolean;
+  initialInvestment: number;
   monthlyInvestment: number;
   yearlyInvestment: number;
   totalInvestment: number;
@@ -25,6 +27,8 @@ export type SIPCalculatorSummaryProps = {
 const SIPCalculatorSummary = ({
   isValidForm,
   resultsReady,
+  haveInitialInvestment,
+  initialInvestment,
   monthlyInvestment,
   yearlyInvestment,
   totalInvestment,
@@ -58,6 +62,12 @@ const SIPCalculatorSummary = ({
       </Section>
       <Section title="Summary of Returns">
         <SummaryBlock title="Investment Details">
+          {haveInitialInvestment && (
+            <SummaryItem
+              left="Initial Investment"
+              right={formatAmount(initialInvestment)}
+            />
+          )}
           <SummaryItem
             left="Monthly Investment"
             right={formatAmount(monthlyInvestment)}

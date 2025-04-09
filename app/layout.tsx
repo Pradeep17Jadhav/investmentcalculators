@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Merriweather } from "next/font/google";
+import { Inter } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import Script from "next/script";
 import AppBar from "@/components/AppBar/AppBar";
@@ -14,7 +14,6 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
-const merriweather = Merriweather({ subsets: ["latin"], weight: ["400"] });
 
 export const viewport = {
   themeColor: "#000000",
@@ -54,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.className} ${merriweather.className}`}>
+    <html lang="en" className={`${inter.className}`}>
       <head>
         {/* Google Analytics */}
         <Script

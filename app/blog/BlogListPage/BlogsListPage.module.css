@@ -17,6 +17,7 @@
 }
 
 .pageTitle {
+    font-size: 32px;
     margin-bottom: 64px;
-    color: var(--foreground-secondary)
+    color: var(--foreground);
 }

@@ -3,6 +3,7 @@ import { CalculatorType } from "@/types/ConfigTypes";
 type CalculatorInputLabels = {
   [key in CalculatorType]: {
     title: string;
+    initialInvestment: string;
     investment: string;
     returns: string;
     tenure: string;
@@ -10,16 +11,19 @@ type CalculatorInputLabels = {
     tenureYearsPlaceholder: string;
     tenureMonthsPlaceholder: string;
     investmentPlaceholder: string;
+    initialInvestmentPlaceholder: string;
   };
 };
 
 const commonInputLabels = {
+  initialInvestment: "Initial Investment",
   returns: "Expected Returns",
   tenure: "Investment Period",
   roiPlaceholder: "12.25%",
   tenureYearsPlaceholder: "18 yrs",
   tenureMonthsPlaceholder: "9 mos",
   investmentPlaceholder: "25,000",
+  initialInvestmentPlaceholder: "50,000",
 };
 
 export const commonCalculatorLabels: CalculatorInputLabels = {

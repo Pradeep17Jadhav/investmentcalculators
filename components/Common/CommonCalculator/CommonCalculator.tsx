@@ -17,6 +17,9 @@ import {
   ROI_STEP,
 } from "@/constants/calculator";
 import {
+  getInitialInvestmentInverseScale,
+  getInitialInvestmentMax,
+  getInitialInvestmentScale,
   getInvestmentInverseScale,
   getInvestmentMax,
   getInvestmentScale,
@@ -39,6 +42,7 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
   const {
     isValidForm,
     resultsReady,
+    initialInvestment,
     investment,
     yearlyInvestment,
     totalInvestment,
@@ -47,8 +51,11 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
     profit,
     maturityValue,
     timesMultiplied,
+    haveInitialInvestment,
+    setHaveInitialInvestment,
     calculate,
     handleInvestmentChange,
+    handleInitialInvestmentChange,
     handleROIChange,
     handleTenureYearsChange,
     handleTenureMonthsChange,
@@ -73,19 +80,28 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
         isValidForm={isValidForm}
         calculatorType={calculatorType}
         investment={investment}
+        initialInvestment={initialInvestment}
         roi={roi}
         tenure={tenure}
+        minInitialAmount={0}
+        maxInitialAmount={getInitialInvestmentMax()}
+        stepInitialAmount={1}
         minAmount={minAmount}
         maxAmount={getInvestmentMax(calculatorType)}
         stepAmount={1}
         minRoi={MIN_ROI}
         maxRoi={MAX_ROI}
         stepRoi={ROI_STEP}
+        haveInitialInvestment={haveInitialInvestment}
+        setHaveInitialInvestment={setHaveInitialInvestment}
+        handleInitialInvestmentChange={handleInitialInvestmentChange}
         handleInvestmentChange={handleInvestmentChange}
         handleROIChange={handleROIChange}
         handleTenureYearsChange={handleTenureYearsChange}
         handleTenureMonthsChange={handleTenureMonthsChange}
         onCalculate={handleCalculateBtnClick}
+        getInitialInvestmentScale={getInitialInvestmentScale()}
+        getInitialInvestmentInverseScale={getInitialInvestmentInverseScale()}
         getInvestmentScale={getInvestmentScale(calculatorType)}
         getInvestmentInverseScale={getInvestmentInverseScale(calculatorType)}
       />
@@ -94,9 +110,13 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
       isValidForm,
       calculatorType,
       investment,
+      initialInvestment,
       roi,
       tenure,
       minAmount,
+      haveInitialInvestment,
+      setHaveInitialInvestment,
+      handleInitialInvestmentChange,
       handleInvestmentChange,
       handleROIChange,
       handleTenureYearsChange,
@@ -113,9 +133,11 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
           <Summary
             isValidForm={isValidForm}
             resultsReady={resultsReady}
+            haveInitialInvestment={haveInitialInvestment}
             profit={profit}
             maturityValue={maturityValue}
             timesMultiplied={timesMultiplied}
+            initialInvestment={initialInvestment}
             investment={investment}
             monthlyInvestment={investment}
             yearlyInvestment={yearlyInvestment}

@@ -24,15 +24,13 @@ type Props = {
   ) => void;
   isPrice?: boolean;
   isROI?: boolean;
-  hideSelectionButtons?: boolean;
+  showSelectionButtons?: boolean;
   isActiveShortcutButton: (selectedValue: number) => boolean;
   selectShortcutButton: (selectedValue: number) => () => void;
   step: number;
   getScale?: (newValue: number) => number;
   getInverseScale?: (newValue: number) => number;
 };
-
-const SELECTION_BUTTONS_ENABLED_TOGGLE = false;
 
 const InputElement = ({
   value,
@@ -44,7 +42,7 @@ const InputElement = ({
   isPrice,
   isROI,
   step,
-  hideSelectionButtons = false,
+  showSelectionButtons = false,
   handleChange,
   isActiveShortcutButton,
   selectShortcutButton,
@@ -127,7 +125,7 @@ const InputElement = ({
         step={step}
       />
 
-      {!hideSelectionButtons && SELECTION_BUTTONS_ENABLED_TOGGLE && (
+      {showSelectionButtons && (
         <SelectionButtonsSet
           buttonsData={buttonsData}
           isActive={isActiveShortcutButton}

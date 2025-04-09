@@ -1,5 +1,4 @@
 .link {
-    font-family: 'Inter';
     font-weight: 500;
     text-transform: uppercase;
     border: 1px solid var(--primary);
@@ -11,7 +10,6 @@
 }
 
 .button {
-    font-family: 'Inter';
     font-weight: 500;
     text-transform: uppercase;
     border: 1px solid var(--primary);

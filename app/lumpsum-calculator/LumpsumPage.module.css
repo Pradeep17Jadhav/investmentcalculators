@@ -3,10 +3,19 @@
     margin: 2rem auto;
 }
 
+.pageTitle {
+    font-size: 32px;
+}
+
+.pageSubtitle {
+    font-size: 18px;
+    font-weight: 400;
+}
+
 .pageTitle, .pageSubtitle {
     text-align: center;
-    font-weight: 300;
 }
+
 
 @media (max-width: 600px) {
     .pageTitle {

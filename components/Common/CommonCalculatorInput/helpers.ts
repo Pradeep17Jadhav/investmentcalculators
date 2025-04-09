@@ -7,6 +7,10 @@ import {
   RDInvestmentReturnsRate,
 } from "./constants";
 
+export const getInitialInvestmentShortcutData = () => {
+  return defaultOneTimeAmount;
+};
+
 export const getInvestmentShortcutData = (calculatorType: CalculatorType) => {
   switch (calculatorType) {
     case CalculatorType.SIP:

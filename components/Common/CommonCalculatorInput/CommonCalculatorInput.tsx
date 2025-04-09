@@ -1,6 +1,12 @@
 "use client";
 
-import { ChangeEvent, useMemo } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useMemo,
+} from "react";
 import Section from "@/components/Section/Section";
 import { CalculatorType, Tenure } from "@/types/ConfigTypes";
 import InputElement from "../InputElement/InputElement";
@@ -9,24 +15,43 @@ import {
   defaultInvestmentTenureMonths,
   defaultInvestmentTenureYears,
 } from "./constants";
-import { useLoanSelection } from "@/hooks/Loan/useLoanSelection";
+import { useAmountSelection } from "@/hooks/Loan/useLoanSelection";
 import TenureInputElement from "../TenureInputElement/TenureInputElement";
-import { useMediaQuery, useTheme } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
-import { getInvestmentShortcutData, getRoiShortcutData } from "./helpers";
+import {
+  getInitialInvestmentShortcutData,
+  getInvestmentShortcutData,
+  getRoiShortcutData,
+} from "./helpers";
 
 type Props = {
   calculatorType: CalculatorType;
   isValidForm: boolean;
+  haveInitialInvestment: boolean;
+  initialInvestment: number;
   investment: number;
   roi: string;
   tenure: Tenure;
+  minInitialAmount: number;
+  maxInitialAmount: number;
+  stepInitialAmount: number;
   minAmount: number;
   maxAmount: number;
   stepAmount: number;
   minRoi: number;
   maxRoi: number;
   stepRoi: number;
+  setHaveInitialInvestment: Dispatch<SetStateAction<boolean>>;
+  handleInitialInvestmentChange: (
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    initialInvestment?: string
+  ) => void;
   handleInvestmentChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     investment?: string
@@ -44,6 +69,8 @@ type Props = {
     months?: string
   ) => void;
   onCalculate: () => void;
+  getInitialInvestmentScale?: (value: number) => number;
+  getInitialInvestmentInverseScale?: (value: number) => number;
   getInvestmentScale?: (value: number) => number;
   getInvestmentInverseScale?: (value: number) => number;
 };
@@ -51,20 +78,29 @@ type Props = {
 const CommonCalculatorInput = ({
   isValidForm,
   calculatorType,
+  haveInitialInvestment,
+  initialInvestment,
   investment,
   roi,
   tenure,
+  minInitialAmount,
+  maxInitialAmount,
+  stepInitialAmount,
   minAmount,
   maxAmount,
   stepAmount,
   minRoi,
   maxRoi,
   stepRoi,
+  setHaveInitialInvestment,
+  handleInitialInvestmentChange,
   handleInvestmentChange,
   handleROIChange,
   handleTenureYearsChange,
   handleTenureMonthsChange,
   onCalculate,
+  getInitialInvestmentScale,
+  getInitialInvestmentInverseScale,
   getInvestmentScale,
   getInvestmentInverseScale,
 }: Props) => {
@@ -72,23 +108,37 @@ const CommonCalculatorInput = ({
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const {
+    isActiveInitialInvestmentButton,
     isActiveInvestmentButton,
     isActiveYearButton,
     isActiveMonthButton,
     isActiveROIButton,
     selectInvestment,
+    selectInitialInvestment,
     selectYears,
     selectMonths,
     selectROI,
-  } = useLoanSelection({
+  } = useAmountSelection({
+    initialInvestment,
     investment,
     tenure,
     roi: roi.toString(),
+    handleInitialInvestmentChange,
     handleInvestmentChange,
     handleROIChange,
     handleTenureYearsChange,
     handleTenureMonthsChange,
   });
+
+  const handleHaveInitialInvestmentToggle = useCallback(
+    () => setHaveInitialInvestment((has) => !has),
+    [setHaveInitialInvestment]
+  );
+
+  const initialInvestmentShortcutData = useMemo(
+    () => getInitialInvestmentShortcutData(),
+    []
+  );
 
   const investmentShortcutData = useMemo(
     () => getInvestmentShortcutData(calculatorType),
@@ -155,6 +205,38 @@ const CommonCalculatorInput = ({
         selectMonths={selectMonths}
         showMonths={shouldShowMonths}
       />
+
+      {calculatorType === CalculatorType.SIP && (
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={haveInitialInvestment}
+              onChange={handleHaveInitialInvestmentToggle}
+            />
+          }
+          label="I have initial investment"
+        />
+      )}
+
+      {haveInitialInvestment && (
+        <InputElement
+          value={initialInvestment}
+          buttonsData={initialInvestmentShortcutData}
+          label={commonCalculatorLabels[calculatorType].initialInvestment}
+          placeholder={
+            commonCalculatorLabels[calculatorType].initialInvestmentPlaceholder
+          }
+          isPrice={true}
+          handleChange={handleInitialInvestmentChange}
+          isActiveShortcutButton={isActiveInitialInvestmentButton}
+          selectShortcutButton={selectInitialInvestment}
+          getScale={getInitialInvestmentScale}
+          getInverseScale={getInitialInvestmentInverseScale}
+          step={stepInitialAmount}
+          min={minInitialAmount}
+          max={maxInitialAmount}
+        />
+      )}
 
       {isMobile && (
         <LargeButton onClick={onCalculate} disabled={!isValidForm} centered>

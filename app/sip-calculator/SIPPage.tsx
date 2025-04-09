@@ -17,7 +17,7 @@ const SIPPage = async () => {
     <div className={styles.container}>
       <h1 className={styles.pageTitle}>SIP Calculator</h1>
       <h2 className={styles.pageSubtitle}>
-        Calculate SIP Returns & Investment Growth
+        Calculate SIP Returns With Annual Step up and Initial Investment
       </h2>
       <CommonCalculator
         calculatorType={CalculatorType.SIP}

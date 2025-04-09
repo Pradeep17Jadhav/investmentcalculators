@@ -2,7 +2,7 @@
 
 import { ChangeEvent } from "react";
 import Section from "@/components/Section/Section";
-import { useLoanSelection } from "@/hooks/Loan/useLoanSelection";
+import { useAmountSelection } from "@/hooks/Loan/useLoanSelection";
 import { LoanCalculatorType, Tenure } from "@/types/ConfigTypes";
 import {
   defaultLoanTenureYears,
@@ -82,7 +82,7 @@ const CommonLoanCalculatorInput = ({
     selectYears,
     selectMonths,
     selectROI,
-  } = useLoanSelection({
+  } = useAmountSelection({
     loanAmount,
     tenure,
     roi,
@@ -97,7 +97,6 @@ const CommonLoanCalculatorInput = ({
       <InputElement
         value={loanAmount}
         buttonsData={defaultLoanAmount}
-        hideSelectionButtons={isMobile}
         label={labels[loanCalculatorType].loanAmount}
         placeholder={labels[loanCalculatorType].loanAmountPlaceholder}
         isPrice={true}
@@ -114,7 +113,6 @@ const CommonLoanCalculatorInput = ({
       <InputElement
         value={roi}
         buttonsData={defaultLoanInterestRates}
-        hideSelectionButtons={isMobile}
         label={labels[loanCalculatorType].roi}
         placeholder={labels[loanCalculatorType].roiPlaceholder}
         handleChange={handleROIChange}
@@ -128,7 +126,6 @@ const CommonLoanCalculatorInput = ({
 
       <TenureInputElement
         tenure={tenure}
-        hideSelectionButtons={isMobile}
         label={labels[loanCalculatorType].tenure}
         placeholderYears={labels[loanCalculatorType].tenureYearsPlaceholder}
         placeholderMonths={labels[loanCalculatorType].tenureMonthsPlaceholder}

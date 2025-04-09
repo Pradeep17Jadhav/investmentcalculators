@@ -1,5 +1,4 @@
 .pageInformation {
-    font-family: "Inter", Helvetica, sans-serif !important;
     line-height: 28px;
     margin-top: 64px;
     padding: 8px 16px;
@@ -15,7 +14,6 @@
 }
 
 .pageInformation h1, .pageInformation h2, .pageInformation h3, .pageInformation h4 {
-    font-family: "Inter", Helvetica, sans-serif;
     font-weight: 500;
     letter-spacing: normal;
     -webkit-user-select: text;
@@ -24,7 +22,6 @@
 }
 
 .pageInformation p {
-    font-family: "Inter", Helvetica, sans-serif !important;
     margin: 16px 0 32px;
     font-weight: 300;
     font-size: 0.95em;

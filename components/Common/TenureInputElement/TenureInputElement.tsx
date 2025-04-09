@@ -15,7 +15,7 @@ type Props = {
   yearsData: number[];
   monthsData: number[];
   showMonths?: boolean;
-  hideSelectionButtons?: boolean;
+  showSelectionButtons?: boolean;
   handleYearChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     newYear?: string
@@ -30,8 +30,6 @@ type Props = {
   selectMonths: (months: number) => () => void;
 };
 
-const SELECTION_BUTTONS_ENABLED_TOGGLE = false;
-
 const TenureInputElement = ({
   tenure,
   label,
@@ -40,7 +38,7 @@ const TenureInputElement = ({
   yearsData,
   monthsData,
   showMonths,
-  hideSelectionButtons,
+  showSelectionButtons = false,
   handleYearChange,
   handleMonthChange,
   isActiveYearButton,
@@ -70,7 +68,7 @@ const TenureInputElement = ({
             },
           }}
         />
-        {!hideSelectionButtons && SELECTION_BUTTONS_ENABLED_TOGGLE && (
+        {showSelectionButtons && (
           <SelectionButtonsSet
             buttonsData={yearsData}
             isActive={isActiveYearButton}
@@ -84,7 +82,7 @@ const TenureInputElement = ({
       placeholderYears,
       tenure.years,
       handleYearChange,
-      hideSelectionButtons,
+      showSelectionButtons,
       yearsData,
       isActiveYearButton,
       selectYears,
@@ -111,7 +109,7 @@ const TenureInputElement = ({
             },
           }}
         />
-        {!hideSelectionButtons && SELECTION_BUTTONS_ENABLED_TOGGLE && (
+        {showSelectionButtons && (
           <SelectionButtonsSet
             buttonsData={monthsData}
             isActive={isActiveMonthButton}
@@ -122,7 +120,7 @@ const TenureInputElement = ({
     ),
     [
       monthsData,
-      hideSelectionButtons,
+      showSelectionButtons,
       placeholderMonths,
       tenure.months,
       selectMonths,

@@ -98,6 +98,7 @@ const IncomeTaxInput = ({
         min={MIN_INCOME}
         max={MAX_INCOME / 10}
         step={INCOME_STEP}
+        showSelectionButtons
       />
 
       <FormControlLabel
