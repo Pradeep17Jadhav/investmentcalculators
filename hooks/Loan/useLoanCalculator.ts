@@ -170,7 +170,7 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     trackEvent("loan_calculate", {
       loanAmount,
       tenure: tenure.years * 12 + tenure.months,
-      interestRate: parseFloat(roi),
+      rateOfInterest: parseFloat(roi),
     });
     if (!isMobile) {
       calculate(true);

@@ -10,6 +10,7 @@ import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGener
 import { Tenure } from "@/types/ConfigTypes";
 import { PrepaymentsByMonth } from "./usePrepayments";
 import { useCurrency } from "@/contexts/currency";
+import { trackEvent } from "@/helpers/analytics";
 
 export const useLoanAmortisation = (
   loanAmount: number,
@@ -165,19 +166,27 @@ export const useLoanAmortisation = (
         totalInterestPaid: interestPaid,
       };
       generatePDF(tableData, loanData, tableFrequency, formatAmount);
+      trackEvent("amortisation_pdf", {
+        loanAmount,
+        tenure: tenureMonths,
+        rateOfInterest,
+        emi,
+        totalPrepayments,
+        amortisationFrequency: tableFrequency,
+      });
     },
     [
-      baseDate,
-      emi,
-      hasPrepayments,
-      loanAmount,
+      yearlyRowData,
       monthlyRowData,
+      baseDate,
+      loanAmount,
       rateOfInterest,
       tenureMonths,
-      interestPaid,
+      emi,
+      hasPrepayments,
       totalPrepayments,
       principalPaid,
-      yearlyRowData,
+      interestPaid,
       formatAmount,
     ]
   );
