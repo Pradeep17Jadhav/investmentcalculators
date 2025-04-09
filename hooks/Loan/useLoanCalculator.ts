@@ -12,6 +12,7 @@ import {
   MIN_LOAN_AMOUNT,
   MIN_ROI,
 } from "@/constants/calculator";
+import { trackEvent } from "@/helpers/analytics";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -166,6 +167,11 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
       return;
     }
     setIsValidForm(true);
+    trackEvent("loan_calculate", {
+      loanAmount,
+      tenure: tenure.years * 12 + tenure.months,
+      interestRate: parseFloat(roi),
+    });
     if (!isMobile) {
       calculate(true);
     }
