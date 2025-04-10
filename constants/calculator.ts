@@ -19,6 +19,9 @@ export const MIN_ROI = 0;
 export const MAX_ROI = 100;
 export const ROI_STEP = 0.25;
 
+export const MIN_STEP_UP = 0;
+export const MAX_STEP_UP = 50;
+
 export const getMinimumInvestment = (calculatorType: CalculatorType) => {
   switch (calculatorType) {
     case CalculatorType.RD:

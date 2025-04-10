@@ -14,6 +14,8 @@ export type SIPCalculatorSummaryProps = {
   isValidForm: boolean;
   resultsReady: boolean;
   haveInitialInvestment: boolean;
+  haveStepUp: boolean;
+  stepUpPercentage: string;
   initialInvestment: number;
   monthlyInvestment: number;
   yearlyInvestment: number;
@@ -28,6 +30,8 @@ const SIPCalculatorSummary = ({
   isValidForm,
   resultsReady,
   haveInitialInvestment,
+  haveStepUp,
+  stepUpPercentage,
   initialInvestment,
   monthlyInvestment,
   yearlyInvestment,
@@ -80,6 +84,9 @@ const SIPCalculatorSummary = ({
             left="Total Investment"
             right={formatAmount(totalInvestment)}
           />
+          {haveStepUp && (
+            <SummaryItem left="Annual Step Up" right={`${stepUpPercentage}%`} />
+          )}
         </SummaryBlock>
 
         {resultsReady && isValidForm && (

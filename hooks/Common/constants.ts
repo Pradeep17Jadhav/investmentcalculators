@@ -1,5 +1,9 @@
 import { CalculatorType, Tenure } from "@/types/ConfigTypes";
 
+export const getDefaultStepUp = () => {
+  return "10";
+};
+
 export const getDefaultROI = (calculatorType: CalculatorType) => {
   switch (calculatorType) {
     case CalculatorType.SIP:

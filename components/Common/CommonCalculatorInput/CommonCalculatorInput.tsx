@@ -29,11 +29,13 @@ import {
   getInvestmentShortcutData,
   getRoiShortcutData,
 } from "./helpers";
+import { MAX_STEP_UP, MIN_STEP_UP } from "@/constants/calculator";
 
 type Props = {
   calculatorType: CalculatorType;
   isValidForm: boolean;
   haveInitialInvestment: boolean;
+  haveStepUp: boolean;
   initialInvestment: number;
   investment: number;
   roi: string;
@@ -47,7 +49,13 @@ type Props = {
   minRoi: number;
   maxRoi: number;
   stepRoi: number;
+  stepUpPercentage: string;
   setHaveInitialInvestment: Dispatch<SetStateAction<boolean>>;
+  setHaveStepUp: Dispatch<SetStateAction<boolean>>;
+  handleStepUpChange: (
+    e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    stepUp?: string
+  ) => void;
   handleInitialInvestmentChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     initialInvestment?: string
@@ -92,6 +100,10 @@ const CommonCalculatorInput = ({
   minRoi,
   maxRoi,
   stepRoi,
+  haveStepUp,
+  setHaveStepUp,
+  stepUpPercentage,
+  handleStepUpChange,
   setHaveInitialInvestment,
   handleInitialInvestmentChange,
   handleInvestmentChange,
@@ -131,8 +143,13 @@ const CommonCalculatorInput = ({
   });
 
   const handleHaveInitialInvestmentToggle = useCallback(
-    () => setHaveInitialInvestment((has) => !has),
+    () => setHaveInitialInvestment((have) => !have),
     [setHaveInitialInvestment]
+  );
+
+  const handleHaveStepUpToggle = useCallback(
+    () => setHaveStepUp((have) => !have),
+    [setHaveStepUp]
   );
 
   const initialInvestmentShortcutData = useMemo(
@@ -237,6 +254,37 @@ const CommonCalculatorInput = ({
           max={maxInitialAmount}
         />
       )}
+
+      <div>
+        {calculatorType === CalculatorType.SIP && (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={haveStepUp}
+                onChange={handleHaveStepUpToggle}
+              />
+            }
+            label="I have annual step-up"
+          />
+        )}
+      </div>
+
+      <div>
+        {haveStepUp && (
+          <InputElement
+            value={stepUpPercentage}
+            label={commonCalculatorLabels[calculatorType].stepUp}
+            placeholder={
+              commonCalculatorLabels[calculatorType].stepUpPlaceholder
+            }
+            isROI
+            handleChange={handleStepUpChange}
+            step={1}
+            min={MIN_STEP_UP}
+            max={MAX_STEP_UP}
+          />
+        )}
+      </div>
 
       {isMobile && (
         <LargeButton onClick={onCalculate} disabled={!isValidForm} centered>

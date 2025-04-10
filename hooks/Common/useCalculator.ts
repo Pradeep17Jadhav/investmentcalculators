@@ -11,12 +11,14 @@ import {
   getMaximumInvestment,
   getMinimumInvestment,
   MAX_ROI,
+  MAX_STEP_UP,
   MIN_INVESTMENT,
   MIN_ROI,
 } from "@/constants/calculator";
 import {
   getDefaultInvestment,
   getDefaultROI,
+  getDefaultStepUp,
   getDefaultTenure,
 } from "./constants";
 
@@ -30,8 +32,12 @@ export const useCalculator = ({ calculatorType }: Props) => {
   const [isValidForm, setIsValidForm] = useState(false);
   const [resultsReady, setResultsReady] = useState(false);
   const [haveInitialInvestment, setHaveInitialInvestment] = useState(false);
+  const [haveStepUp, setHaveStepUp] = useState(false);
   const [investment, setInvestment] = useState<number>(
     getDefaultInvestment(calculatorType)
+  );
+  const [stepUpPercentage, setStepUpPercentage] = useState<string>(
+    getDefaultStepUp()
   );
   const [initialInvestment, setInitialInvestment] = useState<number>(0);
   const [totalInvestment, setTotalInvestment] = useState(0);
@@ -65,12 +71,31 @@ export const useCalculator = ({ calculatorType }: Props) => {
     const monthlyRateOfReturn = Math.pow(1 + parseFloat(roi) / 100, 1 / 12) - 1;
     const totalMonths =
       tenure.years * 12 + tenure.months + tenure.days / 30.4375;
-    const maturityValue = Math.round(
-      investment *
-        ((Math.pow(1 + monthlyRateOfReturn, totalMonths) - 1) /
-          monthlyRateOfReturn) *
-        (1 + monthlyRateOfReturn)
-    );
+
+    let maturityValue: number;
+    const stepUp = parseFloat(stepUpPercentage);
+
+    if (haveStepUp && stepUp > 0) {
+      let currentInvestment = investment;
+      let totalUnits = 0;
+      for (let month = 1; month <= totalMonths; month++) {
+        totalUnits +=
+          currentInvestment *
+          Math.pow(1 + monthlyRateOfReturn, totalMonths - month + 1);
+        if (month % 12 === 0) {
+          currentInvestment *= 1 + stepUp / 100;
+        }
+      }
+      maturityValue = Math.round(totalUnits);
+    } else {
+      maturityValue = Math.round(
+        investment *
+          ((Math.pow(1 + monthlyRateOfReturn, totalMonths) - 1) /
+            monthlyRateOfReturn) *
+          (1 + monthlyRateOfReturn)
+      );
+    }
+
     const totalInvested = initialInvestment + investment * totalMonths;
     const initialInvestmentMaturityValue = haveInitialInvestment
       ? Math.round(
@@ -90,9 +115,11 @@ export const useCalculator = ({ calculatorType }: Props) => {
     tenure.years,
     tenure.months,
     tenure.days,
-    haveInitialInvestment,
-    investment,
+    stepUpPercentage,
+    haveStepUp,
     initialInvestment,
+    investment,
+    haveInitialInvestment,
     calculateTotalInvestment,
   ]);
 
@@ -278,6 +305,25 @@ export const useCalculator = ({ calculatorType }: Props) => {
     []
   );
 
+  const handleStepUpChange = useCallback(
+    (
+      e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      stepUp?: string
+    ) => {
+      const newStepUp = e?.target.value || stepUp || "";
+      const sanitizedStepUp = sanitizeROI(newStepUp);
+      setStepUpPercentage((currStepUp) =>
+        getUpdatedInterestRateWithValidation(
+          sanitizedStepUp,
+          currStepUp,
+          MIN_ROI,
+          MAX_STEP_UP
+        )
+      );
+    },
+    []
+  );
+
   useEffect(() => {
     setResultsReady(false);
     calculateTotalInvestment();
@@ -293,7 +339,15 @@ export const useCalculator = ({ calculatorType }: Props) => {
       calculate();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [haveInitialInvestment, initialInvestment, investment, roi, tenure]);
+  }, [
+    haveStepUp,
+    haveInitialInvestment,
+    initialInvestment,
+    investment,
+    roi,
+    stepUpPercentage,
+    tenure,
+  ]);
 
   return {
     isValidForm,
@@ -308,6 +362,10 @@ export const useCalculator = ({ calculatorType }: Props) => {
     maturityValue,
     timesMultiplied,
     haveInitialInvestment,
+    stepUpPercentage,
+    haveStepUp,
+    setHaveStepUp,
+    handleStepUpChange,
     setHaveInitialInvestment,
     calculate,
     handleInitialInvestmentChange,

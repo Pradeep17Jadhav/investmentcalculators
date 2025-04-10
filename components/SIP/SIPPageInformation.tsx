@@ -43,11 +43,17 @@ const SIPPageInformation = async () => {
       <p>{`Under the Union Budget announced in February 2025, the tax rates for capital gains on mutual fund investments are specified based on the type of fund and the holding period. For equity mutual funds, if units are held for 12 months or less, the gains are considered short-term capital gains (STCG) and are taxed at 20%. If the holding period exceeds 12 months, the gains qualify as long-term capital gains (LTCG). In this case, gains up to ₹1.25 lakh in a financial year are exempt from tax, while any amount exceeding this threshold is taxed at 12.5%.`}</p>
       <p>{`It's important to note that each Systematic Investment Plan (SIP) installment is treated as a separate investment. Therefore, the holding period and applicable tax rates are calculated individually for each installment. Additionally, the Securities Transaction Tax (STT) applies to equity mutual funds, levied at 0.001% on redemptions.`}</p>
 
+      <h2>{`What is Annual Step Up SIP?`}</h2>
+      <p>{`Annual Step-Up in SIP refers to the practice of automatically increasing your SIP (Systematic Investment Plan) contribution every year by a fixed percentage or a fixed amount. It is designed to match your growing income over time, allowing you to invest more without feeling a heavy burden. Step-Up SIPs help in building a significantly larger corpus compared to a fixed SIP, making it an effective strategy for long-term wealth creation.`}</p>
+
+      <h2>{`What is Initial Investment in SIP?`}</h2>
+      <p>{`Initial Investment in SIP is the first lump sum amount you invest at the beginning when starting a SIP (Systematic Investment Plan). While SIPs are typically about investing a fixed amount monthly, some investors choose to make an initial investment to boost their starting corpus. This initial amount gets invested immediately, and then regular SIP contributions continue every month. Making an initial investment is optional, but it can help your money start compounding earlier and grow faster over time.`}</p>
+
       <h2>{`Why Use an SIP Calculator?`}</h2>
       <p>
         {`The Systematic Investment Plan (SIP) Calculator available at `}
         <a href="https://www.investmentcalculators.in">{`Investment Calculators`}</a>
-        {` is an online tool designed to help investors estimate the potential returns from their SIP investments in mutual funds. By inputting details such as the monthly investment amount, investment tenure, and expected rate of return, the calculator provides an approximation of the future value of the investments.`}
+        {` is an online tool designed to help investors estimate the potential returns from their SIP investments in mutual funds. By inputting details such as the monthly investment amount, investment tenure, and expected rate of return, the calculator provides an approximation of the future value of the investments. We also support the SIP calculation based on annual step up percentage. You can calculate the returns along with an optional initial lumpsum investment.`}
       </p>
       <h2>{`Can I withdraw my SIP investment anytime?`}</h2>
       <p>{`Yes, most SIP investments can be withdrawn at any time, except for ELSS (which has a lock-in of 3 years).`}</p>

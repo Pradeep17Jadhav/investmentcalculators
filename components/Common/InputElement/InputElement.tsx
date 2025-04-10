@@ -17,7 +17,7 @@ type Props = {
   placeholder: string;
   min: number;
   max: number;
-  buttonsData: (number | ButtonObject)[];
+  buttonsData?: (number | ButtonObject)[];
   handleChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     newValue?: string
@@ -25,8 +25,8 @@ type Props = {
   isPrice?: boolean;
   isROI?: boolean;
   showSelectionButtons?: boolean;
-  isActiveShortcutButton: (selectedValue: number) => boolean;
-  selectShortcutButton: (selectedValue: number) => () => void;
+  isActiveShortcutButton?: (selectedValue: number) => boolean;
+  selectShortcutButton?: (selectedValue: number) => () => void;
   step: number;
   getScale?: (newValue: number) => number;
   getInverseScale?: (newValue: number) => number;
@@ -125,13 +125,16 @@ const InputElement = ({
         step={step}
       />
 
-      {showSelectionButtons && (
-        <SelectionButtonsSet
-          buttonsData={buttonsData}
-          isActive={isActiveShortcutButton}
-          onClick={selectShortcutButton}
-        />
-      )}
+      {showSelectionButtons &&
+        buttonsData &&
+        isActiveShortcutButton &&
+        selectShortcutButton && (
+          <SelectionButtonsSet
+            buttonsData={buttonsData}
+            isActive={isActiveShortcutButton}
+            onClick={selectShortcutButton}
+          />
+        )}
     </div>
   );
 };

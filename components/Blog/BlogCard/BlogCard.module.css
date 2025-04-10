@@ -24,6 +24,7 @@
 
 .imageContainer {
     overflow: hidden;
+    height: 200px;
 }
 
 .img {

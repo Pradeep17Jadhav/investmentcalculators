@@ -52,8 +52,12 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
     maturityValue,
     timesMultiplied,
     haveInitialInvestment,
+    stepUpPercentage,
+    haveStepUp,
+    setHaveStepUp,
     setHaveInitialInvestment,
     calculate,
+    handleStepUpChange,
     handleInvestmentChange,
     handleInitialInvestmentChange,
     handleROIChange,
@@ -92,7 +96,11 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
         minRoi={MIN_ROI}
         maxRoi={MAX_ROI}
         stepRoi={ROI_STEP}
+        stepUpPercentage={stepUpPercentage}
         haveInitialInvestment={haveInitialInvestment}
+        haveStepUp={haveStepUp}
+        setHaveStepUp={setHaveStepUp}
+        handleStepUpChange={handleStepUpChange}
         setHaveInitialInvestment={setHaveInitialInvestment}
         handleInitialInvestmentChange={handleInitialInvestmentChange}
         handleInvestmentChange={handleInvestmentChange}
@@ -114,7 +122,11 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
       roi,
       tenure,
       minAmount,
+      stepUpPercentage,
       haveInitialInvestment,
+      haveStepUp,
+      setHaveStepUp,
+      handleStepUpChange,
       setHaveInitialInvestment,
       handleInitialInvestmentChange,
       handleInvestmentChange,
@@ -134,6 +146,8 @@ const CommonCalculator = ({ calculatorType, Summary }: Props) => {
             isValidForm={isValidForm}
             resultsReady={resultsReady}
             haveInitialInvestment={haveInitialInvestment}
+            haveStepUp={haveStepUp}
+            stepUpPercentage={stepUpPercentage}
             profit={profit}
             maturityValue={maturityValue}
             timesMultiplied={timesMultiplied}

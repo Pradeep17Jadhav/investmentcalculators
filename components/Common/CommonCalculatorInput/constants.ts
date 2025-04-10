@@ -4,10 +4,12 @@ type CalculatorInputLabels = {
   [key in CalculatorType]: {
     title: string;
     initialInvestment: string;
+    stepUp: string;
     investment: string;
     returns: string;
     tenure: string;
     roiPlaceholder: string;
+    stepUpPlaceholder: string;
     tenureYearsPlaceholder: string;
     tenureMonthsPlaceholder: string;
     investmentPlaceholder: string;
@@ -19,7 +21,9 @@ const commonInputLabels = {
   initialInvestment: "Initial Investment",
   returns: "Expected Returns",
   tenure: "Investment Period",
+  stepUp: "Annual Step Up",
   roiPlaceholder: "12.25%",
+  stepUpPlaceholder: "10%",
   tenureYearsPlaceholder: "18 yrs",
   tenureMonthsPlaceholder: "9 mos",
   investmentPlaceholder: "25,000",
