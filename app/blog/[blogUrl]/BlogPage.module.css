@@ -107,7 +107,7 @@
 
 .sidebarSetFloating {
     position: sticky;
-    top: 96px;
+    top: 24px;
 }
 
 @media (max-width: 600px) {
