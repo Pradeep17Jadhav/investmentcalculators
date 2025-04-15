@@ -1,11 +1,13 @@
 :root {
   /* Fixed colors */
+  --primary-blue: #0089E7;
+  --primary-blue-light: #008be7ca;
   --primary-green: #9EC22D;
-  --primary: #0089E7;
-  --primary-light: #008be7ca;
+  --primary: #06b26b;
+  --primary-light: #06b26bca;
   --profit: #10b983;
   --loss: #f35631;
-  --hover-background: rgba(0, 120, 250, 0.1);
+  --hover-background: #2dc26a21;
 
   /* Background color shades */
   --background: #EFF3F7;

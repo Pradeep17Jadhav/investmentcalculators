@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import {
   getUpdatedInterestRateWithValidation,
   getUpdatedNumberWithValidation,
@@ -13,7 +13,6 @@ import {
   MIN_ROI,
 } from "@/constants/calculator";
 import { trackCalculateEvent } from "@/helpers/analytics";
-import { debounce } from "lodash";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -158,11 +157,6 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     []
   );
 
-  const debouncedCalculate = useMemo(
-    () => debounce(calculate, 500),
-    [calculate]
-  );
-
   useEffect(() => {
     setResultsReady(false);
     if (!loanAmount || !parseFloat(roi) || (!tenure.months && !tenure.years)) {
@@ -175,11 +169,8 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     }
     setIsValidForm(true);
     if (!isMobile) {
-      debouncedCalculate(true);
+      calculate(true);
     }
-    return () => {
-      debouncedCalculate.cancel();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanAmount, roi, tenure]);
 

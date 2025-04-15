@@ -35,7 +35,7 @@ const LumpsumCalculatorSummary = ({
     () => [
       {
         label: "Lumpsum Investment",
-        fill: "var(--primary)",
+        fill: "var(--primary-blue)",
         value: investment,
       },
       {

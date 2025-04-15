@@ -1,5 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
-import { debounce } from "lodash";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
 import {
   getUpdatedInterestRateWithValidation,
@@ -327,11 +326,6 @@ export const useCalculator = ({ calculatorType }: Props) => {
     []
   );
 
-  const debouncedCalculate = useMemo(
-    () => debounce(calculate, 500),
-    [calculate]
-  );
-
   useEffect(() => {
     setResultsReady(false);
     calculateTotalInvestment();
@@ -344,12 +338,8 @@ export const useCalculator = ({ calculatorType }: Props) => {
     }
     setIsValidForm(true);
     if (!isMobile) {
-      debouncedCalculate();
+      calculate();
     }
-
-    return () => {
-      debouncedCalculate.cancel();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     haveStepUp,

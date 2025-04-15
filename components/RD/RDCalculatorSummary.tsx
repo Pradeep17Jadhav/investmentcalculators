@@ -39,7 +39,7 @@ const RDCalculatorSummary = ({
     () => [
       {
         label: "Total Investment",
-        fill: "var(--primary)",
+        fill: "var(--primary-blue)",
         value: totalInvestment,
       },
       {

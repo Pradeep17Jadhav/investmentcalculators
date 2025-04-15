@@ -34,7 +34,7 @@ const FDCalculatorSummary = ({
     () => [
       {
         label: "Investment",
-        fill: "var(--primary)",
+        fill: "var(--primary-blue)",
         value: investment,
       },
       {

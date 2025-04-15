@@ -56,12 +56,12 @@ const LoanCalculatorSummary = ({
     () => [
       {
         label: "Loan Amount",
-        fill: "var(--profit)",
+        fill: "var(--primary-blue)",
         value: loanAmount,
       },
       {
         label: "Prepayments",
-        fill: "var(--primary)",
+        fill: "var(--profit)",
         value: prepayments,
       },
       {

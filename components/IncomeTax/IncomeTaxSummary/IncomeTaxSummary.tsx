@@ -55,7 +55,7 @@ const IncomeTaxSummary = ({
     () => [
       {
         label: "After Tax Income",
-        fill: "var(--profit)",
+        fill: "var(--primary-blue)",
         value: income - totalIncomeTax,
       },
       {
