@@ -1,4 +1,5 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { debounce } from "lodash";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
 import {
   getUpdatedInterestRateWithValidation,
@@ -21,6 +22,7 @@ import {
   getDefaultStepUp,
   getDefaultTenure,
 } from "./constants";
+import { trackCalculateEvent } from "@/helpers/analytics";
 
 type Props = {
   calculatorType: CalculatorType;
@@ -199,6 +201,7 @@ export const useCalculator = ({ calculatorType }: Props) => {
         break;
       }
     }
+    trackCalculateEvent(calculatorType);
     setResultsReady(true);
   }, [
     calculateSIP,
@@ -324,6 +327,11 @@ export const useCalculator = ({ calculatorType }: Props) => {
     []
   );
 
+  const debouncedCalculate = useMemo(
+    () => debounce(calculate, 500),
+    [calculate]
+  );
+
   useEffect(() => {
     setResultsReady(false);
     calculateTotalInvestment();
@@ -336,8 +344,12 @@ export const useCalculator = ({ calculatorType }: Props) => {
     }
     setIsValidForm(true);
     if (!isMobile) {
-      calculate();
+      debouncedCalculate();
     }
+
+    return () => {
+      debouncedCalculate.cancel();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     haveStepUp,

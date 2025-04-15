@@ -1,26 +1,20 @@
-import { AmortisationTableFrequency } from "@/types/Loan/LoanTypes";
+import { CalculatorType, LoanCalculatorType } from "@/types/ConfigTypes";
 
-export type EventType = "amortisation_pdf" | "loan_calculate" | "share_report";
+export enum AnalyticsEventType {
+  INCOME_TAX_CALCULATE = "income_tax_calculate",
+  SIP_CALCULATE = "sip_calculate",
+  LUMPSUM_CALCULATE = "lumpsum_calculate",
+  FD_CALCULATE = "fd_calculate",
+  RD_CALCULATE = "rd_calculate",
+  LOAN_CALCULATE = "loan_calculate",
+  AMORTISATION_MONTHLY_PDF = "amortisation_monthly_pdf",
+  AMORTISATION_YEARLY_PDF = "amortisation_yearly_pdf",
+  CALCULATE = "calculate",
 
-type EventParamsMap = {
-  amortisation_pdf: {
-    loanAmount: number;
-    rateOfInterest: number;
-    tenure: number;
-    emi: number;
-    totalPrepayments: number;
-    currency: string;
-    amortisationFrequency: AmortisationTableFrequency;
-  };
-  loan_calculate: {
-    loanAmount: number;
-    rateOfInterest: number;
-    tenure: number;
-  };
-  share_report: {
-    platform: "whatsapp" | "email" | "facebook";
-  };
-};
+  CHANGE_CURRENCY = "change_currency",
+
+  APPBAR_NAVIGATION = "appbar_navigation",
+}
 
 const isLocalhost = (): boolean => {
   if (typeof window === "undefined") return true;
@@ -30,10 +24,7 @@ const isLocalhost = (): boolean => {
   );
 };
 
-export function trackEvent<T extends EventType>(
-  type: T,
-  params: EventParamsMap[T]
-) {
+export const trackEvent = (type: AnalyticsEventType) => {
   if (
     isLocalhost() ||
     typeof window === "undefined" ||
@@ -48,5 +39,31 @@ export function trackEvent<T extends EventType>(
     value: 1,
   };
 
-  window.gtag("event", type, { ...defaults, ...params });
+  window.gtag("event", type, { ...defaults });
+};
+
+export const trackCalculateEvent = (
+  calculatorType: CalculatorType | LoanCalculatorType
+) => {
+  const eventType = getAnalyticsCalculatorEvent(calculatorType);
+  trackEvent(eventType);
+};
+
+export function getAnalyticsCalculatorEvent(
+  calculatorType: CalculatorType | LoanCalculatorType
+): AnalyticsEventType {
+  switch (calculatorType) {
+    case CalculatorType.INCOME_TAX:
+      return AnalyticsEventType.INCOME_TAX_CALCULATE;
+    case CalculatorType.LUMPSUM:
+      return AnalyticsEventType.LUMPSUM_CALCULATE;
+    case CalculatorType.FD:
+      return AnalyticsEventType.FD_CALCULATE;
+    case CalculatorType.RD:
+      return AnalyticsEventType.RD_CALCULATE;
+    case LoanCalculatorType.COMMON:
+      return AnalyticsEventType.LOAN_CALCULATE;
+    default:
+      return AnalyticsEventType.CALCULATE;
+  }
 }

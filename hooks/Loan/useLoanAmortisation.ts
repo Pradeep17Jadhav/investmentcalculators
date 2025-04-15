@@ -10,7 +10,7 @@ import { generatePDF } from "@/components/Common/LoanCalculator/helpers/pdfGener
 import { Tenure } from "@/types/ConfigTypes";
 import { PrepaymentsByMonth } from "./usePrepayments";
 import { useCurrency } from "@/contexts/currency";
-import { trackEvent } from "@/helpers/analytics";
+import { AnalyticsEventType, trackEvent } from "@/helpers/analytics";
 
 export const useLoanAmortisation = (
   loanAmount: number,
@@ -19,7 +19,7 @@ export const useLoanAmortisation = (
   prepaymentsByMonth: PrepaymentsByMonth,
   hasPrepayments: boolean
 ) => {
-  const { formatAmount, currency } = useCurrency();
+  const { formatAmount } = useCurrency();
   const tenureMonths = tenure.years * 12 + tenure.months;
   const [yearlyRowData, setYearlyRowData] = useState<AmortisationRow[]>([]);
   const [monthlyRowData, setMonthlyRowData] = useState<AmortisationRow[]>([]);
@@ -148,10 +148,8 @@ export const useLoanAmortisation = (
     (
       tableFrequency: AmortisationTableFrequency = AmortisationTableFrequency.Monthly
     ) => {
-      const tableData =
-        tableFrequency === AmortisationTableFrequency.Yearly
-          ? yearlyRowData
-          : monthlyRowData;
+      const isYearly = tableFrequency === AmortisationTableFrequency.Yearly;
+      const tableData = isYearly ? yearlyRowData : monthlyRowData;
       const monthYear = Number(baseDate.format("YYYYMM"));
       const loanData: LoanData = {
         loanAmount,
@@ -166,15 +164,11 @@ export const useLoanAmortisation = (
         totalInterestPaid: interestPaid,
       };
       generatePDF(tableData, loanData, tableFrequency, formatAmount);
-      trackEvent("amortisation_pdf", {
-        loanAmount,
-        tenure: tenureMonths,
-        rateOfInterest,
-        emi,
-        currency,
-        totalPrepayments,
-        amortisationFrequency: tableFrequency,
-      });
+      trackEvent(
+        isYearly
+          ? AnalyticsEventType.AMORTISATION_YEARLY_PDF
+          : AnalyticsEventType.AMORTISATION_MONTHLY_PDF
+      );
     },
     [
       yearlyRowData,
@@ -188,7 +182,6 @@ export const useLoanAmortisation = (
       totalPrepayments,
       principalPaid,
       interestPaid,
-      currency,
       formatAmount,
     ]
   );

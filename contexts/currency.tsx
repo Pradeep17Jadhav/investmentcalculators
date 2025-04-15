@@ -1,5 +1,6 @@
 "use client";
 
+import { AnalyticsEventType, trackEvent } from "@/helpers/analytics";
 import { formatAmount } from "@/helpers/price";
 import {
   createContext,
@@ -114,6 +115,7 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const setCurrency = (currency: Currency) => {
     dispatch({ type: "SET_CURRENCY", payload: currency });
     localStorage.setItem("currency", currency);
+    trackEvent(AnalyticsEventType.CHANGE_CURRENCY);
   };
 
   const formatAmountMemo = useCallback(

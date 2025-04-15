@@ -94,13 +94,15 @@ export type Config = {
 };
 
 export enum CalculatorType {
+  INCOME_TAX = "INCOME_TAX",
   SIP = "SIP",
+  LUMPSUM = "LUMPSUM",
   FD = "FD",
   RD = "RD",
-  LUMPSUM = "LUMPSUM",
 }
 
 export enum LoanCalculatorType {
+  COMMON = "COMMON",
   HOME = "HOME",
   CAR = "CAR",
   PERSONAL = "PERSONAL",

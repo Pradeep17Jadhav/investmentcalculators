@@ -21,6 +21,7 @@ import Logo from "../Logo/Logo";
 import { PATHS } from "@/constants/path";
 import CurrencySelector from "../CurrencySelector/CurrencySelector";
 import { useCurrency } from "@/contexts/currency";
+import { AnalyticsEventType, trackEvent } from "@/helpers/analytics";
 
 import styles from "./AppBar.module.css";
 
@@ -47,6 +48,10 @@ const AppBar = () => {
     },
     [router]
   );
+
+  const handleNavLinkClick = useCallback(() => {
+    trackEvent(AnalyticsEventType.APPBAR_NAVIGATION);
+  }, []);
 
   const publicPages = useMemo(
     () => [
@@ -157,6 +162,7 @@ const AppBar = () => {
                 <Tooltip key={label} title={tooltip}>
                   <Link
                     href={to}
+                    onClick={handleNavLinkClick}
                     className={classnames(styles.navLink, {
                       [styles.activeNavLink]: isActive,
                     })}
