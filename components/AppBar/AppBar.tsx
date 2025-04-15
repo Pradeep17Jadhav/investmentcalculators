@@ -147,9 +147,16 @@ const AppBar = () => {
           </Box>
           <div className={styles.logoContainer}>
             {isMobile ? null : (
-              <Link href={PATHS.HOME_PAGE}>
-                <Logo className={styles.logo} width={240} height={32} />
-              </Link>
+              <Tooltip title="Homepage">
+                <Link className={styles.logoLink} href={PATHS.HOME_PAGE}>
+                  <Logo
+                    className={styles.logo}
+                    width={36}
+                    height={36}
+                    type="logo"
+                  />
+                </Link>
+              </Tooltip>
             )}
           </div>
           <Box

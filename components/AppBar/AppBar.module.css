@@ -8,7 +8,14 @@
 
 .appbarContainer .logo {
     cursor: pointer;
-    margin: 0 8px;
+    margin: 0px;
+}
+
+.logoLink {
+    display: flex;
+    align-items: center;
+    height: auto;
+    width: fit-content;
 }
 
 .logoContainer {

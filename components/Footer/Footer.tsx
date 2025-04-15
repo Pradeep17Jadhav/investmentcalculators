@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <div className={styles.footer}>
       <div className={styles.container}>
-        <Logo />
+        <Logo smallSizeForMobile />
         <FooterTable footerData={footerData} />
         <hr className={styles.hr} />
         <div className={styles.madeWithLove}>Made With ❤️ In Mumbai</div>
