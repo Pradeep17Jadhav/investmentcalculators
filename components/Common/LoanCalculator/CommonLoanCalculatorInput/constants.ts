@@ -38,6 +38,11 @@ export const labels: LoanCalculatorInputLabels = {
     title: "Personal Loan Details",
     loanAmount: "Loan Amount",
   },
+  [LoanCalculatorType.COMMON]: {
+    ...commonInputLabels,
+    title: "Loan Details",
+    loanAmount: "Loan Amount",
+  },
 };
 
 export const defaultLoanAmount = [
