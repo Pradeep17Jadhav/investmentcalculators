@@ -54,6 +54,12 @@ export const commonCalculatorLabels: CalculatorInputLabels = {
     investment: "Investment Amount",
     investmentPlaceholder: "5,00,000",
   },
+  [CalculatorType.INCOME_TAX]: {
+    ...commonInputLabels,
+    title: "Income Tax Details",
+    investment: "Investment Amount",
+    investmentPlaceholder: "5,00,000",
+  },
 };
 
 export const defaultInvestmentAmount = [
