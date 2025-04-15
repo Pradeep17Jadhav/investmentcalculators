@@ -34,4 +34,5 @@
 
 .activeNavLink, .navLink:hover {
     border-bottom: 2px solid var(--primary);
+    color: var(--primary);
 }
