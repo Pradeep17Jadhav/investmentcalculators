@@ -18,6 +18,8 @@ export const getInvestmentScale = (calculatorType: CalculatorType) => {
     case CalculatorType.RD:
     case CalculatorType.SIP:
       return getMonthlyInvestmentScale;
+    default:
+      return getMonthlyInvestmentScale;
   }
 };
 
@@ -53,6 +55,8 @@ export const getInvestmentInverseScale = (calculatorType: CalculatorType) => {
     case CalculatorType.RD:
     case CalculatorType.SIP:
       return getMonthlyInvestmentInverseScale;
+    default:
+      return getOneTimeInvestmentInverseScale;
   }
 };
 
@@ -88,6 +92,8 @@ export const getInvestmentMax = (calculatorType: CalculatorType) => {
     case CalculatorType.RD:
     case CalculatorType.SIP:
       return getMonthlyInvestmentMax();
+    default:
+      return 1;
   }
 };
 
