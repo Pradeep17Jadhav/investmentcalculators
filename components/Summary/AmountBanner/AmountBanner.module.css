@@ -10,6 +10,7 @@
 
 .amount {
     padding: 8px;
+    color: var(--primary);
     font-size: 2.2em;
     font-weight: 700;
     display: flex;

@@ -13,6 +13,7 @@
 
 .button:hover, .button:active, .active {
     border-color: var(--primary);
+    color: var(--primary);
 }
 
 .centered {

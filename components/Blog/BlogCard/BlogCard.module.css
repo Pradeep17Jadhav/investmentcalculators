@@ -51,6 +51,10 @@
     height: 40px;
 }
 
+.container:hover .title {
+    color: var(--primary);
+}
+
 .description {
     display: -webkit-box;
     color: var(--foreground-secondary);
