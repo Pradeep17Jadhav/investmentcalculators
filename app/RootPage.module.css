@@ -11,6 +11,10 @@
     margin: 0 0 32px 0;
 }
 
+.calculatorBannerItem {
+    margin: 8px;
+}
+
 .sectionContainer {
     max-width: 1200px;
     margin-bottom: 96px;
@@ -22,6 +26,10 @@
 }
 
 @media (max-width: 600px) {
+    .page {
+        padding: 64px 8px 0;
+    }
+
     .pageHeader {
         font-size: 1.5em;
     }

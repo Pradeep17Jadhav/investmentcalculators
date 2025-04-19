@@ -77,6 +77,7 @@ export type CalculatorTile = {
   label: string;
   imgSrc: string;
   path: string;
+  description?: string;
 };
 
 export type HomePageConfig = {
