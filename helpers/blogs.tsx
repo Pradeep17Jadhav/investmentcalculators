@@ -83,7 +83,7 @@ export function getBlogBySlug(slug: string) {
     description: data.description ?? "",
     date: data.date ?? "",
     keywords: data.keywords ?? [],
-    image: data.image ?? null,
+    image: data.image ?? "/thumbnail.webp",
     slug: data.slug || slug.replace(".mdx", ""),
     readTime: readTime ?? 1,
   };
