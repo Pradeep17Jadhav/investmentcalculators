@@ -134,11 +134,11 @@ const FDPageInformation = async () => {
 
       <div className={styles.section}>
         <h2>
-          What is the FD Calculator Tool at Investment Calculators Website?
+          What is the FD Calculator Tool at MoneyReload Website?
         </h2>
         <p>
           Our FD calculator at{" "}
-          <a href={process.env.PROD_URL}>Investment Calculators</a> helps users
+          <a href={process.env.PROD_URL}>MoneyReload</a> helps users
           easily calculate their FD maturity amount and interest earned based on
           the principal, interest rate, and tenure.
         </p>

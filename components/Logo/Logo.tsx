@@ -36,7 +36,7 @@ const Logo = ({
     <Image
       className={classnames(styles.logo, className)}
       src={theme.palette.mode === "dark" ? darkLogo : lightLogo}
-      alt="investment calculators logo"
+      alt="MoneyReload logo"
       width={applicableWidth}
       height={applicableHeight}
       onClick={onClick}

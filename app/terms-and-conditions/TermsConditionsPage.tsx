@@ -2,7 +2,7 @@ import styles from "./TermsConditionsPage.module.css";
 
 const termsData = {
   introduction:
-    "By accessing and using Investment Calculators (located at www.moneyreload.com), you agree to comply with and be bound by these Terms and Conditions. Please read them carefully.",
+    "By accessing and using MoneyReload (located at www.moneyreload.com), you agree to comply with and be bound by these Terms and Conditions. Please read them carefully.",
   useOfWebsite: [
     "You agree to use our website solely for lawful purposes.",
     "You agree not to misuse our calculators or any other content available on the site for illegal, fraudulent, or malicious purposes.",
@@ -13,7 +13,7 @@ const termsData = {
     "Investment decisions should be made after consulting with certified financial advisors to ensure informed choices aligned with your financial goals.",
   ],
   intellectualProperty:
-    "All content on Investment Calculators is protected by copyright laws. You may not use, copy, distribute, or modify any part of the website’s content without prior written consent from the website owner.",
+    "All content on MoneyReload is protected by copyright laws. You may not use, copy, distribute, or modify any part of the website’s content without prior written consent from the website owner.",
   limitationOfLiability:
     "In no event will we be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of our website or calculators.",
   laws: " These Terms and Conditions shall be governed by and construed in accordance with the laws of India. Any disputes arising out of the use of the website will be subject to the exclusive jurisdiction of the courts in India.",

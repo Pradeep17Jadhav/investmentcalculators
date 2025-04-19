@@ -126,10 +126,10 @@ const LoanPageInformation = async () => {
       </div>
 
       <div className={styles.section}>
-        <h2>{`What is EMI Calculator Tool At "Investment Calculators" Website?`}</h2>
+        <h2>{`What is EMI Calculator Tool At "MoneyReload" Website?`}</h2>
         <p>
           Our EMI calculator, at{" "}
-          <a href={process.env.PROD_URL}>Investment Calculators</a>, helps users
+          <a href={process.env.PROD_URL}>MoneyReload</a>, helps users
           estimate monthly installments based on loan amount, interest rate, and
           tenure.
         </p>

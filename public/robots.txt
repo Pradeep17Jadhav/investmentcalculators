@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.investmentcalculators.in
+Host: https://moneyreload.com
 
 # Sitemaps
-Sitemap: https://www.investmentcalculators.in/sitemap.xml
+Sitemap: https://moneyreload.com/sitemap.xml

@@ -127,12 +127,12 @@ const RDPageInformation = async () => {
 
       <div className={styles.section}>
         <h2>
-          What is the RD Calculator Tool at Investment Calculators Website?
+          What is the RD Calculator Tool at MoneyReload Website?
         </h2>
         <p>
           Our RD calculator at{" "}
           <a href={process.env.PROD_URL}>
-            Investment Calculators
+            MoneyReload
           </a>{" "}
           allows users to calculate expected maturity value and interest earned
           based on inputs like monthly deposit, tenure, and interest rate.

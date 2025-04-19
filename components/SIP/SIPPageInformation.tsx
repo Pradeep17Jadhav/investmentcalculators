@@ -62,7 +62,7 @@ const SIPPageInformation = async () => {
         <h2>{`Why Use an SIP Calculator?`}</h2>
         <p>
           {`The Systematic Investment Plan (SIP) Calculator available at `}
-          <a href={process.env.PROD_URL}>{`Investment Calculators`}</a>
+          <a href={process.env.PROD_URL}>{`MoneyReload`}</a>
           {` is an online tool designed to help investors estimate the potential returns from their SIP investments in mutual funds. By inputting details such as the monthly investment amount, investment tenure, and expected rate of return, the calculator provides an approximation of the future value of the investments. We also support the SIP calculation based on annual step up percentage. You can calculate the returns along with an optional initial lumpsum investment.`}
         </p>
       </div>

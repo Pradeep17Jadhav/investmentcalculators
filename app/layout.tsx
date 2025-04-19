@@ -20,16 +20,16 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Investment Calculators - SIP, EMI, FD, RD, and Income Tax",
+  title: "MoneyReload - SIP, EMI, FD, RD, Loan, and Income Tax",
   description:
-    "Free Investment Calculators like SIP calculator, EMI calculator, FD calculator, RD calculator, and income tax calculator to plan your investments effectively.",
+    "Free investment calculators like SIP calculator, EMI calculator, FD calculator, RD calculator, and income tax calculator to plan your investments effectively.",
   keywords:
     "Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
   authors: [{ name: "Pradeep Jadhav" }],
   openGraph: {
     type: "website",
-    title: "Investment Calculators",
-    siteName: "Investment Calculators",
+    title: "MoneyReload",
+    siteName: "MoneyReload",
     url: process.env.PROD_URL,
     images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Investment Calculators - FD, RD, SIP, Income Tax",
+    title: "MoneyReload - FD, RD, SIP, Loans, Income Tax",
     images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
       "Plan your investments with free SIP, EMI, FD, RD, and Income Tax calculators.",
@@ -96,14 +96,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Inv Calculators",
+              name: "MoneyReload",
               url: process.env.PROD_URL,
-              alternateName: [
-                "InvestmentCalculators",
-                "Investment Calculator",
-                "InvestmentCalculator",
-                "Inv Calculators",
-              ],
+              alternateName: ["Money Reload"],
             }),
           }}
         />
@@ -116,13 +111,8 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebPage",
-              name: "Inv Calculators",
-              alternateName: [
-                "InvestmentCalculators",
-                "Investment Calculator",
-                "InvestmentCalculator",
-                "Inv Calculators",
-              ],
+              name: "MoneyReload",
+              alternateName: ["Money Reload"],
               description:
                 "Free online financial calculators for SIP, EMI, FD, RD, and income tax to help users plan their investments effectively.",
               url: process.env.PROD_URL,

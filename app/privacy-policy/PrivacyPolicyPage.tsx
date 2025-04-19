@@ -2,10 +2,10 @@ import styles from "./PrivacyPolicyPage.module.css";
 
 const privacyPolicyData = {
   introduction:
-    "At Investment Calculators, we are committed to safeguarding the privacy of our users. This Privacy Policy outlines the types of personal information we collect, how we use it, and the steps we take to protect your information.",
+    "At MoneyReload, we are committed to safeguarding the privacy of our users. This Privacy Policy outlines the types of personal information we collect, how we use it, and the steps we take to protect your information.",
   informationCollected: [
     "Personal Identification Information: When you visit our website or use our calculators, we may collect personal details such as your name, email address, and phone number if you voluntarily provide them for support or contact purposes.",
-    "At Investment Calculators, our mission is to empower individuals across India to take charge of their financial future by providing easy-to-use and reliable tools to estimate investment returns and assist in their savings and investment journey. We believe that financial literacy is the first step toward making informed decisions, and our platform is dedicated to making such tools accessible to everyone.",
+    "At MoneyReload, our mission is to empower individuals across India to take charge of their financial future by providing easy-to-use and reliable tools to estimate investment returns and assist in their savings and investment journey. We believe that financial literacy is the first step toward making informed decisions, and our platform is dedicated to making such tools accessible to everyone.",
   ],
   informationUsedTo: [
     "To provide you with a personalized experience.",

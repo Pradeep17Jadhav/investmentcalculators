@@ -174,7 +174,7 @@ const LumpsumPageInformation = async () => {
         <p>
           Our Lumpsum Investment Calculator at{" "}
           <a href={process.env.PROD_URL}>
-            Investment Calculators
+            MoneyReload
           </a>{" "}
           helps you calculate the maturity amount and returns on your lumpsum
           investment based on the chosen instrument, interest rate, and tenure.

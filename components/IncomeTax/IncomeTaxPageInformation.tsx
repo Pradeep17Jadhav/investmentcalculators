@@ -94,10 +94,10 @@ const IncomeTaxPageInformation = async () => {
       </div>
 
       <div className={styles.section}>
-        <h2>{`What is Income Tax Calculator Tool at "Investment Calculators" Website?`}</h2>
+        <h2>{`What is Income Tax Calculator Tool at "MoneyReload" Website?`}</h2>
         <p>
           {`Our Income Tax Calculator, available at `}
-          <a href={process.env.PROD_URL}>{`Investment Calculators`}</a>
+          <a href={process.env.PROD_URL}>{`MoneyReload`}</a>
           {`, helps users estimate their tax liability based on income, deductions, and applicable exemptions. It simplifies tax calculations and provides users with a clear understanding of their financial obligations, making tax planning more efficient and accurate.`}
         </p>
       </div>

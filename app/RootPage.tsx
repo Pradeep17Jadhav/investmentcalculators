@@ -17,7 +17,7 @@ const RootPage = async () => {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.pageHeader}>Investment Calculators</h1>
+      <h1 className={styles.pageHeader}>MoneyReload</h1>
       <div className={styles.sectionContainer}>
         <Grid container justifyContent="center" alignItems="center">
           {calculatorTiles.map((tile) => (

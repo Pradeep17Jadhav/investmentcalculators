@@ -44,7 +44,7 @@ export const generatePDF = async (
   doc.addFileToVFS("Roboto.ttf", robotoFont);
   doc.addFont("Roboto.ttf", "Roboto", "normal");
   doc.setFont("helvetica", "bold").setFontSize(18);
-  const title = "Investment Calculators";
+  const title = "MoneyReload";
   doc.text(title, (pageWidth - doc.getTextWidth(title)) / 2, 15);
   doc.setTextColor("#0089E7").setFontSize(12);
   doc.textWithLink(
