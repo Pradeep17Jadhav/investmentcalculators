@@ -1,8 +1,13 @@
-import { BlogMetadata, formatDate, getRecentBlogs } from "@/helpers/blogs";
-import classnames from "classnames";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { headers } from "next/headers";
 import Image from "next/image";
+import classnames from "classnames";
+import {
+  BlogMetadata,
+  formatDate,
+  getMdxTableComponents,
+  getRecentBlogs,
+} from "@/helpers/blogs";
 import Grid from "@mui/material/Grid/Grid";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PersonIcon from "@mui/icons-material/Person";
@@ -12,7 +17,6 @@ import SidebarCards from "@/components/Blog/Sidebar/SidebarCards/SidebarCards";
 import DisqusComments from "@/components/Disqus/Disqus";
 import SidebarSquareAd from "@/components/Ads/SidebarSquareAd/SidebarSquareAd";
 import UnderBlogHorizontalAd from "@/components/Ads/UnderBlogHorizontalAd/UnderBlogHorizontalAd";
-import ArticleAd from "@/components/Ads/ArticleAd/ArticleAd";
 
 import styles from "./BlogPage.module.css";
 
@@ -24,10 +28,10 @@ type Props = {
 const BlogPage = async ({ metadata, content }: Props) => {
   const { content: renderableContent } = await compileMDX<{ title: string }>({
     source: content,
-    options: { parseFrontmatter: false },
-    components: {
-      Ad: ArticleAd,
+    options: {
+      parseFrontmatter: false,
     },
+    components: getMdxTableComponents(),
   });
   const headersList = await headers();
   const host = headersList.get("host");

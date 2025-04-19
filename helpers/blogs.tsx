@@ -2,6 +2,22 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { Blogs } from "@/types/BlogTypes";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Paper,
+  TableProps,
+  TableCellProps,
+  TableRowProps,
+  TableBodyProps,
+  TableHeadProps,
+} from "@mui/material";
+
+import ArticleAd from "@/components/Ads/ArticleAd/ArticleAd";
 
 const BLOGS_DIR = path.join(process.cwd(), "content/blogs");
 
@@ -86,3 +102,37 @@ export const formatDate = (date: string) =>
 
 export const getWordCount = (text: string) =>
   text.split(/\s+/).filter((word) => word.length > 0).length;
+
+interface MdxTableCellProps extends TableCellProps {
+  isLastColumn?: boolean;
+}
+
+export const getMdxTableComponents = () => ({
+  Table: (props: TableProps) => (
+    <TableContainer
+      component={Paper}
+      sx={{
+        border: "1px solid var(--border-color)",
+        borderCollapse: "collapse",
+      }}
+    >
+      <Table {...props} />
+    </TableContainer>
+  ),
+  TableHead: (props: TableHeadProps) => <TableHead {...props} />,
+  TableBody: (props: TableBodyProps) => <TableBody {...props} />,
+  TableRow: (props: TableRowProps) => <TableRow {...props} />,
+  TableCell: (props: MdxTableCellProps) => {
+    const { isLastColumn, ...otherProps } = props;
+    return (
+      <TableCell
+        {...otherProps}
+        sx={{
+          borderRight: isLastColumn ? "none" : "1px solid var(--border-color)",
+          borderBottom: "1px solid var(--border-color)",
+        }}
+      />
+    );
+  },
+  Ad: ArticleAd,
+});
