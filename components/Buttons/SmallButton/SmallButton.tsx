@@ -10,6 +10,7 @@ type Props = {
   href?: string;
   target?: string;
   centered?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
@@ -20,6 +21,7 @@ const SmallButton = ({
   onClick,
   target,
   centered,
+  disabled = false,
 }: Props) => {
   const linkProps = {
     onClick,
@@ -31,13 +33,20 @@ const SmallButton = ({
   return (
     <div className={classnames(className, { [styles.centered]: centered })}>
       {href ? (
-        <Link href={href} {...linkProps}>
+        <Link
+          href={href}
+          {...linkProps}
+          className={classnames({ [styles.disabled]: disabled })}
+        >
           {children}
         </Link>
       ) : (
         <button
           onClick={onClick}
-          className={classnames(styles.button, className)}
+          className={classnames(styles.button, className, {
+            [styles.disabled]: disabled,
+          })}
+          disabled={disabled}
         >
           {children}
         </button>

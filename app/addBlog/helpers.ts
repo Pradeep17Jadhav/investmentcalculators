@@ -1,22 +1,44 @@
+export const getPrompt = (topic: string) => `Topic: ${topic}
+
+Create mdx blog for the topic given above. At least 1200 words. Use 2-3 internal links appropriately using pages-meta given below for my site https://investmentcalculators.in/. It should be SEO friendly and use popularly searched long tail keywords. Feel free to change and improve topic name. If tables are used, use MUI table components. For last cells in table pass prop isLastColumn={true}. Use todays date in metadata.
+
+pages-meta:
+{
+"/about-us": "2025-04-06",
+"/privacy-policy": "2025-04-06",
+"/terms-and-conditions": "2025-04-06",
+"/legal-and-regulatory": "2025-04-06",
+"/income-tax-calculator": "2025-04-05",
+"/sip-calculator": "2025-04-11",
+"/lumpsum-calculator": "2025-04-05",
+"/fd-calculator": "2025-04-05",
+"/rd-calculator": "2025-04-05",
+"/loan-emi-calculator": "2025-04-06"
+}
+
+Use below mdx as an example:
+
 ---
+
 title: "Why Step-Up SIPs Are the Smartest Way to Build Wealth Faster"
 description: "Learn how Step Up Systematic Investment Plans (SIPs) can accelerate your financial goals by gradually increasing your investment amounts over time. Discover the benefits, strategy, and how a small yearly step-up can create a massive difference in wealth accumulation."
 keywords:
-  [
-    "Step-Up SIP",
-    "SIP investment strategy",
-    "step up increase SIP amount",
-    "mutual fund investment tips",
-    "financial planning with SIP",
-    "wealth creation strategies",
-    "importance of step-up SIP",
-    "power of step up investing",
-  ]
+[
+"Step-Up SIP",
+"SIP investment strategy",
+"step up increase SIP amount",
+"mutual fund investment tips",
+"financial planning with SIP",
+"wealth creation strategies",
+"importance of step-up SIP",
+"power of step up investing",
+]
 image: "/images/blog/importance-of-stepup-sip.webp"
 date: "2025-04-11"
 author: "Pradeep Jadhav"
 categories: ["Investments", "Personal Finance"]
 labels: ["SIP Strategies", "Smart Investing", "Wealth Building"]
+
 ---
 
 ## What is a Step-Up SIP?
@@ -178,3 +200,4 @@ A Step-Up SIP ensures that **as you grow, your wealth grows even faster**. It's 
 Remember: You don't need huge lumps of cash to build wealth. You just need **steady, increasing commitment**.
 
 **Start your Step-Up SIP journey today.** Your future self will thank you!
+`;

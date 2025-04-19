@@ -8,6 +8,13 @@
     background: none;
 }
 
+.disabled {
+    border: 1px solid var(--foreground-secondary) !important;
+    cursor: not-allowed !important;
+    color: var(--foreground-secondary) !important;
+    background-color: transparent !important;
+}
+
 .button {
     font-weight: 500;
     border: 1px solid var(--primary);

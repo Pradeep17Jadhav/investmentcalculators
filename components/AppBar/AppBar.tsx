@@ -101,6 +101,18 @@ const AppBar = () => {
     [isINR]
   );
 
+  const privatePages = useMemo(
+    () => [
+      {
+        to: "/addBlog",
+        label: "Add Blog",
+        tooltip: "Add Blog",
+        enabled: process.env.NODE_ENV === "development",
+      },
+    ],
+    []
+  );
+
   return (
     <>
       <Container className={styles.appbarContainer} maxWidth={false}>
@@ -164,6 +176,28 @@ const AppBar = () => {
             sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
           >
             {publicPages.map(({ label, tooltip, to, enabled }) => {
+              const isActive = pathname === to;
+              return enabled ? (
+                <Tooltip key={label} title={tooltip}>
+                  <Link
+                    href={to}
+                    onClick={handleNavLinkClick}
+                    className={classnames(styles.navLink, {
+                      [styles.activeNavLink]: isActive,
+                    })}
+                  >
+                    {label}
+                  </Link>
+                </Tooltip>
+              ) : null;
+            })}
+          </Box>
+
+          <Box
+            className={styles.navLinkContainer}
+            sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+          >
+            {privatePages.map(({ label, tooltip, to, enabled }) => {
               const isActive = pathname === to;
               return enabled ? (
                 <Tooltip key={label} title={tooltip}>
