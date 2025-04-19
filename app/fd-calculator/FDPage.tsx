@@ -4,6 +4,7 @@ import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalcula
 import FDCalculatorSummary from "@/components/FD/FDCalculatorSummary";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
+import FDPageInformation from "@/components/FD/FDPageInformation";
 
 import styles from "./FDPage.module.css";
 
@@ -23,6 +24,7 @@ const FDPage = async () => {
         Summary={FDCalculatorSummary}
       />
       <UnderCalculatorAd />
+      <FDPageInformation />
       <FAQs faqs={faqs} />
     </div>
   );

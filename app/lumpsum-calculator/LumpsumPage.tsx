@@ -4,6 +4,7 @@ import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalcula
 import LumpsumCalculatorSummary from "@/components/Lumpsum/LumpsumCalculatorSummary";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
+import LumpsumPageInformation from "@/components/Lumpsum/LumpsumPageInformation";
 
 import styles from "./LumpsumPage.module.css";
 
@@ -23,6 +24,7 @@ const LumpsumPage = async () => {
         Summary={LumpsumCalculatorSummary}
       />
       <UnderCalculatorAd />
+      <LumpsumPageInformation />
       <FAQs faqs={faqs} />
     </div>
   );

@@ -4,6 +4,7 @@ import CommonCalculator from "@/components/Common/CommonCalculator/CommonCalcula
 import RDCalculatorSummary from "@/components/RD/RDCalculatorSummary";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
+import RDPageInformation from "@/components/RD/RDPageInformation";
 
 import styles from "./RDPage.module.css";
 
@@ -23,6 +24,7 @@ const RDPage = async () => {
         Summary={RDCalculatorSummary}
       />
       <UnderCalculatorAd />
+      <RDPageInformation />
       <FAQs faqs={faqs} />
     </div>
   );

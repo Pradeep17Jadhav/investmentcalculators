@@ -6,9 +6,9 @@ import SummaryBlock from "@/components/Summary/SummaryBlock/SummaryBlock";
 import SummaryItem from "@/components/Summary/SummaryItem/SummaryItem";
 import AmountBanner from "@/components/Summary/AmountBanner/AmountBanner";
 import ProgressChart, { BarData } from "../Charts/ProgressChart";
+import { useCurrency } from "@/contexts/currency";
 
 import styles from "./RDCalculatorSummary.module.css";
-import { useCurrency } from "@/contexts/currency";
 
 export type RDCalculatorSummaryProps = {
   isValidForm: boolean;

@@ -19,16 +19,17 @@
     -webkit-user-select: text;
     -moz-user-select: text;
     user-select: text;
+    margin: 0 0 16px;
 }
 
 .pageInformation p {
-    margin: 16px 0 32px;
+    margin: 16px 0 16px;
     font-weight: 300;
     font-size: 0.95em;
 }
 
 .pageInformation ul, .pageInformation ol {
-    margin: -16px 0 32px 16px;
+    margin: 0 0 0 16px;
     font-weight: 300;
     font-size: 0.95em;
 }
