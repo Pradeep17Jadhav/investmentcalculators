@@ -30,15 +30,15 @@ export const metadata: Metadata = {
     type: "website",
     title: "Investment Calculators",
     siteName: "Investment Calculators",
-    url: "https://investmentcalculators.in/",
-    images: ["https://investmentcalculators.in/thumbnail.webp"],
+    url: process.env.PROD_URL,
+    images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
       "SIP calculator, EMI calculator, FD calculator, RD calculator, income tax calculator and more Investment Calculators.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Investment Calculators - FD, RD, SIP, Income Tax",
-    images: ["https://investmentcalculators.in/thumbnail.webp"],
+    images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
       "Plan your investments with free SIP, EMI, FD, RD, and Income Tax calculators.",
   },
@@ -82,7 +82,7 @@ export default function RootLayout({
         />
 
         {/* Canonical URL */}
-        <link rel="canonical" href="https://investmentcalculators.in/" />
+        <link rel="canonical" href={process.env.PROD_URL} />
 
         {/* Web Manifest */}
         <link rel="manifest" href="/manifest.json" />
@@ -97,7 +97,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "Inv Calculators",
-              url: "https://investmentcalculators.in",
+              url: process.env.PROD_URL,
               alternateName: [
                 "InvestmentCalculators",
                 "Investment Calculator",
@@ -125,10 +125,10 @@ export default function RootLayout({
               ],
               description:
                 "Free online financial calculators for SIP, EMI, FD, RD, and income tax to help users plan their investments effectively.",
-              url: "https://investmentcalculators.in",
+              url: process.env.PROD_URL,
               primaryImageOfPage: {
                 "@type": "ImageObject",
-                url: "https://investmentcalculators.in/thumbnail.webp",
+                url: `${process.env.PROD_URL}/thumbnail.webp`,
               },
             }),
           }}

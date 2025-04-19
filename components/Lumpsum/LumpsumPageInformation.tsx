@@ -173,7 +173,7 @@ const LumpsumPageInformation = async () => {
         <h2>How to Use the Lumpsum Investment Calculator?</h2>
         <p>
           Our Lumpsum Investment Calculator at{" "}
-          <a href="https://www.investmentcalculators.in">
+          <a href={process.env.PROD_URL}>
             Investment Calculators
           </a>{" "}
           helps you calculate the maturity amount and returns on your lumpsum

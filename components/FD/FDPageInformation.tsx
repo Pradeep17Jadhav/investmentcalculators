@@ -138,11 +138,9 @@ const FDPageInformation = async () => {
         </h2>
         <p>
           Our FD calculator at{" "}
-          <a href="https://www.investmentcalculators.in">
-            Investment Calculators
-          </a>{" "}
-          helps users easily calculate their FD maturity amount and interest
-          earned based on the principal, interest rate, and tenure.
+          <a href={process.env.PROD_URL}>Investment Calculators</a> helps users
+          easily calculate their FD maturity amount and interest earned based on
+          the principal, interest rate, and tenure.
         </p>
         <p>
           It provides quick results without the need for manual calculations,

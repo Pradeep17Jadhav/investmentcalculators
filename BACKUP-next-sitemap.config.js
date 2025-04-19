@@ -6,7 +6,7 @@ const pagesMeta = require("./pages-meta.json");
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://www.investmentcalculators.in",
+  siteUrl: process.env.PROD_URL,
   generateRobotsTxt: true,
   sitemapSize: 5000,
   changefreq: "daily",

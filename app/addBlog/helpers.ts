@@ -1,6 +1,6 @@
 export const getPrompt = (topic: string) => `Topic: ${topic}
 
-Create .mdx blog for the topic given above. At least 1200 words. Use 2-3 internal dynamic links appropriately using pages-meta given below for my site https://investmentcalculators.in/. It should be SEO friendly and use popularly searched long tail keywords. Feel free to change and improve topic name. If tables are used, use MUI table components. For last cells in table pass prop isLastColumn={true}. Use todays date in metadata.
+Create .mdx blog for the topic given above. At least 1200 words. Use 2-3 internal dynamic links appropriately using pages-meta given below for my site https://moneyreload.com. It should be SEO friendly and use popularly searched long tail keywords. Feel free to change and improve topic name. If tables are used, use MUI table components. For last cells in table pass prop isLastColumn={true}. Use todays date in metadata.
 
 pages-meta:
 {
@@ -47,7 +47,7 @@ A **Step-Up SIP** (also called Top-Up SIP) is a variation of the regular Systema
 
 Instead of investing a fixed ₹5,000 per month for 10 years, you might increase the amount by ₹500 every year or by 10% annually. Over time, this simple adjustment can lead to **significantly higher returns** and **faster wealth accumulation**.
 
-In a world where **income grows annually** through salary hikes or business profits, keeping your SIP amount constant doesn’t make sense. A Step-Up SIP ensures that your investments **grow with your income**, helping you stay ahead of inflation and meet bigger financial goals. If you have little or no knowledge about mutual funds and SIP, we highly recommend you to read **[Mutual Funds: The Ultimate Guide to Smart Investing](https://www.investmentcalculators.in/blog/mutual-funds-guide-to-start-investing)**.
+In a world where **income grows annually** through salary hikes or business profits, keeping your SIP amount constant doesn’t make sense. A Step-Up SIP ensures that your investments **grow with your income**, helping you stay ahead of inflation and meet bigger financial goals. If you have little or no knowledge about mutual funds and SIP, we highly recommend you to read **[Mutual Funds: The Ultimate Guide to Smart Investing](/blog/mutual-funds-guide-to-start-investing)**.
 
 ## Why Sticking to a Fixed SIP Might Not Be Enough
 
@@ -86,7 +86,7 @@ Assuming an average return of **12% p.a.**, at the end of 20 years:
 
 A simple decision to increase investments each year helped Suresh create **₹30 lakh extra wealth** — without needing a lump-sum investment or any big sacrifice.
 
-You can calculate your SIP growth along with annual step up and initial investment using our free tool **[SIP Calculator](https://www.investmentcalculators.in/sip-calculator)**
+You can calculate your SIP growth along with annual step up and initial investment using our free tool **[SIP Calculator](/sip-calculator)**
 
 ---
 

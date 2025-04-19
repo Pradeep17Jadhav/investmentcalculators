@@ -97,7 +97,7 @@ const IncomeTaxPageInformation = async () => {
         <h2>{`What is Income Tax Calculator Tool at "Investment Calculators" Website?`}</h2>
         <p>
           {`Our Income Tax Calculator, available at `}
-          <a href="https://www.investmentcalculators.in">{`Investment Calculators`}</a>
+          <a href={process.env.PROD_URL}>{`Investment Calculators`}</a>
           {`, helps users estimate their tax liability based on income, deductions, and applicable exemptions. It simplifies tax calculations and provides users with a clear understanding of their financial obligations, making tax planning more efficient and accurate.`}
         </p>
       </div>

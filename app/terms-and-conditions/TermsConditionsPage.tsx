@@ -2,7 +2,7 @@ import styles from "./TermsConditionsPage.module.css";
 
 const termsData = {
   introduction:
-    "By accessing and using Investment Calculators (located at www.investmentcalculators.in), you agree to comply with and be bound by these Terms and Conditions. Please read them carefully.",
+    "By accessing and using Investment Calculators (located at www.moneyreload.com), you agree to comply with and be bound by these Terms and Conditions. Please read them carefully.",
   useOfWebsite: [
     "You agree to use our website solely for lawful purposes.",
     "You agree not to misuse our calculators or any other content available on the site for illegal, fraudulent, or malicious purposes.",
@@ -71,8 +71,8 @@ const TermsConditionsPage = async () => {
         <p>{termsData.contactUs}</p>
         <p>
           Email:{" "}
-          <a href="mailto:contact@investmentcalculators.in">
-            contact@investmentcalculators.in
+          <a href="mailto:contact@moneyreload.com">
+            contact@moneyreload.com
           </a>
         </p>
       </div>

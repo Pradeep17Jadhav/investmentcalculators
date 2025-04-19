@@ -131,7 +131,7 @@ const RDPageInformation = async () => {
         </h2>
         <p>
           Our RD calculator at{" "}
-          <a href="https://www.investmentcalculators.in">
+          <a href={process.env.PROD_URL}>
             Investment Calculators
           </a>{" "}
           allows users to calculate expected maturity value and interest earned
