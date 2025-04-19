@@ -26,8 +26,6 @@ import { AnalyticsEventType, trackEvent } from "@/helpers/analytics";
 import styles from "./AppBar.module.css";
 
 const AppBar = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { isINR } = useCurrency();
   const router = useRouter();
   const pathname = usePathname();
@@ -157,20 +155,20 @@ const AppBar = () => {
               )}
             </Menu>
           </Box>
+
           <div className={styles.logoContainer}>
-            {isMobile ? null : (
-              <Tooltip title="Homepage">
-                <Link className={styles.logoLink} href={PATHS.HOME_PAGE}>
-                  <Logo
-                    className={styles.logo}
-                    width={36}
-                    height={36}
-                    type="logo"
-                  />
-                </Link>
-              </Tooltip>
-            )}
+            <Tooltip title="Homepage">
+              <Link className={styles.logoLink} href={PATHS.HOME_PAGE}>
+                <Logo
+                  className={styles.logo}
+                  width={36}
+                  height={36}
+                  type="logo"
+                />
+              </Link>
+            </Tooltip>
           </div>
+
           <Box
             className={styles.navLinkContainer}
             sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}

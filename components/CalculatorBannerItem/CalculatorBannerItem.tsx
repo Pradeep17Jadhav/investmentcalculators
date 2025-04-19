@@ -31,8 +31,8 @@ const CalculatorBannerItem = ({
   };
 
   return (
-    <div className={classnames(styles.container, className)}>
-      <Link href={path} passHref>
+    <Link href={path} passHref>
+      <div className={classnames(styles.container, className)}>
         <h5 className={styles.label}>{label}</h5>
         {!!desciption && <div>{desciption}</div>}
         <div>
@@ -44,8 +44,8 @@ const CalculatorBannerItem = ({
             height="64"
           />
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 
