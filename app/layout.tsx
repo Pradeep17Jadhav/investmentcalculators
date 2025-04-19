@@ -7,6 +7,7 @@ import ThemeProvider from "@/components/ThemeProvider/ThemeProvider";
 import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { CurrencyProvider } from "@/contexts/currency";
+import CanonicalTag from "@/components/System/CanonicalTag/CanonicalTag";
 
 import "./globals.css";
 
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   description:
     "Free investment calculators like SIP calculator, EMI calculator, FD calculator, RD calculator, and income tax calculator to plan your investments effectively.",
   keywords:
-    "Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
+    "MoneyReload, Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
   authors: [{ name: "Pradeep Jadhav" }],
   openGraph: {
     type: "website",
@@ -33,17 +34,20 @@ export const metadata: Metadata = {
     url: process.env.PROD_URL,
     images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
-      "SIP calculator, EMI calculator, FD calculator, RD calculator, income tax calculator and more Investment Calculators.",
+      "SIP calculator, EMI calculator, FD calculator, RD calculator, income tax calculator and more Investment Calculators by MoneyReload.",
   },
   twitter: {
     card: "summary_large_image",
     title: "MoneyReload - FD, RD, SIP, Loans, Income Tax",
     images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
-      "Plan your investments with free SIP, EMI, FD, RD, and Income Tax calculators.",
+      "Plan your investments with free SIP, EMI, FD, RD, and Income Tax calculators by MoneyReload.",
   },
   other: {
     "google-adsense-account": "ca-pub-8297185763828699",
+  },
+  alternates: {
+    canonical: process.env.PROD_URL,
   },
 };
 
@@ -82,7 +86,7 @@ export default function RootLayout({
         />
 
         {/* Canonical URL */}
-        <link rel="canonical" href={process.env.PROD_URL} />
+        <CanonicalTag />
 
         {/* Web Manifest */}
         <link rel="manifest" href="/manifest.json" />
@@ -114,7 +118,7 @@ export default function RootLayout({
               name: "MoneyReload",
               alternateName: ["Money Reload"],
               description:
-                "Free online financial calculators for SIP, EMI, FD, RD, and income tax to help users plan their investments effectively.",
+                "Free online financial calculators by MoneyReload for SIP, EMI, FD, RD, and income tax to help users plan your investments effectively.",
               url: process.env.PROD_URL,
               primaryImageOfPage: {
                 "@type": "ImageObject",
