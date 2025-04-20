@@ -15,7 +15,7 @@ const MortgagePage = async () => {
       </h2>
       <PrepaymentsProvider>
         <CommonLoanCalculator
-          loanCalculatorType={LoanCalculatorType.COMMON}
+          loanCalculatorType={LoanCalculatorType.HOME}
           Summary={LoanCalculatorSummary}
         />
       </PrepaymentsProvider>
