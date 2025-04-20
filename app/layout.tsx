@@ -21,11 +21,11 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MoneyReload - SIP, EMI, FD, RD, Loan, and Income Tax",
+  title: "MoneyReload - SIP, Mortgage, FD, CD, Loan & Financial Calculators",
   description:
-    "Free investment calculators like SIP calculator, EMI calculator, FD calculator, RD calculator, and income tax calculator to plan your investments effectively.",
+    "Free financial tools like SIP calculator, mortgage calculator, personal loan calculator, certificate of deposit (CD) calculator, and income tax estimator for users in the all over the world including US, UK, and EU.",
   keywords:
-    "MoneyReload, Money Reload, Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
+    "MoneyReload, Money Reload, SIP Calculator, Mortgage Calculator, Loan Calculator, CD Calculator, Certificate of Deposit, Income Tax Estimator, Mutual Fund, ETF, Index Fund, Financial Tools, US Finance, UK Finance, EU Finance, Investment Calculators",
   authors: [{ name: "Pradeep Jadhav" }],
   icons: {
     icon: "/favicon.ico",
@@ -37,14 +37,14 @@ export const metadata: Metadata = {
     url: process.env.PROD_URL,
     images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
-      "SIP calculator, EMI calculator, FD calculator, RD calculator, income tax calculator and more Investment Calculators by MoneyReload.",
+      "Finance tools like SIP, mortgage, loan, tax, FD and CD calculators to optimize personal investments for all countries the US, UK, and EU.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MoneyReload - FD, RD, SIP, Loans, Income Tax",
+    title: "MoneyReload - SIP, Mortgage, CDs, Loans, Tax Tools",
     images: [`${process.env.PROD_URL}/thumbnail.webp`],
     description:
-      "Plan your investments with free SIP, EMI, FD, RD, and Income Tax calculators by MoneyReload.",
+      "Free investment and tax planning calculators for SIPs, mortgages, CD, loans, FD, RD and more.",
   },
   other: {
     "google-adsense-account": "ca-pub-8297185763828699",
@@ -123,7 +123,7 @@ export default function RootLayout({
               name: "MoneyReload",
               alternateName: ["Money Reload"],
               description:
-                "Free online financial calculators by MoneyReload for SIP, EMI, FD, RD, and income tax to help users plan your investments effectively.",
+                "Free online finance calculators for SIPs, mortgages, loans, CDs (Certificates of Deposit), and income tax planning.",
               url: process.env.PROD_URL,
               primaryImageOfPage: {
                 "@type": "ImageObject",

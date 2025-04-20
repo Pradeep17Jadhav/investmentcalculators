@@ -71,9 +71,7 @@ const TermsConditionsPage = async () => {
         <p>{termsData.contactUs}</p>
         <p>
           Email:{" "}
-          <a href="mailto:contact@moneyreload.com">
-            contact@moneyreload.com
-          </a>
+          <a href="mailto:contact@moneyreload.com">contact@moneyreload.com</a>
         </p>
       </div>
     </div>
