@@ -36,6 +36,10 @@ const footerDataDesktop = [
         columnItemLabel: "Loan EMI Calculator",
         href: "./loan-emi-calculator",
       },
+      {
+        columnItemLabel: "Mortgage Calculator",
+        href: "./mortgage-calculator",
+      },
     ],
   },
   {
