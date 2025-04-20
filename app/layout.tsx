@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description:
     "Free investment calculators like SIP calculator, EMI calculator, FD calculator, RD calculator, and income tax calculator to plan your investments effectively.",
   keywords:
-    "MoneyReload, Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
+    "MoneyReload, Money Reload, Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
   authors: [{ name: "Pradeep Jadhav" }],
   icons: {
     icon: "/favicon.ico",

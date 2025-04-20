@@ -157,12 +157,7 @@ const AppBar = () => {
           <div className={styles.logoContainer}>
             <Tooltip title="Homepage">
               <Link className={styles.logoLink} href={PATHS.HOME_PAGE}>
-                <Logo
-                  className={styles.logo}
-                  width={36}
-                  height={36}
-                  type="logo"
-                />
+                <Logo className={styles.logo} />
               </Link>
             </Tooltip>
           </div>

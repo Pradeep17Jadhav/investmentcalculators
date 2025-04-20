@@ -1,8 +1,8 @@
 import FooterTable from "./FooterTable/FooterTable";
 import { getFooterData } from "./helpers";
-import Logo from "../Logo/Logo";
 
 import styles from "./Footer.module.css";
+import Link from "next/link";
 
 const Footer = () => {
   const footerData = getFooterData();
@@ -10,10 +10,12 @@ const Footer = () => {
   return (
     <div className={styles.footer}>
       <div className={styles.container}>
-        <Logo smallSizeForMobile />
         <FooterTable footerData={footerData} />
         <hr className={styles.hr} />
-        <div className={styles.madeWithLove}>Made With ❤️ In Mumbai</div>
+        <div className={styles.copyright}>
+          Copyright ©2025 <Link href={process.env.PROD_URL || "#"}>MoneyReload</Link>.
+          All rights reserved.
+        </div>
       </div>
     </div>
   );
