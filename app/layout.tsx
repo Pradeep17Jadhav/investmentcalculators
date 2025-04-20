@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   keywords:
     "MoneyReload, Investment Calculator, SIP Calculator, EMI Calculator, FD Calculator, RD Calculator, Income Tax Calculator, Fixed Deposit, Mutual Fund, Financial Calculators, Finance Tools",
   authors: [{ name: "Pradeep Jadhav" }],
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     type: "website",
     title: "MoneyReload",
@@ -90,6 +93,8 @@ export default function RootLayout({
 
         {/* Web Manifest */}
         <link rel="manifest" href="/manifest.json" />
+
+        <link rel="icon" href="/favicon.ico" />
 
         {/* JSON-LD Schema */}
         <Script
