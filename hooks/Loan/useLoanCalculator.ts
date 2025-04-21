@@ -13,6 +13,8 @@ import {
   MIN_ROI,
 } from "@/constants/calculator";
 import { trackCalculateEvent } from "@/helpers/analytics";
+import { getDefaultLoanValues } from "./constants";
+import { useCurrency } from "@/contexts/currency";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -26,18 +28,23 @@ const initialTenure = {
 
 export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
   const theme = useTheme();
+  const { currency } = useCurrency();
+  const { defaultLoanAmount, defaultRoi } = getDefaultLoanValues(
+    loanCalculatorType,
+    currency
+  );
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [resultsReady, setResultsReady] = useState(false);
   const [isValidForm, setIsValidForm] = useState(false);
-  const [loanAmount, setLoanAmount] = useState<number>(5000000);
+  const [loanAmount, setLoanAmount] = useState<number>(defaultLoanAmount);
   const [totalPayment, setTotalPayment] = useState(0);
-  const [roi, setRoi] = useState<string>("9");
+  const [roi, setRoi] = useState<string>(defaultRoi);
   const [emi, setEmi] = useState(0);
   const [tenure, setTenure] = useState<Tenure>(initialTenure);
   const [interestPaid, setInterestPaid] = useState(0);
   const [timesPaid, setTimesPaid] = useState(0);
 
-  const calculateHomeLoan = useCallback(() => {
+  const calculateLoan = useCallback(() => {
     const monthlyRate = parseFloat(roi) / 12 / 100;
     const totalMonths = tenure.years * 12 + tenure.months;
 
@@ -64,22 +71,22 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
 
       switch (loanCalculatorType) {
         case LoanCalculatorType.HOME: {
-          calculateHomeLoan();
+          calculateLoan();
           break;
         }
         case LoanCalculatorType.CAR: {
-          calculateHomeLoan();
+          calculateLoan();
           break;
         }
         case LoanCalculatorType.PERSONAL: {
-          calculateHomeLoan();
+          calculateLoan();
           break;
         }
       }
       trackCalculateEvent(LoanCalculatorType.COMMON);
       setResultsReady(true);
     },
-    [calculateHomeLoan, isValidForm, loanCalculatorType]
+    [calculateLoan, isValidForm, loanCalculatorType]
   );
 
   const handleLoanAmountChange = useCallback(
@@ -156,6 +163,12 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
     },
     []
   );
+
+  useEffect(() => {
+    setRoi(defaultRoi);
+    setLoanAmount(defaultLoanAmount);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currency, loanCalculatorType]);
 
   useEffect(() => {
     setResultsReady(false);

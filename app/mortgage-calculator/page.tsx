@@ -1,7 +1,7 @@
 import MortgagePage from "./MortgagePage";
 
 const title =
-  "Mortgage Calculator With Prepayment - Calculate EMI and Tenure for Home, Refinance & Mortgage Loans";
+  "Mortgage Calculator With Prepayment - Calculate EMI and Tenure for Mortgage Loans";
 const description =
   "Calculate monthly EMI for mortgage loans, home loans, and refinancing options using our Mortgage calculator with Prepayment and multiple currency support. Plan your mortgage repayment schedule efficiently.";
 const keywords =

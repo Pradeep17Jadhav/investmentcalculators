@@ -1,7 +1,7 @@
 import LoanPage from "./LoanPage";
 
 const title =
-  "Loan Calculator With Prepayment - Calculate EMI and Tenure of Home, Personal & Car Loans";
+  "Loan Calculator With Prepayment - Calculate EMI and Tenure of All Your Loans";
 const description =
   "Calculate monthly EMI for various loans like home, personal, and car loans using our EMI calculator with Prepayment and multiple currency support. Plan your loan repayment schedule efficiently.";
 const keywords =

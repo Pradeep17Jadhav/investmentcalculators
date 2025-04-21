@@ -40,6 +40,10 @@ const footerDataDesktop = [
         columnItemLabel: "Mortgage Calculator",
         href: "./mortgage-calculator",
       },
+      {
+        columnItemLabel: "Personal Loan Calculator",
+        href: "./personal-loan-calculator",
+      },
     ],
   },
   {

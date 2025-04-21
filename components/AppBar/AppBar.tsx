@@ -24,7 +24,7 @@ import { AnalyticsEventType, trackEvent } from "@/helpers/analytics";
 import styles from "./AppBar.module.css";
 
 const AppBar = () => {
-  const { isINR } = useCurrency();
+  const { isINR, currency } = useCurrency();
   const router = useRouter();
   const pathname = usePathname();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -88,13 +88,14 @@ const AppBar = () => {
         enabled: true,
       },
       {
-        to: "/loan-emi-calculator",
-        label: "Loan EMI",
-        tooltip: "Loan EMI Calculator",
+        to:
+          currency === "USD" ? "/mortgage-calculator" : "/loan-emi-calculator",
+        label: currency === "USD" ? "Mortgage" : "Loan",
+        tooltip: currency === "USD" ? "Mortgage Calculator" : "Loan Calculator",
         enabled: true,
       },
     ],
-    [isINR]
+    [isINR, currency]
   );
 
   const privatePages = useMemo(
