@@ -94,7 +94,8 @@ export default function RootLayout({
         {/* Web Manifest */}
         <link rel="manifest" href="/manifest.json" />
 
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon-v2.ico" />
+        <link rel="shortcut icon" href="/favicon-v2.ico" />
 
         {/* JSON-LD Schema */}
         <Script
