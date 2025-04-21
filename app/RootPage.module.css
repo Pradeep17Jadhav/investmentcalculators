@@ -6,9 +6,26 @@
     padding: 64px 48px 0;
 }
 
+.primaryShadow {
+    background: radial-gradient(circle at center 50vh,
+            rgba(6, 178, 107, 0.07) 0%,
+            rgba(6, 178, 107, 0) 100%);
+    height: 200vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.newContent {
+    margin-bottom: 64px;
+}
+
 .pageHeader {
     text-align: center;
     margin: 0 0 32px 0;
+    font-size: 36px;
 }
 
 .calculatorBannerItem {

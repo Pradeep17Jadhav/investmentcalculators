@@ -1,7 +1,8 @@
 import classnames from "classnames";
 import Link from "next/link";
-import styles from "./SidebarLists.module.css";
 import { Blogs } from "@/types/BlogTypes";
+
+import styles from "./SidebarLists.module.css";
 
 type Props = {
   title: string;

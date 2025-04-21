@@ -15,6 +15,7 @@
   --foreground: rgba(0, 0, 0, 0.87);
   --foreground-secondary: rgba(0, 0, 0, 0.6);
   --foreground-caption: rgba(0, 0, 0, 0.45);
+  --foreground-strongest: #000;
 
   /* Shadow shades */
   --shadow-primary: rgba(0, 0, 0, 0.08) 0px 1px 4px;
@@ -41,6 +42,7 @@ iframe {
     --foreground: rgba(255, 255, 255, 0.87);
     --foreground-secondary: rgba(255, 255, 255, 0.60);
     --foreground-caption: rgba(255, 255, 255, 0.45);
+    --foreground-strongest: #FFF;
 
     /* Shadow shades */
     --shadow-primary: rgba(0, 0, 0, 0.20) 0px 3px 4px;

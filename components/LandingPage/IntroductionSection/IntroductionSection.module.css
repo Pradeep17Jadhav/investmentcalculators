@@ -1,0 +1,58 @@
+.arrow {
+    font-size: 24px;
+    font-weight: 800;
+    padding-left: 8px;
+}
+
+.section {
+    height: calc(100dvh - 64px);
+    min-height: 760px;
+    max-height: 1440px;
+    display: flex;
+    align-items: center;
+}
+
+.introSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 18px;
+
+}
+
+.introTextContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    max-width: 520px;
+    gap: 36px;
+    color: var(--foreground);
+    text-align: center;
+
+}
+
+.introTextTitle {
+    letter-spacing: -1.5px;
+    font-weight: 800;
+    font-size: 60px;
+}
+
+.introTextCaption {
+    line-height: 32px;
+    font-size: 18px;
+}
+
+.highlighted {
+    color: var(--primary);
+}
+
+@media (max-width: 900px) {
+    .section {
+        height: 480px;
+    }
+}

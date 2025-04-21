@@ -1,0 +1,34 @@
+.section {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0px auto;
+    padding-top: 64px;
+    background: transparent;
+}
+
+.container {
+    max-width: 1200px;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    width: 100%;
+    margin: 0px auto;
+    padding: 16px;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 48px;
+    text-align: center;
+}
+
+.title {
+    font-size: 36px;
+}
+
+.caption {
+    font-size: 20px;
+    max-width: 1000px;
+}
