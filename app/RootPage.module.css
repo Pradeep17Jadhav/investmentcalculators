@@ -1,11 +1,3 @@
-.page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    padding: 64px 48px 0;
-}
-
 .primaryShadow {
     background: radial-gradient(circle at center 50vh,
             rgba(6, 178, 107, 0.08) 0%,
@@ -16,38 +8,4 @@
     top: 0;
     left: 0;
     pointer-events: none;
-}
-
-.newContent {
-    margin-bottom: 64px;
-}
-
-.pageHeader {
-    text-align: center;
-    margin: 0 0 32px 0;
-    font-size: 36px;
-}
-
-.calculatorBannerItem {
-    margin: 8px;
-}
-
-.sectionContainer {
-    max-width: 1200px;
-    margin-bottom: 96px;
-    text-align: center;
-}
-
-.viewMoreBlogsBtn {
-    margin: 48px 0 0 0;
-}
-
-@media (max-width: 600px) {
-    .page {
-        padding: 64px 8px 0;
-    }
-
-    .pageHeader {
-        font-size: 1.5em;
-    }
 }

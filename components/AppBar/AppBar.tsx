@@ -52,6 +52,12 @@ const AppBar = () => {
   const publicPages = useMemo(
     () => [
       {
+        to: "/calculators",
+        label: "All Calculators",
+        tooltip: "All Calculators",
+        enabled: true,
+      },
+      {
         to: "/blog",
         label: "Blog",
         tooltip: "Read our blogs",
