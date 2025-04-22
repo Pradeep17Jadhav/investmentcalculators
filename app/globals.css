@@ -12,6 +12,7 @@
   /* Background color shades */
   --background: #EFF3F7;
   --background-secondary: #FFF;
+  --background-ternary: #f7f7f7;
   --foreground: rgba(0, 0, 0, 0.87);
   --foreground-secondary: rgba(0, 0, 0, 0.6);
   --foreground-caption: rgba(0, 0, 0, 0.45);
@@ -39,6 +40,7 @@ iframe {
     /* Background color shades */
     --background: #101216;
     --background-secondary: #181c24;
+    --background-ternary: #1e232c;
     --foreground: rgba(255, 255, 255, 0.87);
     --foreground-secondary: rgba(255, 255, 255, 0.60);
     --foreground-caption: rgba(255, 255, 255, 0.45);

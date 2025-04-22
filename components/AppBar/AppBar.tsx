@@ -53,8 +53,8 @@ const AppBar = () => {
     () => [
       {
         to: "/calculators",
-        label: "All Calculators",
-        tooltip: "All Calculators",
+        label: "Calculators",
+        tooltip: "Calculators",
         enabled: true,
       },
       {

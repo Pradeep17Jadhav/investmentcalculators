@@ -1,0 +1,4 @@
+.container {
+    background-color: var(--background-secondary);
+    max-width: 100%;
+}

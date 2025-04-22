@@ -2,14 +2,13 @@
     max-width: 1200px;
     width: 100%;
     margin: 0px auto;
-    padding-top: 64px;
+    padding: 64px 0px;
     background: transparent;
+    margin-bottom: 96px;
 }
 
 .container {
     max-width: 1200px;
-    padding-top: 64px;
-    padding-bottom: 64px;
     width: 100%;
     margin: 0px auto;
     padding: 16px;
@@ -31,4 +30,10 @@
 .caption {
     font-size: 20px;
     max-width: 1000px;
+}
+
+@media (max-width:900px) {
+    .container {
+        padding: 16px 8px;
+    }
 }

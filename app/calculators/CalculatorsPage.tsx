@@ -18,7 +18,7 @@ const CalculatorsPage = async () => {
             designed to help you make informed financial decisions."
       transition={false}
     >
-      <Grid container justifyContent="center" alignItems="center" gap={4}>
+      <Grid container justifyContent="center" alignItems="center">
         {calculatorTiles.map((tile) => (
           <Grid
             key={tile.path}
@@ -28,7 +28,7 @@ const CalculatorsPage = async () => {
             xs={6}
             sm={4}
             md={3}
-            lg={2}
+            lg={3}
           >
             <CalculatorBannerItem
               className={styles.calculatorBannerItem}

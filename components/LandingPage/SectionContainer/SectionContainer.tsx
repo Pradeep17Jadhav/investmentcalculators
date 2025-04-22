@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import ZoomMotion from "@/components/Motions/ZoomMotion";
 
 import styles from "./SectionContainer.module.css";
@@ -7,6 +8,7 @@ type Props = {
   title: string;
   caption?: string;
   transition?: boolean;
+  className?: string;
 };
 
 const SectionContainer = ({
@@ -14,9 +16,10 @@ const SectionContainer = ({
   title,
   caption,
   transition = true,
+  className,
 }: Props) => {
   return (
-    <section className={styles.section}>
+    <section className={classnames(styles.section, className)}>
       <div className={styles.container}>
         {transition ? (
           <ZoomMotion duration={0.4}>

@@ -1,0 +1,27 @@
+.container {
+    font-size: 80px;
+    line-height: 120px;
+    font-weight: 900;
+    letter-spacing: 1;
+    letter-spacing: -1.5px;
+    padding: 24px 16px;
+}
+
+.highlighted {
+    font-size: 96px;
+    color: var(--primary);
+}
+
+@media (max-width: 900px) {
+    .container {
+        font-size: 56px;
+        line-height: 80px;
+    }
+
+    .highlighted {
+        font-size: 64px;
+        line-height: 80px;
+        color: var(--primary);
+    }
+
+}

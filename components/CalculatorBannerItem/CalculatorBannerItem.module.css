@@ -8,6 +8,7 @@
     padding: 24px;
     text-align: left;
     user-select: none;
+    transition: border .4s ease;
 }
 
 .container .label {
@@ -18,6 +19,7 @@
 
 .container:hover {
     box-shadow: var(--shadow-primary);
+    border: 1px solid var(--primary);
 }
 
 .container:hover .label {
