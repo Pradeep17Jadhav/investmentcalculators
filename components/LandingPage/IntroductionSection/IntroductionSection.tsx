@@ -9,13 +9,12 @@ const IntroductionSection = () => {
       <div className={styles.introSection}>
         <div className={styles.introTextContainer}>
           <h1 className={styles.introTextTitle}>
-            All Things <span className={styles.highlighted}>Money</span>. Always{" "}
-            <span className={styles.highlighted}>Reloaded</span>.
+            All Things Money. <br />
+            Always <span className={styles.highlighted}>Reloaded</span>.
           </h1>
           <p className={styles.introTextCaption}>
             MoneyReload offers powerful finance tools to help you plan,
-            calculate, and grow —{" "}
-            <span className={styles.highlighted}>effortlessly</span>.
+            calculate, and grow — effortlessly.
           </p>
           <LargeButton className={styles.viewMoreBlogsBtn} href="#">
             Check our tools <strong className={styles.arrow}>→</strong>

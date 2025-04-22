@@ -8,8 +8,8 @@
 
 .primaryShadow {
     background: radial-gradient(circle at center 50vh,
-            rgba(6, 178, 107, 0.07) 0%,
-            rgba(6, 178, 107, 0) 100%);
+            rgba(6, 178, 107, 0.8) 0%,
+            rgba(6, 178, 107, 0) 70%);
     height: 200vh;
     width: 100%;
     position: absolute;

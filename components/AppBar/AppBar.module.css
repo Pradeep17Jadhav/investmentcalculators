@@ -11,6 +11,17 @@
     margin: 0px;
 }
 
+.logoText {
+    padding: 0 8px;
+    letter-spacing: -1px;
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.highlighted {
+    color: var(--primary);
+}
+
 .logoLink {
     display: flex;
     align-items: center;
@@ -42,4 +53,10 @@
 .activeNavLink, .navLink:hover {
     border-bottom: 2px solid var(--primary);
     color: var(--primary);
+}
+
+@media (max-width: 900px) {
+    .logoText {
+        font-size: 20px;
+    }
 }

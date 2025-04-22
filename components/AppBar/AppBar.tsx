@@ -159,6 +159,9 @@ const AppBar = () => {
             <Tooltip title="Homepage">
               <Link className={styles.logoLink} href={PATHS.HOME_PAGE}>
                 <Logo className={styles.logo} />
+                <div className={styles.logoText}>
+                  Money<span className={styles.highlighted}>Reload</span>
+                </div>
               </Link>
             </Tooltip>
           </div>
