@@ -6,13 +6,10 @@ import ScaleMotion from "@/components/Motions/ScaleMotion";
 import BlinkingText from "@/components/Motions/BlinkingText";
 import RevealMotion from "@/components/Motions/RevealMotion";
 import LargeButton from "@/components/Buttons/LargeButton/LargeButton";
-import { useMediaQuery, useTheme } from "@mui/material";
 
 import styles from "./IntroductionText.module.css";
 
 const IntroductionText = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [imageVisible, setImageVisible] = useState(false);
 
   useEffect(() => {
@@ -29,7 +26,7 @@ const IntroductionText = () => {
         [styles.translate]: imageVisible,
       })}
     >
-      <ScaleMotion initialScale={isMobile ? 1.2 : 2} finalScale={1} delay={0.6}>
+      <ScaleMotion initialScale={1.2} finalScale={1} delay={0.6}>
         <h1 className={styles.introTextTitle}>
           All Things Money.
           <br />
