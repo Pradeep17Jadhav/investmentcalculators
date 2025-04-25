@@ -18,12 +18,13 @@ import {
 } from "@/constants/calculator";
 import UnderCalculatorAd from "@/components/Ads/UnderCalculatorAd/UnderCalculatorAd";
 import {
-  getLoanAmountInverseScale,
-  getLoanAmountScale,
-  getLoanMax,
+  getLoanAmountInverseScaleByCurrency,
+  getLoanAmountScaleByCurrency,
+  getLoanMaxByCurrency,
 } from "./constants";
 
 import styles from "./CommonLoanCalculator.module.css";
+import { useCurrency } from "@/contexts/currency";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -31,6 +32,7 @@ type Props = {
 };
 
 const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
+  const { currency } = useCurrency();
   const resultRef = useRef<HTMLDivElement>(null);
   const {
     resultsReady,
@@ -91,7 +93,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         tenure={tenure}
         isValidForm={isValidForm}
         minAmount={MIN_LOAN_AMOUNT}
-        maxAmount={getLoanMax()}
+        maxAmount={getLoanMaxByCurrency(currency)}
         minRoi={MIN_ROI}
         maxRoi={MAX_ROI}
         stepAmount={1}
@@ -101,8 +103,10 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
         handleROIChange={handleROIChange}
         handleTenureYearsChange={handleTenureYearsChange}
         handleTenureMonthsChange={handleTenureMonthsChange}
-        getLoanAmountScale={getLoanAmountScale}
-        getLoanAmountInverseScale={getLoanAmountInverseScale}
+        getLoanAmountScale={getLoanAmountScaleByCurrency(currency)}
+        getLoanAmountInverseScale={getLoanAmountInverseScaleByCurrency(
+          currency
+        )}
       />
     ),
     [
@@ -116,6 +120,7 @@ const CommonLoanCalculator = ({ loanCalculatorType, Summary }: Props) => {
       handleROIChange,
       handleTenureYearsChange,
       handleTenureMonthsChange,
+      currency,
     ]
   );
 

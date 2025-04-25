@@ -47,17 +47,17 @@ const getCurrencyLocale = (currency: Currency) => {
 };
 
 export type Currency =
-  | "INR"
-  | "USD"
+  | "AUD"
+  | "CAD"
+  | "CHF"
+  | "CNY"
   | "EUR"
   | "GBP"
+  | "HKD"
+  | "INR"
   | "JPY"
-  | "AUD"
-  | "CNY"
-  | "CHF"
-  | "CAD"
   | "SGD"
-  | "HKD";
+  | "USD";
 
 export type CurrencyState = {
   currency: Currency;

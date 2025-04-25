@@ -6,15 +6,11 @@ import {
 import { Tenure, LoanCalculatorType } from "@/types/ConfigTypes";
 import { sanitizeROI, toDecimal } from "@/helpers/numbers";
 import { useMediaQuery, useTheme } from "@mui/material";
-import {
-  MAX_LOAN_AMOUNT,
-  MAX_ROI,
-  MIN_LOAN_AMOUNT,
-  MIN_ROI,
-} from "@/constants/calculator";
+import { MAX_ROI, MIN_LOAN_AMOUNT, MIN_ROI } from "@/constants/calculator";
 import { trackCalculateEvent } from "@/helpers/analytics";
 import { getDefaultLoanValues } from "./constants";
 import { useCurrency } from "@/contexts/currency";
+import { getMaxLoanAmountByCurrency } from "@/components/Common/LoanCalculator/CommonLoanCalculator/constants";
 
 type Props = {
   loanCalculatorType: LoanCalculatorType;
@@ -101,11 +97,11 @@ export const useLoanCalculator = ({ loanCalculatorType }: Props) => {
           currInvestment,
           true,
           MIN_LOAN_AMOUNT,
-          MAX_LOAN_AMOUNT
+          getMaxLoanAmountByCurrency(currency)
         )
       );
     },
-    []
+    [currency]
   );
 
   const handleROIChange = useCallback(

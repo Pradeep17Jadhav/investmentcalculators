@@ -2,28 +2,28 @@ import { Currency } from "@/contexts/currency";
 
 export const getHomeLoanAmount = (currency: Currency): number => {
   switch (currency) {
-    case "INR":
-      return 5000000;
-    case "USD":
-      return 300000;
+    case "AUD":
+      return 500000;
+    case "CAD":
+      return 500000;
+    case "CHF":
+      return 1000000;
+    case "CNY":
+      return 2000000;
     case "EUR":
       return 250000;
     case "GBP":
       return 200000;
+    case "HKD":
+      return 2000000;
+    case "INR":
+      return 5000000;
     case "JPY":
       return 35000000;
-    case "AUD":
-      return 500000;
-    case "CNY":
-      return 1000000;
-    case "CHF":
-      return 600000;
-    case "CAD":
-      return 400000;
     case "SGD":
-      return 450000;
-    case "HKD":
-      return 5000000;
+      return 1000000;
+    case "USD":
+      return 500000;
     default:
       return 0;
   }
