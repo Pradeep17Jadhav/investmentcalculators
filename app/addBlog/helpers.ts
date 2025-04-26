@@ -13,7 +13,9 @@ pages-meta:
 "/lumpsum-calculator": "2025-04-05",
 "/fd-calculator": "2025-04-05",
 "/rd-calculator": "2025-04-05",
-"/loan-emi-calculator": "2025-04-06"
+"/loan-emi-calculator": "2025-04-06",
+"/mortgage-calculator": "2025-04-21",
+"/personal-loan-calculator": "2025-04-21"
 }
 
 Use below mdx as an example:

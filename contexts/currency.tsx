@@ -130,11 +130,31 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
       const data = await res.json();
       const country = data.country_code as string; // e.g., "IN", "US"
 
+      const euroCountries = new Set([
+        "AT",
+        "BE",
+        "CY",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PT",
+        "SK",
+        "SI",
+        "ES",
+      ]);
+
       const countryToCurrency: Record<string, Currency> = {
         IN: "INR", // India
         US: "USD", // United States
-        DE: "EUR", // Germany (Eurozone example)
-        FR: "EUR", // France (another Eurozone country)
         GB: "GBP", // United Kingdom
         JP: "JPY", // Japan
         AU: "AUD", // Australia
@@ -145,7 +165,9 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
         HK: "HKD", // Hong Kong
       };
 
-      const currency = countryToCurrency[country] || "USD";
+      const currency = euroCountries.has(country)
+        ? "EUR"
+        : countryToCurrency[country] || "USD";
 
       dispatch({ type: "SET_CURRENCY", payload: currency });
       localStorage.setItem("currency", currency);
