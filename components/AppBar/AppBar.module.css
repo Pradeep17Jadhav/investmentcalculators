@@ -6,6 +6,11 @@
     opacity: 0.95;
 }
 
+.appbarToolbar {
+    max-width: 1200px;
+    margin: auto;
+}
+
 .appbarContainer .logo {
     cursor: pointer;
     margin: 0px;

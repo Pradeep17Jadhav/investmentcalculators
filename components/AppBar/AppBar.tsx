@@ -117,109 +117,107 @@ const AppBar = () => {
   );
 
   return (
-    <>
-      <Container className={styles.appbarContainer} maxWidth={false}>
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 0, display: { xs: "block", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu("")}
-              sx={{ display: { xs: "block", md: "none" } }}
-            >
-              {publicPages.map((page) =>
-                page.enabled ? (
-                  <MenuItem
-                    key={page.label}
-                    onClick={handleCloseNavMenu(page.to)}
-                  >
-                    <Typography sx={{ textAlign: "center" }}>
-                      {page.label}
-                    </Typography>
-                  </MenuItem>
-                ) : null
-              )}
-            </Menu>
-          </Box>
-
-          <div className={styles.logoContainer}>
-            <Tooltip title="Homepage">
-              <Link className={styles.logoLink} href={PATHS.HOME_PAGE}>
-                <Logo className={styles.logo} />
-                <div className={styles.logoText}>
-                  Money<span className={styles.highlighted}>Reload</span>
-                </div>
-              </Link>
-            </Tooltip>
-          </div>
-
-          <Box
-            className={styles.navLinkContainer}
-            sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+    <Container className={styles.appbarContainer} maxWidth={false}>
+      <Toolbar className={styles.appbarToolbar} disableGutters>
+        <Box sx={{ flexGrow: 0, display: { xs: "block", md: "none" } }}>
+          <IconButton
+            size="large"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
           >
-            {publicPages.map(({ label, tooltip, to, enabled }) => {
-              const isActive = pathname === to;
-              return enabled ? (
-                <Tooltip key={label} title={tooltip}>
-                  <Link
-                    href={to}
-                    onClick={handleNavLinkClick}
-                    className={classnames(styles.navLink, {
-                      [styles.activeNavLink]: isActive,
-                    })}
-                  >
-                    {label}
-                  </Link>
-                </Tooltip>
-              ) : null;
-            })}
-          </Box>
-
-          <Box
-            className={styles.navLinkContainer}
-            sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu("")}
+            sx={{ display: { xs: "block", md: "none" } }}
           >
-            {privatePages.map(({ label, tooltip, to, enabled }) => {
-              const isActive = pathname === to;
-              return enabled ? (
-                <Tooltip key={label} title={tooltip}>
-                  <Link
-                    href={to}
-                    onClick={handleNavLinkClick}
-                    className={classnames(styles.navLink, {
-                      [styles.activeNavLink]: isActive,
-                    })}
-                  >
-                    {label}
-                  </Link>
-                </Tooltip>
-              ) : null;
-            })}
-          </Box>
+            {publicPages.map((page) =>
+              page.enabled ? (
+                <MenuItem
+                  key={page.label}
+                  onClick={handleCloseNavMenu(page.to)}
+                >
+                  <Typography sx={{ textAlign: "center" }}>
+                    {page.label}
+                  </Typography>
+                </MenuItem>
+              ) : null
+            )}
+          </Menu>
+        </Box>
 
-          <CurrencySelector />
-        </Toolbar>
-      </Container>
-    </>
+        <div className={styles.logoContainer}>
+          <Tooltip title="Homepage">
+            <Link className={styles.logoLink} href={PATHS.HOME_PAGE}>
+              <Logo className={styles.logo} />
+              <div className={styles.logoText}>
+                Money<span className={styles.highlighted}>Reload</span>
+              </div>
+            </Link>
+          </Tooltip>
+        </div>
+
+        <Box
+          className={styles.navLinkContainer}
+          sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+        >
+          {publicPages.map(({ label, tooltip, to, enabled }) => {
+            const isActive = pathname === to;
+            return enabled ? (
+              <Tooltip key={label} title={tooltip}>
+                <Link
+                  href={to}
+                  onClick={handleNavLinkClick}
+                  className={classnames(styles.navLink, {
+                    [styles.activeNavLink]: isActive,
+                  })}
+                >
+                  {label}
+                </Link>
+              </Tooltip>
+            ) : null;
+          })}
+        </Box>
+
+        <Box
+          className={styles.navLinkContainer}
+          sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+        >
+          {privatePages.map(({ label, tooltip, to, enabled }) => {
+            const isActive = pathname === to;
+            return enabled ? (
+              <Tooltip key={label} title={tooltip}>
+                <Link
+                  href={to}
+                  onClick={handleNavLinkClick}
+                  className={classnames(styles.navLink, {
+                    [styles.activeNavLink]: isActive,
+                  })}
+                >
+                  {label}
+                </Link>
+              </Tooltip>
+            ) : null;
+          })}
+        </Box>
+
+        <CurrencySelector />
+      </Toolbar>
+    </Container>
   );
 };
 
