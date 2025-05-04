@@ -1,6 +1,6 @@
 export const getPrompt = (topic: string) => `Topic: ${topic}
 
-Create .mdx blog for the topic given above. At least 1200 words. Use 2-3 internal dynamic links appropriately using pages-meta given below for my site https://moneyreload.com. It should be SEO friendly and use popularly searched long tail keywords. Feel free to change and improve topic name. If tables are used, use MUI table components. For last cells in table pass prop isLastColumn={true}. Use todays date in metadata.
+Create .mdx blog for the topic given above, which i can convert to a blog post using gray matter in reactjs. At least 1200 words. Do no use emoji. Use 2-3 internal dynamic links appropriately using pages-meta given below for my site https://moneyreload.com. It should be SEO friendly and use popularly searched long tail keywords. Feel free to change and improve topic name. If tables are used, use MUI table components. For last cells in table pass prop isLastColumn={true}. Use todays date in metadata.
 
 pages-meta:
 {

@@ -24,7 +24,7 @@ module.exports = {
     const staticPaths = Object.keys(pagesMeta);
     const allPaths = ["/", ...staticPaths.sort(), ...blogPaths.sort()];
 
-    return Promise.all(
+    const pathsWithMeta = await Promise.all(
       allPaths.map(async (url) => {
         let priority = 0.8;
         let lastmod = new Date().toISOString();
@@ -55,5 +55,10 @@ module.exports = {
         };
       })
     );
+
+    const sortedPathsWithMeta = pathsWithMeta.sort((a, b) =>
+      a.loc.localeCompare(b.loc)
+    );
+    return sortedPathsWithMeta;
   },
 };
