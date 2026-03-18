@@ -70,9 +70,16 @@ helpers/
 ## Styling and types rules (required)
 
 - Put **all CSS** for a component in its matching `*.module.css` file; do not use global styles for component-specific styling.
-- Declare **all custom types** in a `types.ts` file within the relevant folder.
-- When a type is reused across sub-folders, move it to the nearest shared `types.ts` in a higher-level folder and import it from there.
+- Declare **component-specific types** in `ComponentName.types.ts` in the same folder as the component.
+- When a type is reused across components/folders, move it to the nearest shared folder and store it in an appropriately named `*.types.ts` file, then import it from there.
 - Always use `type` aliases instead of `interface` for new type definitions.
+
+## Testing rules (required)
+
+- For a page or component `app/some-page/PageName.tsx`:
+  - Store its tests in `app/some-page/__tests__/PageName.test.tsx`.
+  - Store any hardcoded test data/fixtures in `app/some-page/__tests__/PageName.data.tsx`.
+- Co-locate tests with the page/component they cover; do not create new top-level `tests/app/**` trees.
 
 ## Formatting and imports (required)
 
