@@ -1,38 +1,50 @@
-# Live App: https://moneyreload.com
+# MoneyReload – Investment & Loan Calculators
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+- **Live app**: `https://moneyreload.com`
 
-## Getting Started
+Next.js (App Router) site containing financial calculators (SIP, FD/RD, lumpsum, loans/mortgage, income tax) plus an MDX-powered blog.
 
-First, run the development server:
+## Tech stack
+
+- **Framework**: Next.js 15 (App Router), React 19, TypeScript
+- **UI**: MUI v6, CSS modules
+- **Charts**: Recharts
+- **Content**: MDX blog posts in `content/blogs/*.mdx`
+- **SEO**: `next-sitemap` (runs on `postbuild`)
+
+## Local development
+
+Install deps and start the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create `.env.local` (optional but recommended):
 
-## Learn More
+```bash
+PROD_URL=http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+`PROD_URL` is used for canonical URLs, metadata, sitemap generation, and footer links.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Where things live
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Pages**: `app/**`
+- **Reusable UI**: `components/**`
+  - **Shared calculator shell**: `components/Common/CommonCalculator/*`
+  - **Loan calculators & amortization**: `components/Common/LoanCalculator/*`
+  - **Charts**: `components/Charts/*`
+  - **Landing page sections**: `components/LandingPage/*`
+  - **Blog UI**: `components/Blog/*`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Remote runtime config
+
+Calculator FAQs and some homepage content are fetched at runtime via `helpers/config.ts` from a JSON file hosted on GitHub.
