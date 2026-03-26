@@ -22,7 +22,7 @@ import { INCOME_STEP, MAX_INCOME, MIN_INCOME } from "@/constants/calculator";
 type Props = {
   handleIncomeChange: (
     e?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    income?: string
+    income?: string,
   ) => void;
   onBudgetSelectionChange: (event: SelectChangeEvent) => void;
   toggleStdDeduction: () => void;
@@ -50,12 +50,12 @@ const IncomeTaxInput = ({
 
   const isActiveIncomeButton = useCallback(
     (selectedIncome: number) => selectedIncome === income,
-    [income]
+    [income],
   );
 
   const selectIncome = useCallback(
     (income: number) => () => handleIncomeChange(undefined, income.toString()),
-    [handleIncomeChange]
+    [handleIncomeChange],
   );
 
   return (
@@ -77,13 +77,15 @@ const IncomeTaxInput = ({
 
       <FormControl margin="normal" fullWidth sx={{ mb: 3 }}>
         <InputLabel>Tax Regime</InputLabel>
-        {budgets.map((budget) => (
-          <Select key={budget.regime} value={budget.regime} label="Tax Regime">
-            <MenuItem value={budget.regime}>
-              {`${budget.regime} Tax Regime`}
-            </MenuItem>
-          </Select>
-        ))}
+        <Select
+          key={budgets[budgetIndex].regime}
+          value={budgets[budgetIndex].regime}
+          label="Tax Regime"
+        >
+          <MenuItem value={budgets[budgetIndex].regime}>
+            {`${budgets[budgetIndex].regime} Tax Regime`}
+          </MenuItem>
+        </Select>
       </FormControl>
 
       <InputElement
