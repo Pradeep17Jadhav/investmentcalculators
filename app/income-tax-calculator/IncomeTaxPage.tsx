@@ -14,7 +14,7 @@ const IncomeTaxPage = async () => {
   return (
     <div className={styles.incometaxContainer}>
       <h1 className={styles.pageTitle}>Income Tax Calculator</h1>
-      <h2 className={styles.pageSubtitle}>According to Budget February 2025</h2>
+      <h2 className={styles.pageSubtitle}>According to Budget February 2026</h2>
       <IncomeTaxCalculator incomeTaxConfig={incomeTax} />
       <IncomeTaxPageInformation />
       <FAQs faqs={faqs} />
